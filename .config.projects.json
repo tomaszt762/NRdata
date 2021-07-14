@@ -32,7 +32,10 @@
         },
         "finite-statemachine": {
             "credentialSecret": false
+        },
+        "BAW-BAI-Generator": {
+            "credentialSecret": false
         }
     },
-    "activeProject": "tmp"
+    "activeProject": "BAW-BAI-Generator"
 }

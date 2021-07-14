@@ -14,23 +14,9 @@
         "info": ""
     },
     {
-        "id": "5012a4e8.370e2c",
-        "type": "tab",
-        "label": "Flow 1",
-        "disabled": false,
-        "info": ""
-    },
-    {
         "id": "aad5f601.aa59a",
         "type": "tab",
         "label": "_Flow 5",
-        "disabled": false,
-        "info": ""
-    },
-    {
-        "id": "a1809ada.696a18",
-        "type": "tab",
-        "label": "Flow 2",
         "disabled": false,
         "info": ""
     },
@@ -52,20 +38,6 @@
         "id": "6e1c5c67.35e12c",
         "type": "tab",
         "label": "Flow 3",
-        "disabled": false,
-        "info": ""
-    },
-    {
-        "id": "65dabe20.977a58",
-        "type": "tab",
-        "label": "Flow 6",
-        "disabled": false,
-        "info": ""
-    },
-    {
-        "id": "139ac28e.780655",
-        "type": "tab",
-        "label": "Flow 8",
         "disabled": false,
         "info": ""
     },
@@ -1414,823 +1386,6 @@
         ]
     },
     {
-        "id": "cbea4309.ab93b",
-        "type": "function",
-        "z": "5012a4e8.370e2c",
-        "name": "Process Ready",
-        "func": "var processApp = { system: {}, application: {}, process: {}, tasks: [], instance: {}};\nvar date = new Date()\n//system: {}\nprocessApp.system.bpmCellName = \"PCCell1\" //fixed for system, when created\nprocessApp.system.bpmSystemId = uuidv4()  // fixed for system, when created\n\n//application: {}\nprocessApp.application.snapshotName = (Math.floor(1+ Math.random() * 10)).toString() // fixed for process application, when created, only for Active Processes\nprocessApp.application.versionId = \"2064.\" + uuidv4()   // fixed for process application, when created\nprocessApp.application.name = \"MyTest\" // fixed for process application, when created\nprocessApp.application.id = uuidv4()  // fixed for process application, when created\n\n//process: {}\nprocessApp.process.version = (Math.floor(1+ Math.random() * 10)).toString()+\".\"+(Math.floor(1+ Math.random() * 10)).toString()+\".\"+(Math.floor(1+ Math.random() * 10)).toString()\nprocessApp.process.processId = uuidv4() //fixed for process, when created\nprocessApp.process.versionId = processApp.application.versionId //fixed for process, when created\nprocessApp.process.snapshotName = processApp.application.snapshotName // fixed for process application, when created, only for Active Processes\nprocessApp.process.name = \"MyProcess\" //fixed for process, when created\nprocessApp.process.traceId = uuidv4() //fixed for process, when created\nprocessApp.process.spanId = characters16() //fixed for process, when created\n\n\n\n//instance: {}\nprocessApp.instance.type = \"process\" // process/userTask/…\nprocessApp.instance.timestamp = date.toISOString() // for each new event\nprocessApp.instance.shortId = (Math.floor(1000 + Math.random() * 9000)).toString() // fixed for process instance, when created\n\nprocessApp.instance.id = processApp.process.processId + \".\" + processApp.system.bpmSystemId+ \".\" + processApp.instance.shortId // fixed for process instance, when created\nprocessApp.instance.instanceId = processApp.instance.id //fixed for process instance, when created\nprocessApp.instance.state = \"Ready\" //Ready, Active, Completed, Terminated, Failed, Deleted\nprocessApp.instance.startTime  = date.toISOString() // for Ready / Active / Completed / Terminated\nprocessApp.instance.completedTime = null // date.toISOString() // for Completed – null for others processApp.instance.terminatedTime = null // date.toISOString() // for Terminated– null for others\nprocessApp.instance.failedTime = null // date.toISOString() // for Failed – null for others\nprocessApp.instance.deletedTime = null // date.toISOString() // for Deleted – null for others\nprocessApp.instance.duration= null   // new Date(processApp.instance.completedTime).getTime()- new Date(processApp.instance.startTime).getTime()  // for Completed, for others Terminated, Failed, Deleted times accordingly \n//processApp.instance.data = {},\nprocessApp.instance.data = {\n    \"trackingGroupName\": {\n      \"@ids\": {\n        \"trackingGroupId\": \"guid:006677479b8357ba:42c2f804:17a438721fc:-7fb8\",\n        \"trackingGroupVersionId\": processApp.application.versionId\n      },\n      \"businessNumber.integer\": Math.floor(1+ Math.random() * 100),\n      \"businessName.string\": \"true\"\n    }\n  }\n\nprocessApp.instance.lastBusinessDataUpdateTime =  null,\nprocessApp.instance.lastBusinessDataUpdateActivity = null,\nprocessApp.instance.lastBusinessDataUpdateEvent = null,\nprocessApp.instance.lastBusinessDataUpdatePerformer = null\n\n//tasks: []\nprocessApp.tasks = [{name: \"Task 1\", type: \"userTask\", startAfter: null}, {name: \"Task 2\", type: \"userTask\", startAfter: \"Task 1\"}]\n\n//Unclaimed / Active  / Completed\n\nmsg.payload = {processApp}\nreturn msg;\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n\nfunction characters16() {\n  return 'xxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 220,
-        "y": 220,
-        "wires": [
-            [
-                "20222b9b.b9d514"
-            ]
-        ]
-    },
-    {
-        "id": "64f42809.02b5d8",
-        "type": "inject",
-        "z": "5012a4e8.370e2c",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "i",
-                "v": "0",
-                "vt": "num"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 240,
-        "y": 160,
-        "wires": [
-            [
-                "cbea4309.ab93b"
-            ]
-        ]
-    },
-    {
-        "id": "1d38c627.d2ed62",
-        "type": "comment",
-        "z": "5012a4e8.370e2c",
-        "name": "",
-        "info": "[{\"bpmCellName\":\"PCCell1\",\"appName\":\"HR Vacation App\",\"procName\":\"HR Vacation Process\",\"tasks\":[{\"name\":\"HR Send Form\",\"type\":\"userTask\",\"startAfter\":null},{\"name\":\"Approve request\",\"type\":\"userTask\",\"startAfter\":\"HR Send Form\"}]},\n{\"bpmCellName\":\"PCCell2\",\"appName\":\"Contract Management App\",\"procName\":\"Contract Management Process\",\"tasks\":[{\"name\":\"Send Contract\",\"type\":\"userTask\",\"startAfter\":null},{\"name\":\"Manage Contract\",\"type\":\"userTask\",\"startAfter\":\"Send Contract\"}]},\n{\"bpmCellName\":\"PCCell2\",\"appName\":\"Purchase Request App\",\"procName\":\"Purchase Request Process\",\"tasks\":[{\"name\":\"Send spending request\",\"type\":\"userTask\",\"startAfter\":null},{\"name\":\"Approve spending request\",\"type\":\"userTask\",\"startAfter\":\"Send spending request\"}]}]",
-        "x": 320,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "bbae0bc3.c12308",
-        "type": "comment",
-        "z": "5012a4e8.370e2c",
-        "name": "state of the process",
-        "info": "Active, Completed, Terminated, Failed, Suspended, Resumed, Migrated, Deleted \n\nString constant. Possible values: Active, Completed, Terminated, Failed, Suspended, Resumed, Migrated, Deleted ",
-        "x": 510,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "954aaacc.1d5338",
-        "type": "function",
-        "z": "5012a4e8.370e2c",
-        "name": "Process-Report",
-        "func": "msg.payload ={\n \"version\": msg.payload.processApp.process.version,\n \"type\": msg.payload.processApp.instance.type,\n \"timestamp\": msg.payload.processApp.instance.timestamp,\n \"bpmCellName\": msg.payload.processApp.system.bpmCellName,\n \"bpmSystemId\": msg.payload.processApp.system.bpmSystemId,\n \"processApplicationSnapshotName\": msg.payload.processApp.application.snapshotName,\n \"processApplicationVersionId\": msg.payload.processApp.application.versionId,\n \"processApplicationName\": msg.payload.processApp.application.name,\n \"processApplicationId\": msg.payload.processApp.application.id,\n \"id\": msg.payload.processApp.instance.id,\n \"trace-id\": msg.payload.processApp.process.traceId,\n \"span-id\": msg.payload.processApp.process.spanId,\n \"processInstanceId\": msg.payload.processApp.instance.instanceId,\n \"shortProcessInstanceId\": msg.payload.processApp.instance.shortId,\n \"processId\": msg.payload.processApp.process.processId,\n \"processVersionId\": msg.payload.processApp.process.versionId,\n \"processSnapshotName\": msg.payload.processApp.process.snapshotName,\n \"name\": msg.payload.processApp.process.name,\n \"state\": msg.payload.processApp.instance.state,\n \"startTime\": msg.payload.processApp.instance.startTime,\n \"completedTime\": msg.payload.processApp.instance.completedTime,\n \"terminatedTime\": msg.payload.processApp.instance.terminatedTime,\n \"failedTime\": msg.payload.processApp.instance.failedTime,\n \"deletedTime\": msg.payload.processApp.instance.deletedTime,\n \"duration\": msg.payload.processApp.instance.duration,\n \"data\": msg.payload.processApp.instance.data,\n \"lastBusinessDataUpdateTime\": msg.payload.processApp.instance.lastBusinessDataUpdateTime,\n \"lastBusinessDataUpdateActivity\": msg.payload.processApp.instance.lastBusinessDataUpdateActivity,\n \"lastBusinessDataUpdateEvent\": msg.payload.processApp.instance.lastBusinessDataUpdateEvent,\n \"lastBusinessDataUpdatePerformer\": msg.payload.processApp.instance.lastBusinessDataUpdatePerformer \n}\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 680,
-        "y": 180,
-        "wires": [
-            [
-                "fdccf34e.8916d8"
-            ]
-        ]
-    },
-    {
-        "id": "fdccf34e.8916d8",
-        "type": "debug",
-        "z": "5012a4e8.370e2c",
-        "name": "Process-Report",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 800,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "5129cc16.3568ec",
-        "type": "function",
-        "z": "5012a4e8.370e2c",
-        "name": "Task Unclaimed",
-        "func": "var date = new Date()\nvar processApp = msg.payload.processApp\nprocessApp.task = processApp.tasks[msg.i]\n//processApp.tasks = [{name: \"Task 1\", type: \"userTask\", startAfter: null}, {name: \"Task 2\", type: \"userTask\", startAfter: \"Task 1\"}]\nprocessApp.task.name = processApp.tasks[msg.i].name\nprocessApp.task.type = processApp.tasks[msg.i].type\nprocessApp.task.state = \"Unclaimed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nprocessApp.task.timestamp = date.toISOString() // -> \"timestamp\" - for each event\nprocessApp.task.potentialPerformerId = \"All Users_T_da7e4d23-78cb-4483-98ed-b9c238308a03.9a624e3d-96a8-423f-976f-121aa51af98c\"\nprocessApp.task.potentialPerformerName = \"All Users\"\nprocessApp.task.performerId = null\nprocessApp.task.performerName = null\nprocessApp.task.activityId = uuidv4()\nprocessApp.task.activityVersionId = processApp.application.versionId\nprocessApp.task.id =  processApp.task.state === \"Completed\" ? processApp.instance.id+\".5\" : processApp.instance.id+\".6\";\nprocessApp.task.taskInstanceId = (Math.floor(999 + Math.random() * 9000)).toString()\nprocessApp.task.taskRecord = {\n    \"displayName\": processApp.tasks[msg.i].name,\n    \"status\": processApp.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\nprocessApp.task.startTime = date.toISOString()  //The time at which the activity started\nprocessApp.task.claimedTime = null \nprocessApp.task.completedTime = null \nprocessApp.task.terminatedTime = null \nprocessApp.task.failedTime = null \nprocessApp.task.waitDuration = null \nprocessApp.task.executionDuration = null \nprocessApp.task.duration = null \nprocessApp.task.startAfter = null\nmsg.i++\nreturn msg;\n\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 240,
-        "y": 440,
-        "wires": [
-            [
-                "caaadff2.9cfed8",
-                "b95addcc.b7582",
-                "638073fe.bb9924"
-            ]
-        ]
-    },
-    {
-        "id": "caaadff2.9cfed8",
-        "type": "function",
-        "z": "5012a4e8.370e2c",
-        "name": "Task-Report",
-        "func": "msg.payload ={\n \"version\": msg.payload.processApp.process.version,\n \"type\": msg.payload.processApp.task.type,\n \"timestamp\": msg.payload.processApp.task.timestamp,\n \"bpmCellName\": msg.payload.processApp.system.bpmCellName,\n \"bpmSystemId\": msg.payload.processApp.system.bpmSystemId,\n \"potentialPerformerId\": msg.payload.processApp.task.potentialPerformerId,\n \"potentialPerformerName\": msg.payload.processApp.task.potentialPerformerName,\n \"performerId\": msg.payload.processApp.task.performerId,\n \"performerName\": msg.payload.processApp.task.performerName,\n \"name\": msg.payload.processApp.task.name,\n \"activityId\": msg.payload.processApp.task.activityId,\n \"activityVersionId\": msg.payload.processApp.task.activityVersionId,\n \"id\": msg.payload.processApp.task.id,\n \"trace-id\": msg.payload.processApp.process.traceId,\n \"span-id\": msg.payload.processApp.process.spanId,\n \"taskInstanceId\": msg.payload.processApp.task.taskInstanceId,\n \"processApplicationId\": msg.payload.processApp.application.id,\n \"processApplicationVersionId\": msg.payload.processApp.application.versionId,\n \"processApplicationName\": msg.payload.processApp.application.name,\n \"processApplicationSnapshotName\": msg.payload.processApp.application.snapshotName,\n \"processId\": msg.payload.processApp.process.processId,\n \"processVersionId\": msg.payload.processApp.process.versionId,\n \"processInstanceId\": msg.payload.processApp.instance.instanceId,\n \"shortProcessInstanceId\": msg.payload.processApp.instance.shortId,\n \"processSnapshotName\": msg.payload.processApp.process.snapshotName,\n \"processName\": msg.payload.processApp.process.name,\n \"state\": msg.payload.processApp.task.state,\n \"taskRecord\": {\n     \"displayName\": msg.payload.processApp.task.taskRecord.displayName,\n     \"status\": msg.payload.processApp.task.taskRecord.status,\n     \"dueDate\": msg.payload.processApp.task.taskRecord.dueDate,\n     \"atRiskTime\": msg.payload.processApp.task.taskRecord.atRiskTime,\n     \"completionTime\": msg.payload.processApp.task.taskRecord.completionTime,\n     \"priority\": msg.payload.processApp.task.taskRecord.priority\n },\n \"startTime\": msg.payload.processApp.task.startTime,\n \"claimedTime\": msg.payload.processApp.task.claimedTime,\n \"completedTime\": msg.payload.processApp.task.completedTime,\n \"terminatedTime\": msg.payload.processApp.task.terminatedTime,\n \"failedTime\": msg.payload.processApp.task.failedTime,\n \"waitDuration\": msg.payload.processApp.task.waitDuration,\n \"executionDuration\": msg.payload.processApp.task.executionDuration,\n \"duration\": msg.payload.processApp.task.duration,\n \"data\": msg.payload.processApp.instance.data\n}\n\nreturn msg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 570,
-        "y": 520,
-        "wires": [
-            [
-                "654d3552.704efc"
-            ]
-        ]
-    },
-    {
-        "id": "961f62d2.ce44e",
-        "type": "function",
-        "z": "5012a4e8.370e2c",
-        "name": "Process Completed",
-        "func": "var date = new Date()\nvar processApp = msg.payload.processApp\n//instance: {}\nprocessApp.instance.timestamp = date.toISOString() // Active / Completed\nprocessApp.instance.state = \"Completed\" // Completed\nprocessApp.instance.completedTime = date.toISOString()\nprocessApp.instance.duration= date.getTime() - new Date(processApp.instance.startTime).getTime()  \n\n\nreturn msg;\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 790,
-        "y": 260,
-        "wires": [
-            [
-                "954aaacc.1d5338"
-            ]
-        ]
-    },
-    {
-        "id": "be855e3a.48fc8",
-        "type": "function",
-        "z": "5012a4e8.370e2c",
-        "name": "Task Cycles",
-        "func": "var processApp = msg.payload.processApp\nwhile (processApp.tasks.length > msg.i) {\n\nreturn [null, msg ];\n}\nmsg.i = 0\nreturn [msg, null];\n\n",
-        "outputs": 2,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 550,
-        "y": 300,
-        "wires": [
-            [
-                "961f62d2.ce44e"
-            ],
-            [
-                "5129cc16.3568ec",
-                "85aa0ccd.e27b18"
-            ]
-        ]
-    },
-    {
-        "id": "b95addcc.b7582",
-        "type": "delay",
-        "z": "5012a4e8.370e2c",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "6",
-        "timeoutUnits": "milliseconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 310,
-        "y": 320,
-        "wires": [
-            [
-                "be855e3a.48fc8"
-            ]
-        ]
-    },
-    {
-        "id": "654d3552.704efc",
-        "type": "debug",
-        "z": "5012a4e8.370e2c",
-        "name": "Task-Report",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 790,
-        "y": 520,
-        "wires": []
-    },
-    {
-        "id": "85aa0ccd.e27b18",
-        "type": "debug",
-        "z": "5012a4e8.370e2c",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "i",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 770,
-        "y": 320,
-        "wires": []
-    },
-    {
-        "id": "20222b9b.b9d514",
-        "type": "function",
-        "z": "5012a4e8.370e2c",
-        "name": "Process Active",
-        "func": "var date = new Date()\nvar processApp = msg.payload.processApp\n//instance: {}\nprocessApp.instance.timestamp = date.toISOString() // Active / Completed\nprocessApp.instance.state = \"Active\" // Completed\nprocessApp.instance.startTime = date.toISOString() // Active / Completed\n\nreturn msg;\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 420,
-        "y": 220,
-        "wires": [
-            [
-                "be855e3a.48fc8",
-                "954aaacc.1d5338"
-            ]
-        ]
-    },
-    {
-        "id": "e4e96e61.7eeb08",
-        "type": "function",
-        "z": "5012a4e8.370e2c",
-        "name": "Task Active",
-        "func": "var date = new Date()\nvar processApp = msg.payload.processApp\nprocessApp.task.state = \"Active\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nprocessApp.task.timestamp = date.toISOString() // -> \"timestamp\" - for each event\nprocessApp.task.performerId = \"admin\"\nprocessApp.task.performerName = \"admin\"\nprocessApp.task.taskRecord = {\n    \"status\": processApp.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\n\nmsg.i++\nreturn msg;\n\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n \n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 670,
-        "y": 440,
-        "wires": [
-            [
-                "caaadff2.9cfed8",
-                "4d5f2a45.ee4714"
-            ]
-        ]
-    },
-    {
-        "id": "638073fe.bb9924",
-        "type": "function",
-        "z": "5012a4e8.370e2c",
-        "name": "Task Claimed",
-        "func": "var date = new Date()\nvar processApp = msg.payload.processApp\nprocessApp.task.state = \"Claimed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nprocessApp.task.timestamp = date.toISOString() // -> \"timestamp\" - for each event\nprocessApp.task.performerId = \"admin\"\nprocessApp.task.performerName = \"admin\"\nprocessApp.task.taskRecord = {\n    \"status\": processApp.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\n\nprocessApp.task.claimedTime = date.toISOString()\nprocessApp.task.completedTime = null \nprocessApp.task.waitDuration = new Date(processApp.instance.startTime).getTime() - date.getTime()  \nprocessApp.task.executionDuration = null \nprocessApp.task.duration = null \nprocessApp.task.startAfter = null\nmsg.i++\nreturn msg;\n\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n \n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 460,
-        "y": 440,
-        "wires": [
-            [
-                "caaadff2.9cfed8",
-                "e4e96e61.7eeb08"
-            ]
-        ]
-    },
-    {
-        "id": "4d5f2a45.ee4714",
-        "type": "function",
-        "z": "5012a4e8.370e2c",
-        "name": "Task Completed",
-        "func": "var date = new Date()\nvar processApp = msg.payload.processApp\nprocessApp.task.state = \"Completed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nprocessApp.task.timestamp = date.toISOString() // -> \"timestamp\" - for each event\nprocessApp.task.performerId = \"admin\"\nprocessApp.task.performerName = \"admin\"\nprocessApp.task.taskRecord = {\n    \"status\": processApp.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\nprocessApp.task.startTime \nprocessApp.task.claimedTime = date.toISOString()\nprocessApp.task.completedTime = null \nprocessApp.task.terminatedTime = null \nprocessApp.task.failedTime = null \nprocessApp.task.waitDuration = new Date(processApp.instance.startTime).getTime() - date.getTime()  \nprocessApp.task.executionDuration = null \nprocessApp.task.duration = null \nprocessApp.task.startAfter = null\nmsg.i++\nreturn msg;\n\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n \n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 880,
-        "y": 440,
-        "wires": [
-            [
-                "be855e3a.48fc8",
-                "caaadff2.9cfed8"
-            ]
-        ]
-    },
-    {
-        "id": "b5f4e670.39f0d",
-        "type": "function",
-        "z": "51fcc634.a74e98",
-        "name": "Process Ready",
-        "func": "var processApp = { system: {}, application: {}, process: {}, tasks: [], instance: {}};\nvar date = new Date()\n//system: {}\nprocessApp.system.bpmCellName = \"PCCell1\" //fixed for system, when created\nprocessApp.system.bpmSystemId = uuidv4()  // fixed for system, when created\n\n//application: {}\nprocessApp.application.snapshotName = (Math.floor(1+ Math.random() * 10)).toString() // fixed for process application, when created, only for Active Processes\nprocessApp.application.versionId = \"2064.\" + uuidv4()   // fixed for process application, when created\nprocessApp.application.name = \"MyTest\" // fixed for process application, when created\nprocessApp.application.id = uuidv4()  // fixed for process application, when created\n\n//process: {}\nprocessApp.process.version = \"1.0.4\" //fixed for process, when created\nprocessApp.process.processId = uuidv4() //fixed for process, when created\nprocessApp.process.versionId = processApp.application.versionId //fixed for process, when created\nprocessApp.process.snapshotName = processApp.application.snapshotName // fixed for process application, when created, only for Active Processes\nprocessApp.process.name = \"MyProcess\" //fixed for process, when created\nprocessApp.process.traceId = uuidv4() //fixed for process, when created\nprocessApp.process.spanId = characters16() //fixed for process, when created\n\n\n\n//instance: {}\nprocessApp.instance.type = \"process\" // process/userTask/…\nprocessApp.instance.timestamp = date.toISOString() // for each new event\nprocessApp.instance.shortId = (Math.floor(999 + Math.random() * 9000)).toString() // fixed for process instance, when created\n\nprocessApp.instance.id = processApp.process.processId + \".\" + processApp.system.bpmSystemId+ \".\" + processApp.instance.shortId // fixed for process instance, when created\nprocessApp.instance.instanceId = processApp.instance.id //fixed for process instance, when created\nprocessApp.instance.state = \"Ready\" //Ready, Active, Completed, Terminated, Failed, Deleted\nprocessApp.instance.startTime  = date.toISOString() // for Ready / Active / Completed / Terminated\nprocessApp.instance.completedTime = null // date.toISOString() // for Completed – null for others processApp.instance.terminatedTime = null // date.toISOString() // for Terminated– null for others\nprocessApp.instance.failedTime = null // date.toISOString() // for Failed – null for others\nprocessApp.instance.deletedTime = null // date.toISOString() // for Deleted – null for others\nprocessApp.instance.duration= null   // new Date(processApp.instance.completedTime).getTime()- new Date(processApp.instance.startTime).getTime()  // for Completed, for others Terminated, Failed, Deleted times accordingly \n//processApp.instance.data = {},\nprocessApp.instance.data = {\n    \"trackingGroupName\": {\n      \"@ids\": {\n        \"trackingGroupId\": \"guid:006677479b8357ba:42c2f804:17a438721fc:-7fb8\",\n        \"trackingGroupVersionId\": processApp.application.versionId\n      },\n      \"businessNumber.integer\": Math.floor(1+ Math.random() * 100),\n      \"businessName.string\": \"true\"\n    }\n  }\n\nprocessApp.instance.lastBusinessDataUpdateTime =  null,\nprocessApp.instance.lastBusinessDataUpdateActivity = null,\nprocessApp.instance.lastBusinessDataUpdateEvent = null,\nprocessApp.instance.lastBusinessDataUpdatePerformer = null\n\n//tasks: []\nprocessApp.tasks = [{name: \"Task 1\", type: \"userTask\", startAfter: null}, {name: \"Task 2\", type: \"userTask\", startAfter: \"Task 1\"}]\n\n//Unclaimed / Active  / Completed\n\nmsg.payload = {processApp}\nreturn msg;\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n\nfunction characters16() {\n  return 'xxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 140,
-        "y": 160,
-        "wires": [
-            [
-                "2cf292d8.4d51e6"
-            ]
-        ]
-    },
-    {
-        "id": "75af25a1.f0d33c",
-        "type": "inject",
-        "z": "51fcc634.a74e98",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "i",
-                "v": "0",
-                "vt": "num"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 160,
-        "y": 100,
-        "wires": [
-            [
-                "b5f4e670.39f0d"
-            ]
-        ]
-    },
-    {
-        "id": "f86ae212.461198",
-        "type": "comment",
-        "z": "51fcc634.a74e98",
-        "name": "",
-        "info": "processes",
-        "x": 240,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "53c6b3aa.8e275c",
-        "type": "comment",
-        "z": "51fcc634.a74e98",
-        "name": "state of the process",
-        "info": "Active, Completed, Terminated, Failed, Suspended, Resumed, Migrated, Deleted \n\nString constant. Possible values: Active, Completed, Terminated, Failed, Suspended, Resumed, Migrated, Deleted ",
-        "x": 430,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "74b984d3.f06d1c",
-        "type": "function",
-        "z": "51fcc634.a74e98",
-        "name": "Process-Report",
-        "func": "msg.payload ={\n \"version\": msg.payload.processApp.process.version,\n \"type\": msg.payload.processApp.instance.type,\n \"timestamp\": msg.payload.processApp.instance.timestamp,\n \"bpmCellName\": msg.payload.processApp.system.bpmCellName,\n \"bpmSystemId\": msg.payload.processApp.system.bpmSystemId,\n \"processApplicationSnapshotName\": msg.payload.processApp.application.snapshotName,\n \"processApplicationVersionId\": msg.payload.processApp.application.versionId,\n \"processApplicationName\": msg.payload.processApp.application.name,\n \"processApplicationId\": msg.payload.processApp.application.id,\n \"id\": msg.payload.processApp.instance.id,\n \"trace-id\": msg.payload.processApp.process.traceId,\n \"span-id\": msg.payload.processApp.process.spanId,\n \"processInstanceId\": msg.payload.processApp.instance.instanceId,\n \"shortProcessInstanceId\": msg.payload.processApp.instance.shortId,\n \"processId\": msg.payload.processApp.process.processId,\n \"processVersionId\": msg.payload.processApp.process.versionId,\n \"processSnapshotName\": msg.payload.processApp.process.snapshotName,\n \"name\": msg.payload.processApp.process.name,\n \"state\": msg.payload.processApp.instance.state,\n \"startTime\": msg.payload.processApp.instance.startTime,\n \"completedTime\": msg.payload.processApp.instance.completedTime,\n \"terminatedTime\": msg.payload.processApp.instance.terminatedTime,\n \"failedTime\": msg.payload.processApp.instance.failedTime,\n \"deletedTime\": msg.payload.processApp.instance.deletedTime,\n \"duration\": msg.payload.processApp.instance.duration,\n \"data\": msg.payload.processApp.instance.data,\n \"lastBusinessDataUpdateTime\": msg.payload.processApp.instance.lastBusinessDataUpdateTime,\n \"lastBusinessDataUpdateActivity\": msg.payload.processApp.instance.lastBusinessDataUpdateActivity,\n \"lastBusinessDataUpdateEvent\": msg.payload.processApp.instance.lastBusinessDataUpdateEvent,\n \"lastBusinessDataUpdatePerformer\": msg.payload.processApp.instance.lastBusinessDataUpdatePerformer \n}\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 600,
-        "y": 120,
-        "wires": [
-            [
-                "728797fc.d80328"
-            ]
-        ]
-    },
-    {
-        "id": "728797fc.d80328",
-        "type": "debug",
-        "z": "51fcc634.a74e98",
-        "name": "Process-Report",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 720,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "58d4ec51.009e14",
-        "type": "function",
-        "z": "51fcc634.a74e98",
-        "name": "Task Unclaimed",
-        "func": "var date = new Date()\nvar processApp = msg.payload.processApp\nprocessApp.task = processApp.tasks[msg.i]\n//processApp.tasks = [{name: \"Task 1\", type: \"userTask\", startAfter: null}, {name: \"Task 2\", type: \"userTask\", startAfter: \"Task 1\"}]\nprocessApp.task.name = processApp.tasks[msg.i].name\nprocessApp.task.type = processApp.tasks[msg.i].type\nprocessApp.task.state = \"Unclaimed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nprocessApp.task.timestamp = date.toISOString() // -> \"timestamp\" - for each event\nprocessApp.task.potentialPerformerId = \"All Users_T_da7e4d23-78cb-4483-98ed-b9c238308a03.9a624e3d-96a8-423f-976f-121aa51af98c\"\nprocessApp.task.potentialPerformerName = \"All Users\"\nprocessApp.task.performerId = null\nprocessApp.task.performerName = null\nprocessApp.task.activityId = uuidv4()\nprocessApp.task.activityVersionId = processApp.application.versionId\nprocessApp.task.id =  processApp.task.state === \"Completed\" ? processApp.instance.id+\".5\" : processApp.instance.id+\".6\";\nprocessApp.task.taskInstanceId = (Math.floor(999 + Math.random() * 9000)).toString()\nprocessApp.task.taskRecord = {\n    \"displayName\": processApp.tasks[msg.i].name,\n    \"status\": processApp.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\nprocessApp.task.startTime = date.toISOString()  //The time at which the activity started\nprocessApp.task.claimedTime = null \nprocessApp.task.completedTime = null \nprocessApp.task.terminatedTime = null \nprocessApp.task.failedTime = null \nprocessApp.task.waitDuration = null \nprocessApp.task.executionDuration = null \nprocessApp.task.duration = null \nprocessApp.task.startAfter = null\nmsg.i++\nreturn msg;\n\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 160,
-        "y": 380,
-        "wires": [
-            [
-                "e9c73c24.5ca85",
-                "306ee1e2.7fbd9e",
-                "49657551.4b673c"
-            ]
-        ]
-    },
-    {
-        "id": "e9c73c24.5ca85",
-        "type": "function",
-        "z": "51fcc634.a74e98",
-        "name": "Task-Report",
-        "func": "msg.payload ={\n \"version\": msg.payload.processApp.process.version,\n \"type\": msg.payload.processApp.task.type,\n \"timestamp\": msg.payload.processApp.task.timestamp,\n \"bpmCellName\": msg.payload.processApp.system.bpmCellName,\n \"bpmSystemId\": msg.payload.processApp.system.bpmSystemId,\n \"potentialPerformerId\": msg.payload.processApp.task.potentialPerformerId,\n \"potentialPerformerName\": msg.payload.processApp.task.potentialPerformerName,\n \"performerId\": msg.payload.processApp.task.performerId,\n \"performerName\": msg.payload.processApp.task.performerName,\n \"name\": msg.payload.processApp.task.name,\n \"activityId\": msg.payload.processApp.task.activityId,\n \"activityVersionId\": msg.payload.processApp.task.activityVersionId,\n \"id\": msg.payload.processApp.task.id,\n \"trace-id\": msg.payload.processApp.process.traceId,\n \"span-id\": msg.payload.processApp.process.spanId,\n \"taskInstanceId\": msg.payload.processApp.task.taskInstanceId,\n \"processApplicationId\": msg.payload.processApp.application.id,\n \"processApplicationVersionId\": msg.payload.processApp.application.versionId,\n \"processApplicationName\": msg.payload.processApp.application.name,\n \"processApplicationSnapshotName\": msg.payload.processApp.application.snapshotName,\n \"processId\": msg.payload.processApp.process.processId,\n \"processVersionId\": msg.payload.processApp.process.versionId,\n \"processInstanceId\": msg.payload.processApp.instance.instanceId,\n \"shortProcessInstanceId\": msg.payload.processApp.instance.shortId,\n \"processSnapshotName\": msg.payload.processApp.process.snapshotName,\n \"processName\": msg.payload.processApp.process.name,\n \"state\": msg.payload.processApp.task.state,\n \"taskRecord\": {\n     \"displayName\": msg.payload.processApp.task.taskRecord.displayName,\n     \"status\": msg.payload.processApp.task.taskRecord.status,\n     \"dueDate\": msg.payload.processApp.task.taskRecord.dueDate,\n     \"atRiskTime\": msg.payload.processApp.task.taskRecord.atRiskTime,\n     \"completionTime\": msg.payload.processApp.task.taskRecord.completionTime,\n     \"priority\": msg.payload.processApp.task.taskRecord.priority\n },\n \"startTime\": msg.payload.processApp.task.startTime,\n \"claimedTime\": msg.payload.processApp.task.claimedTime,\n \"completedTime\": msg.payload.processApp.task.completedTime,\n \"terminatedTime\": msg.payload.processApp.task.terminatedTime,\n \"failedTime\": msg.payload.processApp.task.failedTime,\n \"waitDuration\": msg.payload.processApp.task.waitDuration,\n \"executionDuration\": msg.payload.processApp.task.executionDuration,\n \"duration\": msg.payload.processApp.task.duration,\n \"data\": msg.payload.processApp.instance.data\n}\n\nreturn msg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 490,
-        "y": 460,
-        "wires": [
-            [
-                "d84665de.c134"
-            ]
-        ]
-    },
-    {
-        "id": "75ddcf9e.6c1858",
-        "type": "function",
-        "z": "51fcc634.a74e98",
-        "name": "Process Completed",
-        "func": "var date = new Date()\nvar processApp = msg.payload.processApp\n//instance: {}\nprocessApp.instance.timestamp = date.toISOString() // Active / Completed\nprocessApp.instance.state = \"Completed\" // Completed\nprocessApp.instance.completedTime = date.toISOString()\nprocessApp.instance.duration= date.getTime() - new Date(processApp.instance.startTime).getTime()  \n\n\nreturn msg;\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 710,
-        "y": 200,
-        "wires": [
-            [
-                "74b984d3.f06d1c"
-            ]
-        ]
-    },
-    {
-        "id": "787636ca.5e7be8",
-        "type": "function",
-        "z": "51fcc634.a74e98",
-        "name": "Task Cycles",
-        "func": "var processApp = msg.payload.processApp\nwhile (processApp.tasks.length > msg.i) {\n\nreturn [null, msg ];\n}\nmsg.i = 0\nreturn [msg, null];\n\n",
-        "outputs": 2,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 470,
-        "y": 240,
-        "wires": [
-            [
-                "75ddcf9e.6c1858"
-            ],
-            [
-                "58d4ec51.009e14",
-                "f598ee31.a82fc8"
-            ]
-        ]
-    },
-    {
-        "id": "306ee1e2.7fbd9e",
-        "type": "delay",
-        "z": "51fcc634.a74e98",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "6",
-        "timeoutUnits": "milliseconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 230,
-        "y": 260,
-        "wires": [
-            [
-                "787636ca.5e7be8"
-            ]
-        ]
-    },
-    {
-        "id": "d84665de.c134",
-        "type": "debug",
-        "z": "51fcc634.a74e98",
-        "name": "Task-Report",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 710,
-        "y": 460,
-        "wires": []
-    },
-    {
-        "id": "f598ee31.a82fc8",
-        "type": "debug",
-        "z": "51fcc634.a74e98",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "i",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 690,
-        "y": 260,
-        "wires": []
-    },
-    {
-        "id": "2cf292d8.4d51e6",
-        "type": "function",
-        "z": "51fcc634.a74e98",
-        "name": "Process Active",
-        "func": "var date = new Date()\nvar processApp = msg.payload.processApp\n//instance: {}\nprocessApp.instance.timestamp = date.toISOString() // Active / Completed\nprocessApp.instance.state = \"Active\" // Completed\nprocessApp.instance.startTime = date.toISOString() // Active / Completed\n\nreturn msg;\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 340,
-        "y": 160,
-        "wires": [
-            [
-                "787636ca.5e7be8",
-                "74b984d3.f06d1c"
-            ]
-        ]
-    },
-    {
-        "id": "bad1807.3baaa8",
-        "type": "function",
-        "z": "51fcc634.a74e98",
-        "name": "Task Active",
-        "func": "var date = new Date()\nvar processApp = msg.payload.processApp\nprocessApp.task.state = \"Active\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nprocessApp.task.timestamp = date.toISOString() // -> \"timestamp\" - for each event\nprocessApp.task.performerId = \"admin\"\nprocessApp.task.performerName = \"admin\"\nprocessApp.task.taskRecord = {\n    \"status\": processApp.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\n\nmsg.i++\nreturn msg;\n\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n \n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 590,
-        "y": 380,
-        "wires": [
-            [
-                "e9c73c24.5ca85",
-                "43e997fc.60e358"
-            ]
-        ]
-    },
-    {
-        "id": "49657551.4b673c",
-        "type": "function",
-        "z": "51fcc634.a74e98",
-        "name": "Task Claimed",
-        "func": "var date = new Date()\nvar processApp = msg.payload.processApp\nprocessApp.task.state = \"Claimed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nprocessApp.task.timestamp = date.toISOString() // -> \"timestamp\" - for each event\nprocessApp.task.performerId = \"admin\"\nprocessApp.task.performerName = \"admin\"\nprocessApp.task.taskRecord = {\n    \"status\": processApp.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\n\nprocessApp.task.claimedTime = date.toISOString()\nprocessApp.task.completedTime = null \nprocessApp.task.waitDuration = new Date(processApp.instance.startTime).getTime() - date.getTime()  \nprocessApp.task.executionDuration = null \nprocessApp.task.duration = null \nprocessApp.task.startAfter = null\nmsg.i++\nreturn msg;\n\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n \n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 380,
-        "y": 380,
-        "wires": [
-            [
-                "e9c73c24.5ca85",
-                "bad1807.3baaa8"
-            ]
-        ]
-    },
-    {
-        "id": "43e997fc.60e358",
-        "type": "function",
-        "z": "51fcc634.a74e98",
-        "name": "Task Completed",
-        "func": "var date = new Date()\nvar processApp = msg.payload.processApp\nprocessApp.task.state = \"Completed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nprocessApp.task.timestamp = date.toISOString() // -> \"timestamp\" - for each event\nprocessApp.task.performerId = \"admin\"\nprocessApp.task.performerName = \"admin\"\nprocessApp.task.taskRecord = {\n    \"status\": processApp.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\nprocessApp.task.startTime \nprocessApp.task.claimedTime = date.toISOString()\nprocessApp.task.completedTime = null \nprocessApp.task.terminatedTime = null \nprocessApp.task.failedTime = null \nprocessApp.task.waitDuration = new Date(processApp.instance.startTime).getTime() - date.getTime()  \nprocessApp.task.executionDuration = null \nprocessApp.task.duration = null \nprocessApp.task.startAfter = null\nmsg.i++\nreturn msg;\n\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n \n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 800,
-        "y": 380,
-        "wires": [
-            [
-                "787636ca.5e7be8",
-                "e9c73c24.5ca85"
-            ]
-        ]
-    },
-    {
-        "id": "d105535c.4f5628",
-        "type": "template",
-        "z": "51fcc634.a74e98",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "{\n  \"type\": {{payload.processApp.instance.type}},\n  \"state\": {{payload.processApp.instance.state}},\n  \"timestamp\": {{payload.processApp.instance.timestamp}},\n  \"bpmCellName\": {{payload.processApp.system.bpmCellName}},\n  \"processApplicationName\": {{payload.processApp.application.name}},\n  \"id\": {{payload.processApp.instance.id}},\n  \"name\": {{payload.processApp.process.name}}, \n  \"startTime\": {{payload.processApp.instance.startTime}},\n  \"completedTime\": {{payload.processApp.instance.completedTime}},\n  \"duration\": {{payload.processApp.instance.duration}},\n  \"data\": {{payload.processApp.instance.data}},\n }",
-        "output": "str",
-        "x": 980,
-        "y": 140,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "3a86fdda.1bfd1a",
-        "type": "elasticsearch-index",
-        "z": "51fcc634.a74e98",
-        "name": "process-summaries-completed",
-        "server": "f4be98fb.fb1858",
-        "index": "process-summaries-completed-idx-ibm-bai-2020.03.30-000001",
-        "esType": "_doc",
-        "esId": "",
-        "routing": "",
-        "x": 990,
-        "y": 300,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "71910051.07bde8",
-        "type": "debug",
-        "z": "51fcc634.a74e98",
-        "name": "Insert -> process-summaries-active",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1320,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "cb38168e.cd685",
-        "type": "debug",
-        "z": "51fcc634.a74e98",
-        "name": "Insert -> process-summaries-completed",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1360,
-        "y": 160,
-        "wires": []
-    },
-    {
-        "id": "91f4cbcd.886bd8",
-        "type": "debug",
-        "z": "51fcc634.a74e98",
-        "name": "Delete -> process-summaries-active",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1370,
-        "y": 200,
-        "wires": []
-    },
-    {
-        "id": "8338c0c4.45ea68",
-        "type": "debug",
-        "z": "51fcc634.a74e98",
-        "name": "Insert -> process-summaries-completed",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1400,
-        "y": 360,
-        "wires": []
-    },
-    {
-        "id": "f4cb229.43f6b6",
-        "type": "debug",
-        "z": "51fcc634.a74e98",
-        "name": "Delete -> process-summaries-active",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1410,
-        "y": 420,
-        "wires": []
-    },
-    {
-        "id": "2e618bc6.d255c4",
-        "type": "debug",
-        "z": "51fcc634.a74e98",
-        "name": "Insert -> process-summaries-active",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1360,
-        "y": 340,
-        "wires": []
-    },
-    {
-        "id": "25720285.320716",
-        "type": "debug",
-        "z": "51fcc634.a74e98",
-        "name": "Insert -> process-summaries-active",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1380,
-        "y": 300,
-        "wires": []
-    },
-    {
-        "id": "5c94a98c.fea7c",
-        "type": "debug",
-        "z": "51fcc634.a74e98",
-        "name": "Insert -> process-summaries-active",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1360,
-        "y": 240,
-        "wires": []
-    },
-    {
         "id": "a79657e1.b45b38",
         "type": "switch",
         "z": "aad5f601.aa59a",
@@ -2431,378 +1586,6 @@
         ]
     },
     {
-        "id": "2d216906.9cfd36",
-        "type": "inject",
-        "z": "65dabe20.977a58",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "[{\"bpmCellName\":\"PCCell1\",\"appName\":\"HR Vacation App\",\"procName\":\"HR Vacation Process\",\"tasks\":[{\"name\":\"HR Send Form\",\"type\":\"userTask\",\"startAfter\":null},{\"name\":\"Approve request\",\"type\":\"userTask\",\"startAfter\":\"HR Send Form\"}]},{\"bpmCellName\":\"PCCell2\",\"appName\":\"Contract Management App\",\"procName\":\"Contract Management Process\",\"tasks\":[{\"name\":\"Send Contract\",\"type\":\"userTask\",\"startAfter\":null},{\"name\":\"Manage Contract\",\"type\":\"userTask\",\"startAfter\":\"Send Contract\"}]},{\"bpmCellName\":\"PCCell3\",\"appName\":\"Purchase Request App\",\"procName\":\"Purchase Request Process\",\"tasks\":[{\"name\":\"Send spending request\",\"type\":\"userTask\",\"startAfter\":null},{\"name\":\"Approve spending request\",\"type\":\"userTask\",\"startAfter\":\"Send spending request\"}]}]",
-        "payloadType": "json",
-        "x": 150,
-        "y": 160,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "ddd1d591.b14858",
-        "type": "function",
-        "z": "65dabe20.977a58",
-        "name": "Process Ready",
-        "func": "var processApp = { system: {}, application: {}, process: {}, tasks: [], instance: {}};\nvar date = new Date()\n//system: {}\nprocessApp.system.bpmCellName = msg.payload.bpmCellName //fixed for system, when created\nprocessApp.system.bpmSystemId = uuidv4()  // fixed for system, when created\n\n//application: {}\nprocessApp.application.snapshotName = (Math.floor(1+ Math.random() * 10)).toString() // fixed for process application, when created, only for Active Processes\nprocessApp.application.versionId = \"2064.\" + uuidv4()   // fixed for process application, when created\nprocessApp.application.name = msg.payload.appName // fixed for process application, when created\nprocessApp.application.id = uuidv4()  // fixed for process application, when created\n\n//process: {}\nprocessApp.process.version = (Math.floor(1+ Math.random() * 10)).toString()+\".\"+(Math.floor(1+ Math.random() * 10)).toString()+\".\"+(Math.floor(1+ Math.random() * 10)).toString()\nprocessApp.process.processId = uuidv4() //fixed for process, when created\nprocessApp.process.versionId = processApp.application.versionId //fixed for process, when created\nprocessApp.process.snapshotName = processApp.application.snapshotName // fixed for process application, when created, only for Active Processes\nprocessApp.process.name = msg.payload.procName //fixed for process, when created\nprocessApp.process.traceId = uuidv4() //fixed for process, when created\nprocessApp.process.spanId = characters16() //fixed for process, when created\n\n\n\n//instance: {}\nprocessApp.instance.type = \"process\" // process/userTask/…\nprocessApp.instance.timestamp = null // for each new event\nprocessApp.instance.shortId = (Math.floor(1000 + Math.random() * 9000)).toString() // fixed for process instance, when created\n\nprocessApp.instance.id = processApp.process.processId + \".\" + processApp.system.bpmSystemId+ \".\" + processApp.instance.shortId // fixed for process instance, when created\nprocessApp.instance.instanceId = processApp.instance.id //fixed for process instance, when created\nprocessApp.instance.state = \"Ready\" //Ready, Active, Completed, Terminated, Failed, Deleted\nprocessApp.instance.startTime  = null // for Ready / Active / Completed / Terminated\nprocessApp.instance.completedTime = null // date.toISOString() // for Completed – null for others processApp.instance.terminatedTime = null // date.toISOString() // for Terminated– null for others\nprocessApp.instance.failedTime = null // date.toISOString() // for Failed – null for others\nprocessApp.instance.deletedTime = null // date.toISOString() // for Deleted – null for others\nprocessApp.instance.duration= null   // new Date(processApp.instance.completedTime).getTime()- new Date(processApp.instance.startTime).getTime()  // for Completed, for others Terminated, Failed, Deleted times accordingly \n//processApp.instance.data = {},\nprocessApp.instance.data = {\n    \"trackingGroupName\": {\n      \"@ids\": {\n        \"trackingGroupId\": \"guid:006677479b8357ba:42c2f804:17a438721fc:-7fb8\",\n        \"trackingGroupVersionId\": processApp.application.versionId\n      },\n      \"businessNumber.integer\": Math.floor(1+ Math.random() * 100),\n      \"businessName.string\": \"true\"\n    }\n  }\n\nprocessApp.instance.lastBusinessDataUpdateTime =  null,\nprocessApp.instance.lastBusinessDataUpdateActivity = null,\nprocessApp.instance.lastBusinessDataUpdateEvent = null,\nprocessApp.instance.lastBusinessDataUpdatePerformer = null\n\n//tasks: []\nprocessApp.tasks = msg.payload.tasks\n\n\n\nmsg.payload = {processApp}\nreturn msg;\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n\nfunction characters16() {\n  return 'xxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 300,
-        "y": 100,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "3286e036.32ba7",
-        "type": "switch",
-        "z": "65dabe20.977a58",
-        "name": "Process State",
-        "property": "payload.processApp.instance.state",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "Ready",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "Active",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "Completed",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 3,
-        "x": 140,
-        "y": 280,
-        "wires": [
-            [
-                "62068656.252d6"
-            ],
-            [
-                "4c116958.279d9"
-            ],
-            [
-                "f3189ef4.c483d8"
-            ]
-        ]
-    },
-    {
-        "id": "ba6ef89.831dc88",
-        "type": "switch",
-        "z": "65dabe20.977a58",
-        "name": "Task State",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 390,
-        "y": 460,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "f3189ef4.c483d8",
-        "type": "Parallel Iterator",
-        "z": "65dabe20.977a58",
-        "name": "Process Iterate",
-        "property": "payload",
-        "saveOutput": 1,
-        "recursive": 1,
-        "storeId": 0,
-        "x": 560,
-        "y": 180,
-        "wires": [
-            [
-                "3286e036.32ba7"
-            ],
-            [
-                "2d01d293.79eb06"
-            ]
-        ]
-    },
-    {
-        "id": "2d01d293.79eb06",
-        "type": "debug",
-        "z": "65dabe20.977a58",
-        "name": "out 2",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 730,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "b2a19512.131828",
-        "type": "function",
-        "z": "65dabe20.977a58",
-        "name": "Process-Report",
-        "func": "msg.payload ={\n \"bpmCellName\": msg.payload.processApp.system.bpmCellName,\n \"processApplicationName\": msg.payload.processApp.application.name,\n \"name\": msg.payload.processApp.process.name,\n \"state\": msg.payload.processApp.instance.state,\n \"startTime\": msg.payload.processApp.instance.startTime,\n \"completedTime\": msg.payload.processApp.instance.completedTime,\n \"duration\": msg.payload.processApp.instance.duration\n}\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 820,
-        "y": 320,
-        "wires": [
-            [
-                "5efb0848.23f808"
-            ]
-        ]
-    },
-    {
-        "id": "5efb0848.23f808",
-        "type": "debug",
-        "z": "65dabe20.977a58",
-        "name": "Process-Report",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1040,
-        "y": 320,
-        "wires": []
-    },
-    {
-        "id": "65c2f6f2.bf1cc",
-        "type": "function",
-        "z": "65dabe20.977a58",
-        "name": "Process Active",
-        "func": "var date = new Date()\nmsg.payload.processApp.instance.state = \"Active\" // Completed\nmsg.payload.processApp.instance.startTime = date.toISOString() // Active / Completed\n\nreturn msg;\n\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 580,
-        "y": 280,
-        "wires": [
-            [
-                "b2a19512.131828",
-                "ea6d95be.0c32b8"
-            ]
-        ]
-    },
-    {
-        "id": "4c116958.279d9",
-        "type": "function",
-        "z": "65dabe20.977a58",
-        "name": "Process Completed",
-        "func": "var date = new Date()\n\nmsg.payload.processApp.instance.state = \"Completed\" // Completed\nmsg.payload.processApp.instance.completedTime = date.toISOString()\nmsg.payload.processApp.instance.duration= date.getTime() - new Date(msg.payload.processApp.instance.startTime).getTime()  \n\n\nreturn msg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 450,
-        "y": 340,
-        "wires": [
-            [
-                "b2a19512.131828",
-                "3286e036.32ba7"
-            ]
-        ]
-    },
-    {
-        "id": "62068656.252d6",
-        "type": "delay",
-        "z": "65dabe20.977a58",
-        "name": "",
-        "pauseType": "random",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 380,
-        "y": 280,
-        "wires": [
-            [
-                "65c2f6f2.bf1cc"
-            ]
-        ]
-    },
-    {
-        "id": "f27856b.b979d28",
-        "type": "function",
-        "z": "65dabe20.977a58",
-        "name": "Task Unclaimed",
-        "func": "var date = new Date()\nvar processApp = msg.payload.processApp\nprocessApp.task = processApp.tasks[msg.i]\n//processApp.tasks = [{name: \"Task 1\", type: \"userTask\", startAfter: null}, {name: \"Task 2\", type: \"userTask\", startAfter: \"Task 1\"}]\nprocessApp.task.name = processApp.tasks[msg.i].name\nprocessApp.task.type = processApp.tasks[msg.i].type\nprocessApp.task.state = \"Unclaimed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nprocessApp.task.timestamp = date.toISOString() // -> \"timestamp\" - for each event\nprocessApp.task.potentialPerformerId = \"All Users_T_da7e4d23-78cb-4483-98ed-b9c238308a03.9a624e3d-96a8-423f-976f-121aa51af98c\"\nprocessApp.task.potentialPerformerName = \"All Users\"\nprocessApp.task.performerId = null\nprocessApp.task.performerName = null\nprocessApp.task.activityId = uuidv4()\nprocessApp.task.activityVersionId = processApp.application.versionId\nprocessApp.task.id =  processApp.task.state === \"Completed\" ? processApp.instance.id+\".5\" : processApp.instance.id+\".6\";\nprocessApp.task.taskInstanceId = (Math.floor(999 + Math.random() * 9000)).toString()\nprocessApp.task.taskRecord = {\n    \"displayName\": processApp.tasks[msg.i].name,\n    \"status\": processApp.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\nprocessApp.task.startTime = date.toISOString()  //The time at which the activity started\nprocessApp.task.claimedTime = null \nprocessApp.task.completedTime = null \nprocessApp.task.terminatedTime = null \nprocessApp.task.failedTime = null \nprocessApp.task.waitDuration = null \nprocessApp.task.executionDuration = null \nprocessApp.task.duration = null \nprocessApp.task.startAfter = null\nmsg.i++\nreturn msg;\n\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 440,
-        "y": 540,
-        "wires": [
-            [
-                "7f7304c5.1f3d7c"
-            ]
-        ]
-    },
-    {
-        "id": "83ce009c.a15fc8",
-        "type": "function",
-        "z": "65dabe20.977a58",
-        "name": "Task Claimed",
-        "func": "var date = new Date()\nvar processApp = msg.payload.processApp\nprocessApp.task.state = \"Claimed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nprocessApp.task.timestamp = date.toISOString() // -> \"timestamp\" - for each event\nprocessApp.task.performerId = \"admin\"\nprocessApp.task.performerName = \"admin\"\nprocessApp.task.taskRecord = {\n    \"status\": processApp.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\n\nprocessApp.task.claimedTime = date.toISOString()\nprocessApp.task.completedTime = null \nprocessApp.task.waitDuration = new Date(processApp.instance.startTime).getTime() - date.getTime()  \nprocessApp.task.executionDuration = null \nprocessApp.task.duration = null \nprocessApp.task.startAfter = null\nmsg.i++\nreturn msg;\n\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n \n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 440,
-        "y": 600,
-        "wires": [
-            [
-                "7f7304c5.1f3d7c"
-            ]
-        ]
-    },
-    {
-        "id": "b9d89aa2.cfd308",
-        "type": "function",
-        "z": "65dabe20.977a58",
-        "name": "Task Active",
-        "func": "var date = new Date()\nvar processApp = msg.payload.processApp\nprocessApp.task.state = \"Active\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nprocessApp.task.timestamp = date.toISOString() // -> \"timestamp\" - for each event\nprocessApp.task.performerId = \"admin\"\nprocessApp.task.performerName = \"admin\"\nprocessApp.task.taskRecord = {\n    \"status\": processApp.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\n\nmsg.i++\nreturn msg;\n\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n \n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 430,
-        "y": 660,
-        "wires": [
-            [
-                "7f7304c5.1f3d7c"
-            ]
-        ]
-    },
-    {
-        "id": "6a2d074f.3f8ce8",
-        "type": "function",
-        "z": "65dabe20.977a58",
-        "name": "Task Completed",
-        "func": "var date = new Date()\nvar processApp = msg.payload.processApp\nprocessApp.task.state = \"Completed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nprocessApp.task.timestamp = date.toISOString() // -> \"timestamp\" - for each event\nprocessApp.task.performerId = \"admin\"\nprocessApp.task.performerName = \"admin\"\nprocessApp.task.taskRecord = {\n    \"status\": processApp.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\nprocessApp.task.startTime \nprocessApp.task.claimedTime = date.toISOString()\nprocessApp.task.completedTime = null \nprocessApp.task.terminatedTime = null \nprocessApp.task.failedTime = null \nprocessApp.task.waitDuration = new Date(processApp.instance.startTime).getTime() - date.getTime()  \nprocessApp.task.executionDuration = null \nprocessApp.task.duration = null \nprocessApp.task.startAfter = null\nmsg.i++\nreturn msg;\n\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n \n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 440,
-        "y": 720,
-        "wires": [
-            [
-                "7f7304c5.1f3d7c"
-            ]
-        ]
-    },
-    {
-        "id": "7f7304c5.1f3d7c",
-        "type": "function",
-        "z": "65dabe20.977a58",
-        "name": "Task-Report",
-        "func": "msg.payload ={\n \"type\": msg.payload.processApp.task.type,\n \"name\": msg.payload.processApp.task.name,\n \"processApplicationName\": msg.payload.processApp.application.name,\n \"processName\": msg.payload.processApp.process.name,\n \"state\": msg.payload.processApp.task.state,\n \"startTime\": msg.payload.processApp.task.startTime,\n \"claimedTime\": msg.payload.processApp.task.claimedTime,\n \"completedTime\": msg.payload.processApp.task.completedTime,\n \"waitDuration\": msg.payload.processApp.task.waitDuration,\n \"executionDuration\": msg.payload.processApp.task.executionDuration,\n \"duration\": msg.payload.processApp.task.duration\n}\n\nreturn msg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 850,
-        "y": 700,
-        "wires": [
-            [
-                "6ecb38ea.ac441"
-            ]
-        ]
-    },
-    {
-        "id": "6ecb38ea.ac441",
-        "type": "debug",
-        "z": "65dabe20.977a58",
-        "name": "Task-Report",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1030,
-        "y": 680,
-        "wires": []
-    },
-    {
-        "id": "ea6d95be.0c32b8",
-        "type": "Parallel Iterator",
-        "z": "65dabe20.977a58",
-        "name": "Task Iterate",
-        "property": "payload.tasks",
-        "saveOutput": 0,
-        "recursive": 0,
-        "storeId": 0,
-        "x": 150,
-        "y": 460,
-        "wires": [
-            [
-                "ba6ef89.831dc88"
-            ],
-            [
-                "3286e036.32ba7"
-            ]
-        ]
-    },
-    {
         "id": "8a7f3094.d25cb8",
         "type": "inject",
         "z": "aad5f601.aa59a",
@@ -2971,1139 +1754,6 @@
             [
                 "a562f631.b7ae4"
             ]
-        ]
-    },
-    {
-        "id": "b47d9d75.02995",
-        "type": "switch",
-        "z": "a1809ada.696a18",
-        "name": "Task State",
-        "property": "payload.task.state",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "Created",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "Unclaimed",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "Claimed",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "Active",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "Completed",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 5,
-        "x": 210,
-        "y": 460,
-        "wires": [
-            [
-                "829beadb.7481b"
-            ],
-            [
-                "621001df.e7f6d"
-            ],
-            [
-                "c19fc795.e8d318"
-            ],
-            [
-                "6ed697f0.deb668"
-            ],
-            [
-                "2ca3572.0e74728"
-            ]
-        ]
-    },
-    {
-        "id": "4dde5eab.8e303",
-        "type": "debug",
-        "z": "a1809ada.696a18",
-        "name": "3",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 670,
-        "y": 220,
-        "wires": []
-    },
-    {
-        "id": "621001df.e7f6d",
-        "type": "delay",
-        "z": "a1809ada.696a18",
-        "name": "",
-        "pauseType": "random",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 540,
-        "y": 420,
-        "wires": [
-            [
-                "319e4a0f.111e1e"
-            ]
-        ]
-    },
-    {
-        "id": "829beadb.7481b",
-        "type": "function",
-        "z": "a1809ada.696a18",
-        "name": "Task Unclaimed",
-        "func": "var date = new Date()\n\n\nmsg.payload.task.state = \"Unclaimed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nmsg.payload.task.timestamp = date.toISOString()\nmsg.payload.task.performerId = null\nmsg.payload.task.performerName = null\nmsg.payload.task.taskRecord = {\n    \"displayName\": msg.payload.task.name,\n    \"status\": null,\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\n\nmsg.payload.task.startTime = date.toISOString() //The time at which the activity started\nmsg.payload.task.claimedTime = null \nmsg.payload.task.completedTime = null \nmsg.payload.task.terminatedTime = null \nmsg.payload.task.failedTime = null \nmsg.payload.task.waitDuration = null \nmsg.payload.task.executionDuration = null \nmsg.payload.task.duration = null \n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 700,
-        "y": 340,
-        "wires": [
-            [
-                "b47d9d75.02995",
-                "9d2e0fa9.5ffaf",
-                "1f9f5560.ae5b7b"
-            ]
-        ]
-    },
-    {
-        "id": "319e4a0f.111e1e",
-        "type": "function",
-        "z": "a1809ada.696a18",
-        "name": "Task Claimed",
-        "func": "var date = new Date()\n\nmsg.payload.task.state = \"Claimed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nmsg.payload.task.timestamp = date.toISOString()\nmsg.payload.task.performerId = \"admin\"\nmsg.payload.task.performerName = \"admin\"\nmsg.payload.task.taskRecord = {\n    \"displayName\": msg.payload.task.name,\n    \"status\": msg.payload.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\n\nmsg.payload.task.claimedTime = date.toISOString() \nmsg.payload.task.completedTime = null \nmsg.payload.task.terminatedTime = null \nmsg.payload.task.failedTime = null \nmsg.payload.task.waitDuration = date.getTime() - new Date(msg.payload.task.startTime).getTime()  \nmsg.payload.task.executionDuration = null \nmsg.payload.task.duration = null \n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 740,
-        "y": 420,
-        "wires": [
-            [
-                "b47d9d75.02995",
-                "9d2e0fa9.5ffaf",
-                "1f9f5560.ae5b7b"
-            ]
-        ]
-    },
-    {
-        "id": "20748674.17d202",
-        "type": "function",
-        "z": "a1809ada.696a18",
-        "name": "Task Active",
-        "func": "var date = new Date()\n\nmsg.payload.task.state = \"Active\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nmsg.payload.task.timestamp = date.toISOString()\nmsg.payload.task.taskRecord = {\n    \"displayName\": msg.payload.task.name,\n    \"status\": msg.payload.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\n\nmsg.payload.task.completedTime = null \nmsg.payload.task.terminatedTime = null \nmsg.payload.task.failedTime = null \nmsg.payload.task.executionDuration = null \nmsg.payload.task.duration = null \n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 730,
-        "y": 540,
-        "wires": [
-            [
-                "b47d9d75.02995",
-                "9d2e0fa9.5ffaf",
-                "1f9f5560.ae5b7b"
-            ]
-        ]
-    },
-    {
-        "id": "e9a351d3.12e3c8",
-        "type": "function",
-        "z": "a1809ada.696a18",
-        "name": "Task Completed",
-        "func": "var date = new Date()\n\nmsg.payload.task.state = \"Completed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nmsg.payload.task.timestamp = date.toISOString()\nmsg.payload.task.taskRecord = {\n    \"displayName\": msg.payload.task.name,\n    \"status\": msg.payload.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\n\nmsg.payload.task.completedTime = date.toISOString() \nmsg.payload.task.terminatedTime = null \nmsg.payload.task.failedTime = null \nmsg.payload.task.executionDuration = date.getTime() - new Date(msg.payload.task.claimedTime).getTime()  \nmsg.payload.task.duration = date.getTime() - new Date(msg.payload.task.startTime).getTime()  \n\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 800,
-        "y": 660,
-        "wires": [
-            [
-                "b47d9d75.02995",
-                "9d2e0fa9.5ffaf",
-                "1f9f5560.ae5b7b"
-            ]
-        ]
-    },
-    {
-        "id": "c19fc795.e8d318",
-        "type": "delay",
-        "z": "a1809ada.696a18",
-        "name": "",
-        "pauseType": "random",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 560,
-        "y": 540,
-        "wires": [
-            [
-                "20748674.17d202"
-            ]
-        ]
-    },
-    {
-        "id": "6ed697f0.deb668",
-        "type": "delay",
-        "z": "a1809ada.696a18",
-        "name": "",
-        "pauseType": "random",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 560,
-        "y": 660,
-        "wires": [
-            [
-                "e9a351d3.12e3c8"
-            ]
-        ]
-    },
-    {
-        "id": "2ca3572.0e74728",
-        "type": "Parallel Iterator",
-        "z": "a1809ada.696a18",
-        "name": "Task Iterate",
-        "property": "payload",
-        "saveOutput": 1,
-        "recursive": 0,
-        "storeId": 0,
-        "x": 230,
-        "y": 240,
-        "wires": [
-            [
-                "b47d9d75.02995",
-                "acf08807.c794b8"
-            ],
-            [
-                "87fc6959.57f7d"
-            ]
-        ]
-    },
-    {
-        "id": "9d2e0fa9.5ffaf",
-        "type": "function",
-        "z": "a1809ada.696a18",
-        "name": "Task-Report",
-        "func": "msg.payload ={\n \"version\": msg.payloadLog.processApp.process.version,\n \"type\": msg.payload.task.type,\n \"timestamp\": msg.payload.task.timestamp,\n \"bpmCellName\": msg.payloadLog.processApp.system.bpmCellName,\n \"bpmSystemId\": msg.payloadLog.processApp.system.bpmSystemId,\n \"potentialPerformerId\": msg.payload.task.potentialPerformerId,\n \"potentialPerformerName\": msg.payload.task.potentialPerformerName,\n \"performerId\": msg.payload.task.performerId,\n \"performerName\": msg.payload.task.performerName,\n \"name\": msg.payload.task.name,\n \"activityId\": msg.payload.task.activityId,\n \"activityVersionId\": msg.payload.task.activityVersionId,\n \"id\": msg.payload.task.id,\n \"trace-id\": msg.payloadLog.processApp.process.traceId,\n \"span-id\": msg.payloadLog.processApp.process.spanId,\n \"taskInstanceId\": msg.payload.task.taskInstanceId,\n \"processApplicationId\": msg.payloadLog.processApp.application.id,\n \"processApplicationVersionId\": msg.payloadLog.processApp.application.versionId,\n \"processApplicationName\": msg.payloadLog.processApp.application.name,\n \"processApplicationSnapshotName\": msg.payloadLog.processApp.application.snapshotName,\n \"processId\": msg.payloadLog.processApp.process.processId,\n \"processVersionId\": msg.payloadLog.processApp.process.versionId,\n \"processInstanceId\": msg.payloadLog.processApp.instance.instanceId,\n \"shortProcessInstanceId\": msg.payloadLog.processApp.instance.shortId,\n \"processSnapshotName\": msg.payloadLog.processApp.process.snapshotName,\n \"processName\": msg.payloadLog.processApp.process.name,\n \"state\": msg.payload.task.state,\n \"taskRecord\": {\n     \"displayName\": msg.payload.task.taskRecord.displayName,\n     \"status\": msg.payload.task.taskRecord.status,\n     \"dueDate\": msg.payload.task.taskRecord.dueDate,\n     \"atRiskTime\": msg.payload.task.taskRecord.atRiskTime,\n     \"completionTime\": msg.payload.task.taskRecord.completionTime,\n     \"priority\": msg.payload.task.taskRecord.priority\n },\n \"startTime\": msg.payload.task.startTime,\n \"claimedTime\": msg.payload.task.claimedTime,\n \"completedTime\": msg.payload.task.completedTime,\n \"terminatedTime\": msg.payload.task.terminatedTime,\n \"failedTime\": msg.payload.task.failedTime,\n \"waitDuration\": msg.payload.task.waitDuration,\n \"executionDuration\": msg.payload.task.executionDuration,\n \"duration\": msg.payload.task.duration,\n \"data\": msg.payloadLog.processApp.instance.data\n}\n\nreturn msg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1050,
-        "y": 420,
-        "wires": [
-            [
-                "d1d132cf.9ff1b"
-            ]
-        ]
-    },
-    {
-        "id": "d1d132cf.9ff1b",
-        "type": "debug",
-        "z": "a1809ada.696a18",
-        "name": "Task-Report",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1230,
-        "y": 420,
-        "wires": []
-    },
-    {
-        "id": "209e809a.0f9098",
-        "type": "change",
-        "z": "a1809ada.696a18",
-        "name": "",
-        "rules": [
-            {
-                "t": "move",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payloadLog",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payloadLog.processApp.tasks",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 300,
-        "y": 140,
-        "wires": [
-            [
-                "2ca3572.0e74728",
-                "125f729b.8f5475"
-            ]
-        ]
-    },
-    {
-        "id": "ebf89e2f.af3d4",
-        "type": "inject",
-        "z": "a1809ada.696a18",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\"processApp\":{\"system\":{\"bpmCellName\":\"PCCell2\",\"bpmSystemId\":\"d92f8669-0176-495b-8133-c71b926828ee\"},\"application\":{\"snapshotName\":\"3\",\"versionId\":\"2064.08a08025-e58c-4107-a809-ddbd35100e3d\",\"name\":\"Contract Management App\",\"id\":\"ee882588-2940-457f-b39c-d87c4157a2ad\"},\"process\":{\"version\":\"1.1.7\",\"processId\":\"69465342-d8b7-4c0e-acc2-2a8f3a9d4266\",\"versionId\":\"2064.08a08025-e58c-4107-a809-ddbd35100e3d\",\"snapshotName\":\"3\",\"name\":\"Contract Management Process\",\"traceId\":\"5d2937d9-f82d-4aa0-8f75-56151e13514e\",\"spanId\":\"6e96792b1a6fc9ef\"},\"tasks\":[{\"task\":{\"name\":\"Send Contract\",\"type\":\"userTask\",\"state\":\"Created\",\"timestamp\":null,\"potentialPerformerId\":\"All Users_T_da7e4d23-78cb-4483-98ed-b9c238308a03.9a624e3d-96a8-423f-976f-121aa51af98c\",\"potentialPerformerName\":\"All Users\",\"performerId\":null,\"performerName\":null,\"activityId\":\"1f261e64-c7a7-4974-a1f7-4fa7f2cc52c4\",\"activityVersionId\":\"2064.08a08025-e58c-4107-a809-ddbd35100e3d\",\"id\":\"69465342-d8b7-4c0e-acc2-2a8f3a9d4266.d92f8669-0176-495b-8133-c71b926828ee.3293.6\",\"taskInstanceId\":\"8247\",\"taskRecord\":{\"displayName\":\"Send Contract\",\"status\":null,\"dueDate\":null,\"atRiskTime\":null,\"completionTime\":null,\"priority\":\"Normal\"},\"startTime\":null,\"claimedTime\":null,\"completedTime\":null,\"terminatedTime\":null,\"failedTime\":null,\"waitDuration\":null,\"executionDuration\":null,\"duration\":null,\"startAfter\":null}},{\"task\":{\"name\":\"Manage Contract\",\"type\":\"userTask\",\"state\":\"Created\",\"timestamp\":null,\"potentialPerformerId\":\"All Users_T_da7e4d23-78cb-4483-98ed-b9c238308a03.9a624e3d-96a8-423f-976f-121aa51af98c\",\"potentialPerformerName\":\"All Users\",\"performerId\":null,\"performerName\":null,\"activityId\":\"90f6009a-6079-46e3-8661-99f17244be6d\",\"activityVersionId\":\"2064.08a08025-e58c-4107-a809-ddbd35100e3d\",\"id\":\"69465342-d8b7-4c0e-acc2-2a8f3a9d4266.d92f8669-0176-495b-8133-c71b926828ee.3293.6\",\"taskInstanceId\":\"3879\",\"taskRecord\":{\"displayName\":\"Manage Contract\",\"status\":null,\"dueDate\":null,\"atRiskTime\":null,\"completionTime\":null,\"priority\":\"Normal\"},\"startTime\":null,\"claimedTime\":null,\"completedTime\":null,\"terminatedTime\":null,\"failedTime\":null,\"waitDuration\":null,\"executionDuration\":null,\"duration\":null,\"startAfter\":\"Send Contract\"}}],\"instance\":{\"type\":\"process\",\"timestamp\":null,\"shortId\":\"3293\",\"id\":\"69465342-d8b7-4c0e-acc2-2a8f3a9d4266.d92f8669-0176-495b-8133-c71b926828ee.3293\",\"instanceId\":\"69465342-d8b7-4c0e-acc2-2a8f3a9d4266.d92f8669-0176-495b-8133-c71b926828ee.3293\",\"state\":\"Active\",\"startTime\":\"2021-07-14T07:30:40.735Z\",\"completedTime\":null,\"failedTime\":null,\"deletedTime\":null,\"duration\":null,\"data\":{\"trackingGroupName\":{\"@ids\":{\"trackingGroupId\":\"guid:006677479b8357ba:42c2f804:17a438721fc:-7fb8\",\"trackingGroupVersionId\":\"2064.08a08025-e58c-4107-a809-ddbd35100e3d\"},\"businessNumber.integer\":1,\"businessName.string\":\"true\"}},\"lastBusinessDataUpdateTime\":null,\"lastBusinessDataUpdateActivity\":null,\"lastBusinessDataUpdateEvent\":null,\"lastBusinessDataUpdatePerformer\":null}}}",
-        "payloadType": "json",
-        "x": 110,
-        "y": 120,
-        "wires": [
-            [
-                "209e809a.0f9098"
-            ]
-        ]
-    },
-    {
-        "id": "87fc6959.57f7d",
-        "type": "change",
-        "z": "a1809ada.696a18",
-        "name": "",
-        "rules": [
-            {
-                "t": "move",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payloadLog.processApp.tasks",
-                "tot": "msg"
-            },
-            {
-                "t": "move",
-                "p": "payloadLog",
-                "pt": "msg",
-                "to": "payload",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 460,
-        "y": 240,
-        "wires": [
-            [
-                "4dde5eab.8e303"
-            ]
-        ]
-    },
-    {
-        "id": "125f729b.8f5475",
-        "type": "debug",
-        "z": "a1809ada.696a18",
-        "name": "1",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 530,
-        "y": 140,
-        "wires": []
-    },
-    {
-        "id": "acf08807.c794b8",
-        "type": "debug",
-        "z": "a1809ada.696a18",
-        "name": "2",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 430,
-        "y": 300,
-        "wires": []
-    },
-    {
-        "id": "1f9f5560.ae5b7b",
-        "type": "debug",
-        "z": "a1809ada.696a18",
-        "name": "4",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1010,
-        "y": 340,
-        "wires": []
-    },
-    {
-        "id": "503af0bf.a33318",
-        "type": "switch",
-        "z": "139ac28e.780655",
-        "name": "Process State",
-        "property": "payload.processApp.instance.state",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "Ready",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "Active",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "Completed",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 3,
-        "x": 160,
-        "y": 400,
-        "wires": [
-            [
-                "3f3b020f.afee26"
-            ],
-            [
-                "f0486b8f.e07538"
-            ],
-            [
-                "63d37051.ff31a8"
-            ]
-        ]
-    },
-    {
-        "id": "51b18637.c848a",
-        "type": "switch",
-        "z": "139ac28e.780655",
-        "name": "Task State",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "Created",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "Unclaimed",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "Claimed",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "Active",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "Completed",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 5,
-        "x": 210,
-        "y": 800,
-        "wires": [
-            [
-                "62d7c376.257fdc"
-            ],
-            [
-                "5fad6ccb.db3e1c"
-            ],
-            [
-                "42102d42.791a24"
-            ],
-            [
-                "96c1171e.792578"
-            ],
-            [
-                "73b477a9.2989d8"
-            ]
-        ]
-    },
-    {
-        "id": "63d37051.ff31a8",
-        "type": "Parallel Iterator",
-        "z": "139ac28e.780655",
-        "name": "Process Iterate",
-        "property": "payload",
-        "saveOutput": 1,
-        "recursive": 1,
-        "storeId": 0,
-        "x": 160,
-        "y": 240,
-        "wires": [
-            [
-                "503af0bf.a33318"
-            ],
-            [
-                "ac0460fd.d4cb28"
-            ]
-        ]
-    },
-    {
-        "id": "ac0460fd.d4cb28",
-        "type": "debug",
-        "z": "139ac28e.780655",
-        "name": "Final",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 490,
-        "y": 240,
-        "wires": []
-    },
-    {
-        "id": "7e3efeb2.8bb4",
-        "type": "function",
-        "z": "139ac28e.780655",
-        "name": "Process-Report",
-        "func": "msg.payload ={\n \"bpmCellName\": msg.payload.processApp.system.bpmCellName,\n \"processApplicationName\": msg.payload.processApp.application.name,\n \"name\": msg.payload.processApp.process.name,\n \"state\": msg.payload.processApp.instance.state,\n \"startTime\": msg.payload.processApp.instance.startTime,\n \"completedTime\": msg.payload.processApp.instance.completedTime,\n \"duration\": msg.payload.processApp.instance.duration\n}\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1060,
-        "y": 380,
-        "wires": [
-            [
-                "55070537.8802dc"
-            ]
-        ]
-    },
-    {
-        "id": "55070537.8802dc",
-        "type": "debug",
-        "z": "139ac28e.780655",
-        "name": "Process-Report",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1280,
-        "y": 380,
-        "wires": []
-    },
-    {
-        "id": "1fa969cd.7733b6",
-        "type": "function",
-        "z": "139ac28e.780655",
-        "name": "Process Active",
-        "func": "var date = new Date()\nmsg.payload.processApp.instance.state = \"Active\" // Completed\nmsg.payload.processApp.instance.startTime = date.toISOString() // Active / Completed\n\nreturn msg;\n\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 600,
-        "y": 380,
-        "wires": [
-            [
-                "7e3efeb2.8bb4",
-                "f178d483.e55ce8",
-                "73b477a9.2989d8"
-            ]
-        ]
-    },
-    {
-        "id": "421d2125.6919a",
-        "type": "function",
-        "z": "139ac28e.780655",
-        "name": "Process Completed",
-        "func": "var date = new Date()\n\nmsg.payload.processApp.instance.state = \"Completed\" // Completed\nmsg.payload.processApp.instance.completedTime = date.toISOString()\nmsg.payload.processApp.instance.duration= date.getTime() - new Date(msg.payload.processApp.instance.startTime).getTime()  \n\n\nreturn msg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 610,
-        "y": 520,
-        "wires": [
-            [
-                "7e3efeb2.8bb4",
-                "503af0bf.a33318"
-            ]
-        ]
-    },
-    {
-        "id": "3f3b020f.afee26",
-        "type": "delay",
-        "z": "139ac28e.780655",
-        "name": "",
-        "pauseType": "random",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 420,
-        "y": 380,
-        "wires": [
-            [
-                "1fa969cd.7733b6"
-            ]
-        ]
-    },
-    {
-        "id": "f0486b8f.e07538",
-        "type": "delay",
-        "z": "139ac28e.780655",
-        "name": "",
-        "pauseType": "random",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 400,
-        "y": 520,
-        "wires": [
-            [
-                "421d2125.6919a"
-            ]
-        ]
-    },
-    {
-        "id": "abf7efc3.82f9c",
-        "type": "inject",
-        "z": "139ac28e.780655",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "[{\"bpmCellName\":\"PCCell1\",\"appName\":\"HR Vacation App\",\"procName\":\"HR Vacation Process\",\"tasks\":[{\"name\":\"HR Send Form\",\"type\":\"userTask\",\"startAfter\":null},{\"name\":\"Approve request\",\"type\":\"userTask\",\"startAfter\":\"HR Send Form\"}]},{\"bpmCellName\":\"PCCell2\",\"appName\":\"Contract Management App\",\"procName\":\"Contract Management Process\",\"tasks\":[{\"name\":\"Send Contract\",\"type\":\"userTask\",\"startAfter\":null},{\"name\":\"Manage Contract\",\"type\":\"userTask\",\"startAfter\":\"Send Contract\"}]},{\"bpmCellName\":\"PCCell3\",\"appName\":\"Purchase Request App\",\"procName\":\"Purchase Request Process\",\"tasks\":[{\"name\":\"Send spending request\",\"type\":\"userTask\",\"startAfter\":null},{\"name\":\"Approve spending request\",\"type\":\"userTask\",\"startAfter\":\"Send spending request\"}]}]",
-        "payloadType": "json",
-        "x": 130,
-        "y": 20,
-        "wires": [
-            [
-                "6bc2d174.7f3428"
-            ]
-        ]
-    },
-    {
-        "id": "f1ec5520.e76a3",
-        "type": "function",
-        "z": "139ac28e.780655",
-        "name": "Process Payload Ready",
-        "func": "var processApp = { system: {}, application: {}, process: {}, tasks: [], instance: {}};\nvar date = new Date()\n//system: {}\nprocessApp.system.bpmCellName = msg.payload.bpmCellName //fixed for system, when created\nprocessApp.system.bpmSystemId = uuidv4()  // fixed for system, when created\n\n//application: {}\nprocessApp.application.snapshotName = (Math.floor(1+ Math.random() * 10)).toString() // fixed for process application, when created, only for Active Processes\nprocessApp.application.versionId = \"2064.\" + uuidv4()   // fixed for process application, when created\nprocessApp.application.name = msg.payload.appName // fixed for process application, when created\nprocessApp.application.id = uuidv4()  // fixed for process application, when created\n\n//process: {}\nprocessApp.process.version = (Math.floor(1+ Math.random() * 10)).toString()+\".\"+(Math.floor(1+ Math.random() * 10)).toString()+\".\"+(Math.floor(1+ Math.random() * 10)).toString()\nprocessApp.process.processId = uuidv4() //fixed for process, when created\nprocessApp.process.versionId = processApp.application.versionId //fixed for process, when created\nprocessApp.process.snapshotName = processApp.application.snapshotName // fixed for process application, when created, only for Active Processes\nprocessApp.process.name = msg.payload.procName //fixed for process, when created\nprocessApp.process.traceId = uuidv4() //fixed for process, when created\nprocessApp.process.spanId = characters16() //fixed for process, when created\n\n\n\n//instance: {}\nprocessApp.instance.type = \"process\" // process/userTask/…\nprocessApp.instance.timestamp = null // for each new event\nprocessApp.instance.shortId = (Math.floor(1000 + Math.random() * 9000)).toString() // fixed for process instance, when created\n\nprocessApp.instance.id = processApp.process.processId + \".\" + processApp.system.bpmSystemId+ \".\" + processApp.instance.shortId // fixed for process instance, when created\nprocessApp.instance.instanceId = processApp.instance.id //fixed for process instance, when created\nprocessApp.instance.state = \"Ready\" //Ready, Active, Completed, Terminated, Failed, Deleted\nprocessApp.instance.startTime  = null // for Ready / Active / Completed / Terminated\nprocessApp.instance.completedTime = null // date.toISOString() // for Completed – null for others processApp.instance.terminatedTime = null // date.toISOString() // for Terminated– null for others\nprocessApp.instance.failedTime = null // date.toISOString() // for Failed – null for others\nprocessApp.instance.deletedTime = null // date.toISOString() // for Deleted – null for others\nprocessApp.instance.duration= null   // new Date(processApp.instance.completedTime).getTime()- new Date(processApp.instance.startTime).getTime()  // for Completed, for others Terminated, Failed, Deleted times accordingly \n//processApp.instance.data = {},\nprocessApp.instance.data = {\n    \"trackingGroupName\": {\n      \"@ids\": {\n        \"trackingGroupId\": \"guid:006677479b8357ba:42c2f804:17a438721fc:-7fb8\",\n        \"trackingGroupVersionId\": processApp.application.versionId\n      },\n      \"businessNumber.integer\": Math.floor(1+ Math.random() * 100),\n      \"businessName.string\": \"true\"\n    }\n  }\n\nprocessApp.instance.lastBusinessDataUpdateTime =  null,\nprocessApp.instance.lastBusinessDataUpdateActivity = null,\nprocessApp.instance.lastBusinessDataUpdateEvent = null,\nprocessApp.instance.lastBusinessDataUpdatePerformer = null\n\n//tasks: []\nprocessApp.tasks = msg.payload.tasks\n\n\n\nmsg.payload = {processApp}\nreturn msg;\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n\nfunction characters16() {\n  return 'xxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 510,
-        "y": 100,
-        "wires": [
-            [
-                "94d6e43.5b32e18"
-            ]
-        ]
-    },
-    {
-        "id": "6bc2d174.7f3428",
-        "type": "Parallel Iterator",
-        "z": "139ac28e.780655",
-        "name": "Process Ready",
-        "property": "payload",
-        "saveOutput": 1,
-        "recursive": 0,
-        "storeId": 0,
-        "x": 160,
-        "y": 120,
-        "wires": [
-            [
-                "f1ec5520.e76a3"
-            ],
-            [
-                "63d37051.ff31a8"
-            ]
-        ]
-    },
-    {
-        "id": "94d6e43.5b32e18",
-        "type": "change",
-        "z": "139ac28e.780655",
-        "name": "",
-        "rules": [
-            {
-                "t": "move",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payloadLog",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payloadLog.processApp.tasks",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 780,
-        "y": 100,
-        "wires": [
-            [
-                "d4fe700b.a6656"
-            ]
-        ]
-    },
-    {
-        "id": "d4fe700b.a6656",
-        "type": "Parallel Iterator",
-        "z": "139ac28e.780655",
-        "name": "Task Created",
-        "property": "payload",
-        "saveOutput": 1,
-        "recursive": 0,
-        "storeId": 1,
-        "x": 1070,
-        "y": 100,
-        "wires": [
-            [
-                "2c52ad8d.318172"
-            ],
-            [
-                "5b7a571f.ca143"
-            ]
-        ]
-    },
-    {
-        "id": "2c52ad8d.318172",
-        "type": "function",
-        "z": "139ac28e.780655",
-        "name": "Task Payload Created",
-        "func": "var task = {}\n\ntask.name = msg.payload.name\ntask.type = msg.payload.type\ntask.state = \"Created\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\ntask.timestamp = null // -> \"timestamp\" - for each event\ntask.potentialPerformerId = \"All Users_T_da7e4d23-78cb-4483-98ed-b9c238308a03.9a624e3d-96a8-423f-976f-121aa51af98c\"\ntask.potentialPerformerName = \"All Users\"\ntask.performerId = null\ntask.performerName = null\ntask.activityId = uuidv4()\ntask.activityVersionId = msg.payloadLog.processApp.application.versionId\ntask.id =  task.state === \"Completed\" ? msg.payloadLog.processApp.instance.id+\".5\" : msg.payloadLog.processApp.instance.id+\".6\";\ntask.taskInstanceId = (Math.floor(999 + Math.random() * 9000)).toString()\ntask.taskRecord = {\n    \"displayName\": task.name,\n    \"status\": null,\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\n\ntask.startTime = null  //The time at which the activity started\ntask.claimedTime = null \ntask.completedTime = null \ntask.terminatedTime = null \ntask.failedTime = null \ntask.waitDuration = null \ntask.executionDuration = null \ntask.duration = null \ntask.startAfter = msg.payload.startAfter\nmsg.payload = {task}\n\nreturn msg;\n\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1080,
-        "y": 20,
-        "wires": [
-            [
-                "d4fe700b.a6656"
-            ]
-        ]
-    },
-    {
-        "id": "5b7a571f.ca143",
-        "type": "change",
-        "z": "139ac28e.780655",
-        "name": "",
-        "rules": [
-            {
-                "t": "move",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payloadLog.processApp.tasks",
-                "tot": "msg"
-            },
-            {
-                "t": "move",
-                "p": "payloadLog",
-                "pt": "msg",
-                "to": "payload",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1280,
-        "y": 120,
-        "wires": [
-            [
-                "6bc2d174.7f3428"
-            ]
-        ]
-    },
-    {
-        "id": "f178d483.e55ce8",
-        "type": "debug",
-        "z": "139ac28e.780655",
-        "name": "1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1050,
-        "y": 460,
-        "wires": []
-    },
-    {
-        "id": "27875124.22c4d6",
-        "type": "debug",
-        "z": "139ac28e.780655",
-        "name": "2",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 890,
-        "y": 620,
-        "wires": []
-    },
-    {
-        "id": "5fad6ccb.db3e1c",
-        "type": "delay",
-        "z": "139ac28e.780655",
-        "name": "",
-        "pauseType": "random",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 460,
-        "y": 760,
-        "wires": [
-            [
-                "9e898d33.d237f8"
-            ]
-        ]
-    },
-    {
-        "id": "62d7c376.257fdc",
-        "type": "function",
-        "z": "139ac28e.780655",
-        "name": "Task Unclaimed",
-        "func": "var date = new Date()\nvar task = {}\n\n\ntask.state = \"Unclaimed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\ntask.timestamp = date.toISOString()\ntask.performerId = null\ntask.performerName = null\ntask.taskRecord = {\n    \"displayName\": task.name,\n    \"status\": null,\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\n\ntask.startTime = date.toISOString() //The time at which the activity started\ntask.claimedTime = null \ntask.completedTime = null \ntask.terminatedTime = null \ntask.failedTime = null \ntask.waitDuration = null \ntask.executionDuration = null \ntask.duration = null \nmsg.payload = {task}\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 620,
-        "y": 680,
-        "wires": [
-            [
-                "51b18637.c848a",
-                "4eab359d.cc048c",
-                "27875124.22c4d6"
-            ]
-        ]
-    },
-    {
-        "id": "9e898d33.d237f8",
-        "type": "function",
-        "z": "139ac28e.780655",
-        "name": "Task Claimed",
-        "func": "var date = new Date()\n\n\ntask.state = \"Claimed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\ntask.timestamp = date.toISOString()\ntask.performerId = \"admin\"\ntask.performerName = \"admin\"\ntask.taskRecord = {\n    \"displayName\": task.name,\n    \"status\": task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\n\ntask.claimedTime = date.toISOString() \ntask.completedTime = null \ntask.terminatedTime = null \ntask.failedTime = null \ntask.waitDuration = date.getTime() - new Date(processApp.instance.startTime).getTime()  \ntask.executionDuration = null \ntask.duration = null \nmsg.payload = {task}\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 660,
-        "y": 760,
-        "wires": [
-            [
-                "51b18637.c848a",
-                "4eab359d.cc048c",
-                "27875124.22c4d6"
-            ]
-        ]
-    },
-    {
-        "id": "741bed98.daba44",
-        "type": "function",
-        "z": "139ac28e.780655",
-        "name": "Task Active",
-        "func": "var date = new Date()\nvar processApp = msg.payload.processApp\nprocessApp.task.state = \"Active\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nprocessApp.task.timestamp = date.toISOString() // -> \"timestamp\" - for each event\nprocessApp.task.performerId = \"admin\"\nprocessApp.task.performerName = \"admin\"\nprocessApp.task.taskRecord = {\n    \"status\": processApp.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\n\nmsg.i++\nreturn msg;\n\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n \n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 630,
-        "y": 800,
-        "wires": [
-            [
-                "51b18637.c848a",
-                "4eab359d.cc048c",
-                "27875124.22c4d6"
-            ]
-        ]
-    },
-    {
-        "id": "831c3b4d.6c8d4",
-        "type": "function",
-        "z": "139ac28e.780655",
-        "name": "Task Completed",
-        "func": "var date = new Date()\nvar processApp = msg.payload.processApp\nprocessApp.task.state = \"Completed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nprocessApp.task.timestamp = date.toISOString() // -> \"timestamp\" - for each event\nprocessApp.task.performerId = \"admin\"\nprocessApp.task.performerName = \"admin\"\nprocessApp.task.taskRecord = {\n    \"status\": processApp.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\nprocessApp.task.startTime \nprocessApp.task.claimedTime = date.toISOString()\nprocessApp.task.completedTime = null \nprocessApp.task.terminatedTime = null \nprocessApp.task.failedTime = null \nprocessApp.task.waitDuration = new Date(processApp.instance.startTime).getTime() - date.getTime()  \nprocessApp.task.executionDuration = null \nprocessApp.task.duration = null \nprocessApp.task.startAfter = null\nmsg.i++\nreturn msg;\n\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n \n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 640,
-        "y": 840,
-        "wires": [
-            [
-                "51b18637.c848a",
-                "4eab359d.cc048c",
-                "27875124.22c4d6"
-            ]
-        ]
-    },
-    {
-        "id": "42102d42.791a24",
-        "type": "delay",
-        "z": "139ac28e.780655",
-        "name": "",
-        "pauseType": "random",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 460,
-        "y": 800,
-        "wires": [
-            [
-                "741bed98.daba44"
-            ]
-        ]
-    },
-    {
-        "id": "96c1171e.792578",
-        "type": "delay",
-        "z": "139ac28e.780655",
-        "name": "",
-        "pauseType": "random",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 460,
-        "y": 840,
-        "wires": [
-            [
-                "831c3b4d.6c8d4"
-            ]
-        ]
-    },
-    {
-        "id": "73b477a9.2989d8",
-        "type": "Parallel Iterator",
-        "z": "139ac28e.780655",
-        "name": "Task Iterate",
-        "property": "payload",
-        "saveOutput": 1,
-        "recursive": 1,
-        "storeId": 0,
-        "x": 150,
-        "y": 600,
-        "wires": [
-            [
-                "51b18637.c848a"
-            ],
-            [
-                "503af0bf.a33318"
-            ]
-        ]
-    },
-    {
-        "id": "4eab359d.cc048c",
-        "type": "function",
-        "z": "139ac28e.780655",
-        "name": "Task-Report",
-        "func": "msg.payload ={\n \"version\": msg.payload.processApp.process.version,\n \"type\": msg.payload.processApp.task.type,\n \"timestamp\": msg.payload.processApp.task.timestamp,\n \"bpmCellName\": msg.payload.processApp.system.bpmCellName,\n \"bpmSystemId\": msg.payload.processApp.system.bpmSystemId,\n \"potentialPerformerId\": msg.payload.processApp.task.potentialPerformerId,\n \"potentialPerformerName\": msg.payload.processApp.task.potentialPerformerName,\n \"performerId\": msg.payload.processApp.task.performerId,\n \"performerName\": msg.payload.processApp.task.performerName,\n \"name\": msg.payload.processApp.task.name,\n \"activityId\": msg.payload.processApp.task.activityId,\n \"activityVersionId\": msg.payload.processApp.task.activityVersionId,\n \"id\": msg.payload.processApp.task.id,\n \"trace-id\": msg.payload.processApp.process.traceId,\n \"span-id\": msg.payload.processApp.process.spanId,\n \"taskInstanceId\": msg.payload.processApp.task.taskInstanceId,\n \"processApplicationId\": msg.payload.processApp.application.id,\n \"processApplicationVersionId\": msg.payload.processApp.application.versionId,\n \"processApplicationName\": msg.payload.processApp.application.name,\n \"processApplicationSnapshotName\": msg.payload.processApp.application.snapshotName,\n \"processId\": msg.payload.processApp.process.processId,\n \"processVersionId\": msg.payload.processApp.process.versionId,\n \"processInstanceId\": msg.payload.processApp.instance.instanceId,\n \"shortProcessInstanceId\": msg.payload.processApp.instance.shortId,\n \"processSnapshotName\": msg.payload.processApp.process.snapshotName,\n \"processName\": msg.payload.processApp.process.name,\n \"state\": msg.payload.processApp.task.state,\n \"taskRecord\": {\n     \"displayName\": msg.payload.processApp.task.taskRecord.displayName,\n     \"status\": msg.payload.processApp.task.taskRecord.status,\n     \"dueDate\": msg.payload.processApp.task.taskRecord.dueDate,\n     \"atRiskTime\": msg.payload.processApp.task.taskRecord.atRiskTime,\n     \"completionTime\": msg.payload.processApp.task.taskRecord.completionTime,\n     \"priority\": msg.payload.processApp.task.taskRecord.priority\n },\n \"startTime\": msg.payload.processApp.task.startTime,\n \"claimedTime\": msg.payload.processApp.task.claimedTime,\n \"completedTime\": msg.payload.processApp.task.completedTime,\n \"terminatedTime\": msg.payload.processApp.task.terminatedTime,\n \"failedTime\": msg.payload.processApp.task.failedTime,\n \"waitDuration\": msg.payload.processApp.task.waitDuration,\n \"executionDuration\": msg.payload.processApp.task.executionDuration,\n \"duration\": msg.payload.processApp.task.duration,\n \"data\": msg.payload.processApp.instance.data\n}\n\nreturn msg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 970,
-        "y": 780,
-        "wires": [
-            [
-                "e6f8ed86.ccb328"
-            ]
-        ]
-    },
-    {
-        "id": "e6f8ed86.ccb328",
-        "type": "debug",
-        "z": "139ac28e.780655",
-        "name": "Task-Report",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1150,
-        "y": 780,
-        "wires": []
-    },
-    {
-        "id": "7935df9d.2cd8c",
-        "type": "change",
-        "z": "139ac28e.780655",
-        "name": "",
-        "rules": [
-            {
-                "t": "move",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payloadLog",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payloadLog.processApp.tasks",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1140,
-        "y": 640,
-        "wires": [
-            []
         ]
     },
     {
@@ -4570,5 +2220,1165 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "1b033360.18b7e5",
+        "type": "elasticsearch-index",
+        "z": "aad5f601.aa59a",
+        "name": "process-summaries-completed",
+        "server": "f4be98fb.fb1858",
+        "index": "process-summaries-completed-idx-ibm-bai-2020.03.30-000001",
+        "esType": "_doc",
+        "esId": "",
+        "routing": "",
+        "x": 1610,
+        "y": 880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9e4dea9a.4daa78",
+        "type": "debug",
+        "z": "aad5f601.aa59a",
+        "name": "Insert -> process-summaries-active",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1500,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "11d6fee9.97af59",
+        "type": "debug",
+        "z": "aad5f601.aa59a",
+        "name": "Insert -> process-summaries-completed",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1540,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "c1ddad6b.7ac7f8",
+        "type": "debug",
+        "z": "aad5f601.aa59a",
+        "name": "Delete -> process-summaries-active",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1550,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "c197c96e.2b9818",
+        "type": "debug",
+        "z": "aad5f601.aa59a",
+        "name": "Insert -> process-summaries-completed",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1580,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "54575989.e126a",
+        "type": "debug",
+        "z": "aad5f601.aa59a",
+        "name": "Delete -> process-summaries-active",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1590,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "d755ed57.5dcf08",
+        "type": "debug",
+        "z": "aad5f601.aa59a",
+        "name": "Insert -> process-summaries-active",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1540,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "4fe4c814.1acae",
+        "type": "debug",
+        "z": "aad5f601.aa59a",
+        "name": "Insert -> process-summaries-active",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1560,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "b15ea928.eae44",
+        "type": "debug",
+        "z": "aad5f601.aa59a",
+        "name": "Insert -> process-summaries-active",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1540,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "f86ae212.461198",
+        "type": "comment",
+        "z": "51fcc634.a74e98",
+        "name": "",
+        "info": "processes",
+        "x": 240,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "53c6b3aa.8e275c",
+        "type": "comment",
+        "z": "51fcc634.a74e98",
+        "name": "state of the process",
+        "info": "Active, Completed, Terminated, Failed, Suspended, Resumed, Migrated, Deleted \n\nString constant. Possible values: Active, Completed, Terminated, Failed, Suspended, Resumed, Migrated, Deleted ",
+        "x": 430,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "86a0bcc7.c3ed08",
+        "type": "switch",
+        "z": "51fcc634.a74e98",
+        "name": "Process State",
+        "property": "payload.processApp.instance.state",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Ready",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Active",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Completed",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 260,
+        "y": 500,
+        "wires": [
+            [
+                "53af8125.54825"
+            ],
+            [
+                "b2eafd19.60bb18"
+            ],
+            [
+                "ab1abd7b.5e52f"
+            ]
+        ]
+    },
+    {
+        "id": "ab1abd7b.5e52f",
+        "type": "Parallel Iterator",
+        "z": "51fcc634.a74e98",
+        "name": "Process Iterate",
+        "property": "payload",
+        "saveOutput": 1,
+        "recursive": 1,
+        "storeId": 0,
+        "x": 260,
+        "y": 340,
+        "wires": [
+            [
+                "86a0bcc7.c3ed08"
+            ],
+            [
+                "89b722b1.3f4a78"
+            ]
+        ]
+    },
+    {
+        "id": "89b722b1.3f4a78",
+        "type": "debug",
+        "z": "51fcc634.a74e98",
+        "name": "Final",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "109f5ba2.26115c",
+        "type": "function",
+        "z": "51fcc634.a74e98",
+        "name": "Process-Report-Full",
+        "func": "msg.payload ={\n \"version\": msg.payload.processApp.process.version,\n \"type\": msg.payload.processApp.instance.type,\n \"timestamp\": msg.payload.processApp.instance.timestamp,\n \"bpmCellName\": msg.payload.processApp.system.bpmCellName,\n \"bpmSystemId\": msg.payload.processApp.system.bpmSystemId,\n \"processApplicationSnapshotName\": msg.payload.processApp.application.snapshotName,\n \"processApplicationVersionId\": msg.payload.processApp.application.versionId,\n \"processApplicationName\": msg.payload.processApp.application.name,\n \"processApplicationId\": msg.payload.processApp.application.id,\n \"id\": msg.payload.processApp.instance.id,\n \"trace-id\": msg.payload.processApp.process.traceId,\n \"span-id\": msg.payload.processApp.process.spanId,\n \"processInstanceId\": msg.payload.processApp.instance.instanceId,\n \"shortProcessInstanceId\": msg.payload.processApp.instance.shortId,\n \"processId\": msg.payload.processApp.process.processId,\n \"processVersionId\": msg.payload.processApp.process.versionId,\n \"processSnapshotName\": msg.payload.processApp.process.snapshotName,\n \"name\": msg.payload.processApp.process.name,\n \"state\": msg.payload.processApp.instance.state,\n \"startTime\": msg.payload.processApp.instance.startTime,\n \"completedTime\": msg.payload.processApp.instance.completedTime,\n \"terminatedTime\": msg.payload.processApp.instance.terminatedTime,\n \"failedTime\": msg.payload.processApp.instance.failedTime,\n \"deletedTime\": msg.payload.processApp.instance.deletedTime,\n \"duration\": msg.payload.processApp.instance.duration,\n \"data\": msg.payload.processApp.instance.data,\n \"lastBusinessDataUpdateTime\": msg.payload.processApp.instance.lastBusinessDataUpdateTime,\n \"lastBusinessDataUpdateActivity\": msg.payload.processApp.instance.lastBusinessDataUpdateActivity,\n \"lastBusinessDataUpdateEvent\": msg.payload.processApp.instance.lastBusinessDataUpdateEvent,\n \"lastBusinessDataUpdatePerformer\": msg.payload.processApp.instance.lastBusinessDataUpdatePerformer \n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1240,
+        "y": 480,
+        "wires": [
+            [
+                "edf903cf.69ce18"
+            ]
+        ]
+    },
+    {
+        "id": "edf903cf.69ce18",
+        "type": "debug",
+        "z": "51fcc634.a74e98",
+        "name": "Process-Full",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1470,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "ec69212f.b8f378",
+        "type": "function",
+        "z": "51fcc634.a74e98",
+        "name": "Process Active",
+        "func": "var date = new Date()\nmsg.payload.processApp.instance.timestamp = date.toISOString()\nmsg.payload.processApp.instance.state = \"Active\" // Completed\nmsg.payload.processApp.instance.startTime = date.toISOString() // Active / Completed\n\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 480,
+        "wires": [
+            [
+                "7749c40f.0a513c",
+                "7e74035e.c133f4"
+            ]
+        ]
+    },
+    {
+        "id": "1ab91af4.90adad",
+        "type": "function",
+        "z": "51fcc634.a74e98",
+        "name": "Process Completed",
+        "func": "var date = new Date()\nmsg.payload.processApp.instance.timestamp = date.toISOString()\nmsg.payload.processApp.instance.state = \"Completed\" // Completed\nmsg.payload.processApp.instance.completedTime = date.toISOString()\nmsg.payload.processApp.instance.duration= date.getTime() - new Date(msg.payload.processApp.instance.startTime).getTime()  \n\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 620,
+        "wires": [
+            [
+                "86a0bcc7.c3ed08",
+                "7e74035e.c133f4"
+            ]
+        ]
+    },
+    {
+        "id": "53af8125.54825",
+        "type": "delay",
+        "z": "51fcc634.a74e98",
+        "name": "",
+        "pauseType": "random",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 520,
+        "y": 480,
+        "wires": [
+            [
+                "ec69212f.b8f378"
+            ]
+        ]
+    },
+    {
+        "id": "b2eafd19.60bb18",
+        "type": "delay",
+        "z": "51fcc634.a74e98",
+        "name": "",
+        "pauseType": "random",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 500,
+        "y": 620,
+        "wires": [
+            [
+                "1ab91af4.90adad"
+            ]
+        ]
+    },
+    {
+        "id": "f44f85ed.cf56e",
+        "type": "inject",
+        "z": "51fcc634.a74e98",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[{\"bpmCellName\":\"PCCell1\",\"appName\":\"HR Vacation App\",\"procName\":\"HR Vacation Process\",\"tasks\":[{\"name\":\"HR Send Form\",\"type\":\"userTask\",\"startAfter\":null},{\"name\":\"Approve request\",\"type\":\"userTask\",\"startAfter\":\"HR Send Form\"}]},{\"bpmCellName\":\"PCCell2\",\"appName\":\"Contract Management App\",\"procName\":\"Contract Management Process\",\"tasks\":[{\"name\":\"Send Contract\",\"type\":\"userTask\",\"startAfter\":null},{\"name\":\"Manage Contract\",\"type\":\"userTask\",\"startAfter\":\"Send Contract\"}]},{\"bpmCellName\":\"PCCell3\",\"appName\":\"Purchase Request App\",\"procName\":\"Purchase Request Process\",\"tasks\":[{\"name\":\"Send spending request\",\"type\":\"userTask\",\"startAfter\":null},{\"name\":\"Approve spending request\",\"type\":\"userTask\",\"startAfter\":\"Send spending request\"}]}]",
+        "payloadType": "json",
+        "x": 230,
+        "y": 120,
+        "wires": [
+            [
+                "dc31ea83.8541c8"
+            ]
+        ]
+    },
+    {
+        "id": "cd9334f8.8680a",
+        "type": "function",
+        "z": "51fcc634.a74e98",
+        "name": "Process Payload Ready",
+        "func": "var processApp = { system: {}, application: {}, process: {}, tasks: [], instance: {}};\nvar date = new Date()\n//system: {}\nprocessApp.system.bpmCellName = msg.payload.bpmCellName //fixed for system, when created\nprocessApp.system.bpmSystemId = uuidv4()  // fixed for system, when created\n\n//application: {}\nprocessApp.application.snapshotName = (Math.floor(1+ Math.random() * 10)).toString() // fixed for process application, when created, only for Active Processes\nprocessApp.application.versionId = \"2064.\" + uuidv4()   // fixed for process application, when created\nprocessApp.application.name = msg.payload.appName // fixed for process application, when created\nprocessApp.application.id = uuidv4()  // fixed for process application, when created\n\n//process: {}\nprocessApp.process.version = (Math.floor(1+ Math.random() * 10)).toString()+\".\"+(Math.floor(1+ Math.random() * 10)).toString()+\".\"+(Math.floor(1+ Math.random() * 10)).toString()\nprocessApp.process.processId = uuidv4() //fixed for process, when created\nprocessApp.process.versionId = processApp.application.versionId //fixed for process, when created\nprocessApp.process.snapshotName = processApp.application.snapshotName // fixed for process application, when created, only for Active Processes\nprocessApp.process.name = msg.payload.procName //fixed for process, when created\nprocessApp.process.traceId = uuidv4() //fixed for process, when created\nprocessApp.process.spanId = characters16() //fixed for process, when created\n\n\n\n//instance: {}\nprocessApp.instance.type = \"process\" // process/userTask/…\nprocessApp.instance.timestamp = null // for each new event\nprocessApp.instance.shortId = (Math.floor(1000 + Math.random() * 9000)).toString() // fixed for process instance, when created\n\nprocessApp.instance.id = processApp.process.processId + \".\" + processApp.system.bpmSystemId+ \".\" + processApp.instance.shortId // fixed for process instance, when created\nprocessApp.instance.instanceId = processApp.instance.id //fixed for process instance, when created\nprocessApp.instance.state = \"Ready\" //Ready, Active, Completed, Terminated, Failed, Deleted\nprocessApp.instance.startTime  = null // for Ready / Active / Completed / Terminated\nprocessApp.instance.completedTime = null // date.toISOString() // for Completed – null for others processApp.instance.terminatedTime = null // date.toISOString() // for Terminated– null for others\nprocessApp.instance.failedTime = null // date.toISOString() // for Failed – null for others\nprocessApp.instance.deletedTime = null // date.toISOString() // for Deleted – null for others\nprocessApp.instance.duration= null   // new Date(processApp.instance.completedTime).getTime()- new Date(processApp.instance.startTime).getTime()  // for Completed, for others Terminated, Failed, Deleted times accordingly \n//processApp.instance.data = {},\nprocessApp.instance.data = {\n    \"trackingGroupName\": {\n      \"@ids\": {\n        \"trackingGroupId\": \"guid:006677479b8357ba:42c2f804:17a438721fc:-7fb8\",\n        \"trackingGroupVersionId\": processApp.application.versionId\n      },\n      \"businessNumber.integer\": Math.floor(1+ Math.random() * 100),\n      \"businessName.string\": \"true\"\n    }\n  }\n\nprocessApp.instance.lastBusinessDataUpdateTime =  null,\nprocessApp.instance.lastBusinessDataUpdateActivity = null,\nprocessApp.instance.lastBusinessDataUpdateEvent = null,\nprocessApp.instance.lastBusinessDataUpdatePerformer = null\n\n//tasks: []\nprocessApp.tasks = msg.payload.tasks\n\n\n\nmsg.payload = {processApp}\nreturn msg;\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n\nfunction characters16() {\n  return 'xxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 200,
+        "wires": [
+            [
+                "89cac1cb.0f96f"
+            ]
+        ]
+    },
+    {
+        "id": "dc31ea83.8541c8",
+        "type": "Parallel Iterator",
+        "z": "51fcc634.a74e98",
+        "name": "Process Ready",
+        "property": "payload",
+        "saveOutput": 1,
+        "recursive": 0,
+        "storeId": 0,
+        "x": 260,
+        "y": 220,
+        "wires": [
+            [
+                "cd9334f8.8680a"
+            ],
+            [
+                "ab1abd7b.5e52f"
+            ]
+        ]
+    },
+    {
+        "id": "89cac1cb.0f96f",
+        "type": "change",
+        "z": "51fcc634.a74e98",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payloadLog",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payloadLog.processApp.tasks",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 880,
+        "y": 200,
+        "wires": [
+            [
+                "643b8eb5.63461"
+            ]
+        ]
+    },
+    {
+        "id": "643b8eb5.63461",
+        "type": "Parallel Iterator",
+        "z": "51fcc634.a74e98",
+        "name": "Task Created",
+        "property": "payload",
+        "saveOutput": 1,
+        "recursive": 0,
+        "storeId": 1,
+        "x": 1170,
+        "y": 200,
+        "wires": [
+            [
+                "2354818.f0769fe"
+            ],
+            [
+                "40ef1607.89325"
+            ]
+        ]
+    },
+    {
+        "id": "2354818.f0769fe",
+        "type": "function",
+        "z": "51fcc634.a74e98",
+        "name": "Task Payload Created",
+        "func": "var task = {}\n\ntask.name = msg.payload.name\ntask.type = msg.payload.type\ntask.state = \"Created\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\ntask.timestamp = null // -> \"timestamp\" - for each event\ntask.potentialPerformerId = \"All Users_T_da7e4d23-78cb-4483-98ed-b9c238308a03.9a624e3d-96a8-423f-976f-121aa51af98c\"\ntask.potentialPerformerName = \"All Users\"\ntask.performerId = null\ntask.performerName = null\ntask.activityId = uuidv4()\ntask.activityVersionId = msg.payloadLog.processApp.application.versionId\ntask.id =  task.state === \"Completed\" ? msg.payloadLog.processApp.instance.id+\".5\" : msg.payloadLog.processApp.instance.id+\".6\";\ntask.taskInstanceId = (Math.floor(999 + Math.random() * 9000)).toString()\ntask.taskRecord = {\n    \"displayName\": task.name,\n    \"status\": null,\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\n\ntask.startTime = null  //The time at which the activity started\ntask.claimedTime = null \ntask.completedTime = null \ntask.terminatedTime = null \ntask.failedTime = null \ntask.waitDuration = null \ntask.executionDuration = null \ntask.duration = null \ntask.startAfter = msg.payload.startAfter\nmsg.payload = {task}\n\nreturn msg;\n\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1180,
+        "y": 120,
+        "wires": [
+            [
+                "643b8eb5.63461"
+            ]
+        ]
+    },
+    {
+        "id": "40ef1607.89325",
+        "type": "change",
+        "z": "51fcc634.a74e98",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payloadLog.processApp.tasks",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payloadLog",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1380,
+        "y": 220,
+        "wires": [
+            [
+                "dc31ea83.8541c8"
+            ]
+        ]
+    },
+    {
+        "id": "323aa5cb.f27732",
+        "type": "switch",
+        "z": "51fcc634.a74e98",
+        "name": "Task State",
+        "property": "payload.task.state",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Created",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Unclaimed",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Claimed",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Active",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Completed",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 5,
+        "x": 210,
+        "y": 1080,
+        "wires": [
+            [
+                "cb6da74f.35bac"
+            ],
+            [
+                "f5f7f67b.946198"
+            ],
+            [
+                "c6ac0915.455a8"
+            ],
+            [
+                "984b6b63.df3678"
+            ],
+            [
+                "5bdce16f.f9e428"
+            ]
+        ]
+    },
+    {
+        "id": "f5f7f67b.946198",
+        "type": "delay",
+        "z": "51fcc634.a74e98",
+        "name": "",
+        "pauseType": "random",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 540,
+        "y": 1040,
+        "wires": [
+            [
+                "95069cfb.b437f8"
+            ]
+        ]
+    },
+    {
+        "id": "cb6da74f.35bac",
+        "type": "function",
+        "z": "51fcc634.a74e98",
+        "name": "Task Unclaimed",
+        "func": "var date = new Date()\n\n\nmsg.payload.task.state = \"Unclaimed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nmsg.payload.task.timestamp = date.toISOString()\nmsg.payload.task.performerId = null\nmsg.payload.task.performerName = null\nmsg.payload.task.taskRecord = {\n    \"displayName\": msg.payload.task.name,\n    \"status\": null,\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\n\nmsg.payload.task.startTime = date.toISOString() //The time at which the activity started\nmsg.payload.task.claimedTime = null \nmsg.payload.task.completedTime = null \nmsg.payload.task.terminatedTime = null \nmsg.payload.task.failedTime = null \nmsg.payload.task.waitDuration = null \nmsg.payload.task.executionDuration = null \nmsg.payload.task.duration = null \n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 960,
+        "wires": [
+            [
+                "323aa5cb.f27732",
+                "64c90707.a9c3c8"
+            ]
+        ]
+    },
+    {
+        "id": "95069cfb.b437f8",
+        "type": "function",
+        "z": "51fcc634.a74e98",
+        "name": "Task Claimed",
+        "func": "var date = new Date()\n\nmsg.payload.task.state = \"Claimed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nmsg.payload.task.timestamp = date.toISOString()\nmsg.payload.task.performerId = \"admin\"\nmsg.payload.task.performerName = \"admin\"\nmsg.payload.task.taskRecord = {\n    \"displayName\": msg.payload.task.name,\n    \"status\": msg.payload.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\n\nmsg.payload.task.claimedTime = date.toISOString() \nmsg.payload.task.completedTime = null \nmsg.payload.task.terminatedTime = null \nmsg.payload.task.failedTime = null \nmsg.payload.task.waitDuration = date.getTime() - new Date(msg.payload.task.startTime).getTime()  \nmsg.payload.task.executionDuration = null \nmsg.payload.task.duration = null \n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 1040,
+        "wires": [
+            [
+                "323aa5cb.f27732",
+                "64c90707.a9c3c8"
+            ]
+        ]
+    },
+    {
+        "id": "6096961b.4bee08",
+        "type": "function",
+        "z": "51fcc634.a74e98",
+        "name": "Task Active",
+        "func": "var date = new Date()\n\nmsg.payload.task.state = \"Active\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nmsg.payload.task.timestamp = date.toISOString()\nmsg.payload.task.taskRecord = {\n    \"displayName\": msg.payload.task.name,\n    \"status\": msg.payload.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\n\nmsg.payload.task.completedTime = null \nmsg.payload.task.terminatedTime = null \nmsg.payload.task.failedTime = null \nmsg.payload.task.executionDuration = null \nmsg.payload.task.duration = null \n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 730,
+        "y": 1160,
+        "wires": [
+            [
+                "323aa5cb.f27732",
+                "64c90707.a9c3c8"
+            ]
+        ]
+    },
+    {
+        "id": "50fcbeaa.90bfc8",
+        "type": "function",
+        "z": "51fcc634.a74e98",
+        "name": "Task Completed",
+        "func": "var date = new Date()\n\nmsg.payload.task.state = \"Completed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nmsg.payload.task.timestamp = date.toISOString()\nmsg.payload.task.taskRecord = {\n    \"displayName\": msg.payload.task.name,\n    \"status\": msg.payload.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\n\nmsg.payload.task.completedTime = date.toISOString() \nmsg.payload.task.terminatedTime = null \nmsg.payload.task.failedTime = null \nmsg.payload.task.executionDuration = date.getTime() - new Date(msg.payload.task.claimedTime).getTime()  \nmsg.payload.task.duration = date.getTime() - new Date(msg.payload.task.startTime).getTime()  \n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 800,
+        "y": 1280,
+        "wires": [
+            [
+                "323aa5cb.f27732",
+                "64c90707.a9c3c8"
+            ]
+        ]
+    },
+    {
+        "id": "c6ac0915.455a8",
+        "type": "delay",
+        "z": "51fcc634.a74e98",
+        "name": "",
+        "pauseType": "random",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 560,
+        "y": 1160,
+        "wires": [
+            [
+                "6096961b.4bee08"
+            ]
+        ]
+    },
+    {
+        "id": "984b6b63.df3678",
+        "type": "delay",
+        "z": "51fcc634.a74e98",
+        "name": "",
+        "pauseType": "random",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 560,
+        "y": 1280,
+        "wires": [
+            [
+                "50fcbeaa.90bfc8"
+            ]
+        ]
+    },
+    {
+        "id": "5bdce16f.f9e428",
+        "type": "Parallel Iterator",
+        "z": "51fcc634.a74e98",
+        "name": "Task Iterate",
+        "property": "payload",
+        "saveOutput": 1,
+        "recursive": 1,
+        "storeId": 1,
+        "x": 230,
+        "y": 860,
+        "wires": [
+            [
+                "323aa5cb.f27732"
+            ],
+            [
+                "f10c61ff.95e69"
+            ]
+        ]
+    },
+    {
+        "id": "d607bbc5.28698",
+        "type": "function",
+        "z": "51fcc634.a74e98",
+        "name": "Task-Report-Full",
+        "func": "msg.payload ={\n \"version\": msg.payloadLog.processApp.process.version,\n \"type\": msg.payload.task.type,\n \"timestamp\": msg.payload.task.timestamp,\n \"bpmCellName\": msg.payloadLog.processApp.system.bpmCellName,\n \"bpmSystemId\": msg.payloadLog.processApp.system.bpmSystemId,\n \"potentialPerformerId\": msg.payload.task.potentialPerformerId,\n \"potentialPerformerName\": msg.payload.task.potentialPerformerName,\n \"performerId\": msg.payload.task.performerId,\n \"performerName\": msg.payload.task.performerName,\n \"name\": msg.payload.task.name,\n \"activityId\": msg.payload.task.activityId,\n \"activityVersionId\": msg.payload.task.activityVersionId,\n \"id\": msg.payload.task.id,\n \"trace-id\": msg.payloadLog.processApp.process.traceId,\n \"span-id\": msg.payloadLog.processApp.process.spanId,\n \"taskInstanceId\": msg.payload.task.taskInstanceId,\n \"processApplicationId\": msg.payloadLog.processApp.application.id,\n \"processApplicationVersionId\": msg.payloadLog.processApp.application.versionId,\n \"processApplicationName\": msg.payloadLog.processApp.application.name,\n \"processApplicationSnapshotName\": msg.payloadLog.processApp.application.snapshotName,\n \"processId\": msg.payloadLog.processApp.process.processId,\n \"processVersionId\": msg.payloadLog.processApp.process.versionId,\n \"processInstanceId\": msg.payloadLog.processApp.instance.instanceId,\n \"shortProcessInstanceId\": msg.payloadLog.processApp.instance.shortId,\n \"processSnapshotName\": msg.payloadLog.processApp.process.snapshotName,\n \"processName\": msg.payloadLog.processApp.process.name,\n \"state\": msg.payload.task.state,\n \"taskRecord\": {\n     \"displayName\": msg.payload.task.taskRecord.displayName,\n     \"status\": msg.payload.task.taskRecord.status,\n     \"dueDate\": msg.payload.task.taskRecord.dueDate,\n     \"atRiskTime\": msg.payload.task.taskRecord.atRiskTime,\n     \"completionTime\": msg.payload.task.taskRecord.completionTime,\n     \"priority\": msg.payload.task.taskRecord.priority\n },\n \"startTime\": msg.payload.task.startTime,\n \"claimedTime\": msg.payload.task.claimedTime,\n \"completedTime\": msg.payload.task.completedTime,\n \"terminatedTime\": msg.payload.task.terminatedTime,\n \"failedTime\": msg.payload.task.failedTime,\n \"waitDuration\": msg.payload.task.waitDuration,\n \"executionDuration\": msg.payload.task.executionDuration,\n \"duration\": msg.payload.task.duration,\n \"data\": msg.payloadLog.processApp.instance.data\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1240,
+        "y": 1040,
+        "wires": [
+            [
+                "b2449fa9.0126f8"
+            ]
+        ]
+    },
+    {
+        "id": "b2449fa9.0126f8",
+        "type": "debug",
+        "z": "51fcc634.a74e98",
+        "name": "Task-Full",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1480,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "7749c40f.0a513c",
+        "type": "change",
+        "z": "51fcc634.a74e98",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payloadLog",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payloadLog.processApp.tasks",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 760,
+        "wires": [
+            [
+                "5bdce16f.f9e428"
+            ]
+        ]
+    },
+    {
+        "id": "f10c61ff.95e69",
+        "type": "change",
+        "z": "51fcc634.a74e98",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payloadLog.processApp.tasks",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payloadLog",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 840,
+        "wires": [
+            [
+                "86a0bcc7.c3ed08"
+            ]
+        ]
+    },
+    {
+        "id": "7e74035e.c133f4",
+        "type": "function",
+        "z": "51fcc634.a74e98",
+        "name": "",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 480,
+        "wires": [
+            [
+                "109f5ba2.26115c",
+                "918ab24f.3dd748"
+            ]
+        ]
+    },
+    {
+        "id": "918ab24f.3dd748",
+        "type": "function",
+        "z": "51fcc634.a74e98",
+        "name": "Process-Report-Short",
+        "func": "msg.payload ={\n \"type\": msg.payload.processApp.instance.type,\n \"processApplicationName\": msg.payload.processApp.application.name,\n \"name\": msg.payload.processApp.process.name,\n \"state\": msg.payload.processApp.instance.state,\n \"startTime\": msg.payload.processApp.instance.startTime,\n \"completedTime\": msg.payload.processApp.instance.completedTime,\n \"duration\": msg.payload.processApp.instance.duration\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1240,
+        "y": 520,
+        "wires": [
+            [
+                "aad4a86.e7538d8"
+            ]
+        ]
+    },
+    {
+        "id": "64c90707.a9c3c8",
+        "type": "function",
+        "z": "51fcc634.a74e98",
+        "name": "",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1040,
+        "y": 1060,
+        "wires": [
+            [
+                "d607bbc5.28698",
+                "facf2a13.2ac6d8"
+            ]
+        ]
+    },
+    {
+        "id": "facf2a13.2ac6d8",
+        "type": "function",
+        "z": "51fcc634.a74e98",
+        "name": "Task-Report-Short",
+        "func": "msg.payload ={\n \"type\": msg.payload.task.type,\n \"name\": msg.payload.task.name,\n \"processApplicationName\": msg.payloadLog.processApp.application.name,\n \"processName\": msg.payloadLog.processApp.process.name,\n \"state\": msg.payload.task.state,\n \"startTime\": msg.payload.task.startTime,\n \"claimedTime\": msg.payload.task.claimedTime,\n \"completedTime\": msg.payload.task.completedTime,\n \"waitDuration\": msg.payload.task.waitDuration,\n \"executionDuration\": msg.payload.task.executionDuration,\n \"duration\": msg.payload.task.duration\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1250,
+        "y": 1100,
+        "wires": [
+            [
+                "62f267d.1ff9a98"
+            ]
+        ]
+    },
+    {
+        "id": "aad4a86.e7538d8",
+        "type": "debug",
+        "z": "51fcc634.a74e98",
+        "name": "Process-Short",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1480,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "62f267d.1ff9a98",
+        "type": "debug",
+        "z": "51fcc634.a74e98",
+        "name": "Task-Short",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1470,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "36bca280.da79b6",
+        "type": "inject",
+        "z": "51fcc634.a74e98",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[{\"bpmCellName\":\"PCCell1\",\"appName\":\"HR Vacation App\",\"procName\":\"HR Vacation Process\",\"tasks\":[{\"name\":\"HR Send Form\",\"type\":\"userTask\",\"startAfter\":null},{\"name\":\"Approve request\",\"type\":\"userTask\",\"startAfter\":\"HR Send Form\"}]},{\"bpmCellName\":\"PCCell2\",\"appName\":\"Contract Management App\",\"procName\":\"Contract Management Process\",\"tasks\":[{\"name\":\"Send Contract\",\"type\":\"userTask\",\"startAfter\":null},{\"name\":\"Manage Contract\",\"type\":\"userTask\",\"startAfter\":\"Send Contract\"}]},{\"bpmCellName\":\"PCCell3\",\"appName\":\"Purchase Request App\",\"procName\":\"Purchase Request Process\",\"tasks\":[{\"name\":\"Send spending request\",\"type\":\"userTask\",\"startAfter\":null},{\"name\":\"Approve spending request\",\"type\":\"userTask\",\"startAfter\":\"Send spending request\"}]}]",
+        "payloadType": "json",
+        "x": 450,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6f691f08.b9fe1",
+        "type": "elasticsearch-index",
+        "z": "51fcc634.a74e98",
+        "name": "process-summaries-completed",
+        "server": "f4be98fb.fb1858",
+        "index": "process-summaries-completed-idx-ibm-bai-2020.03.30-000001",
+        "esType": "_doc",
+        "esId": "",
+        "routing": "",
+        "x": 1710,
+        "y": 960,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "769cf78c.f7f478",
+        "type": "debug",
+        "z": "51fcc634.a74e98",
+        "name": "Insert -> process-summaries-active",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1600,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "84987523.1b0138",
+        "type": "debug",
+        "z": "51fcc634.a74e98",
+        "name": "Insert -> process-summaries-completed",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1640,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "565b6e45.a0eb",
+        "type": "debug",
+        "z": "51fcc634.a74e98",
+        "name": "Delete -> process-summaries-active",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1650,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "64e73f9a.3aaca",
+        "type": "debug",
+        "z": "51fcc634.a74e98",
+        "name": "Insert -> process-summaries-completed",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1680,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "b4a9baae.34a148",
+        "type": "debug",
+        "z": "51fcc634.a74e98",
+        "name": "Delete -> process-summaries-active",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1690,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "1b17c972.111d37",
+        "type": "debug",
+        "z": "51fcc634.a74e98",
+        "name": "Insert -> process-summaries-active",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1640,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "ccfbd383.ae91e8",
+        "type": "debug",
+        "z": "51fcc634.a74e98",
+        "name": "Insert -> process-summaries-active",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1660,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "f65572c4.e851e",
+        "type": "debug",
+        "z": "51fcc634.a74e98",
+        "name": "Insert -> process-summaries-active",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1640,
+        "y": 700,
+        "wires": []
     }
 ]
