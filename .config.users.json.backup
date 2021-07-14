@@ -1,0 +1,25 @@
+{
+    "_": {
+        "editor": {
+            "view": {
+                "view-show-grid": true,
+                "view-snap-grid": true,
+                "view-grid-size": "20",
+                "view-node-status": true,
+                "view-node-show-label": true,
+                "view-show-tips": true
+            }
+        },
+        "git": {
+            "user": {
+                "name": "adamdomowy44",
+                "email": "adamdomowy44@gmail.com"
+            },
+            "workflow": {
+                "mode": "manual"
+            }
+        },
+        "menu-menu-item-sidebar": false,
+        "menu-menu-item-palette": true
+    }
+}

@@ -1,0 +1,38 @@
+{
+    "projects": {
+        "tmp": {
+            "credentialSecret": false
+        },
+        "MyMock": {
+            "credentialSecret": false
+        },
+        "MyDevice": {
+            "credentialSecret": false
+        },
+        "Tello-Control": {
+            "credentialSecret": false
+        },
+        "System-diagnostic-framework": {
+            "credentialSecret": false
+        },
+        "System-Information-Monitor": {
+            "credentialSecret": false
+        },
+        "e-Sprawozdania": {
+            "credentialSecret": false
+        },
+        "DataPowerMock": {
+            "credentialSecret": false
+        },
+        "BAIMessageGenerator": {
+            "credentialSecret": false
+        },
+        "BAI2Elastic": {
+            "credentialSecret": false
+        },
+        "finite-statemachine": {
+            "credentialSecret": false
+        }
+    },
+    "activeProject": "DataPowerMock"
+}
