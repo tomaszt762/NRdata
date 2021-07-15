@@ -1477,5 +1477,25 @@
                 "file": "/data/node_modules/node-red-contrib-xstate-machine/dist/smxstate-node.js"
             }
         }
+    },
+    "node-red-contrib-data-mapper": {
+        "name": "node-red-contrib-data-mapper",
+        "version": "1.3.5",
+        "local": true,
+        "user": true,
+        "nodes": {
+            "data-mapper": {
+                "name": "data-mapper",
+                "types": [
+                    "data-mapper",
+                    "json-config"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-data-mapper",
+                "file": "/data/node_modules/node-red-contrib-data-mapper/data-mapper/data-mapper.js"
+            }
+        }
     }
 }

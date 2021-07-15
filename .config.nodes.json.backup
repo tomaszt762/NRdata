@@ -1439,5 +1439,43 @@
                 "file": "/data/node_modules/node-red-contrib-parallel-iterator/91-02-pr-iterator.js"
             }
         }
+    },
+    "node-red-contrib-cpu": {
+        "name": "node-red-contrib-cpu",
+        "version": "0.0.4",
+        "local": true,
+        "user": true,
+        "nodes": {
+            "cpu": {
+                "name": "cpu",
+                "types": [
+                    "cpu"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-cpu",
+                "file": "/data/node_modules/node-red-contrib-cpu/cpu.js"
+            }
+        }
+    },
+    "node-red-contrib-xstate-machine": {
+        "name": "node-red-contrib-xstate-machine",
+        "version": "1.1.1",
+        "local": true,
+        "user": true,
+        "nodes": {
+            "smxstate": {
+                "name": "smxstate",
+                "types": [
+                    "smxstate"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-xstate-machine",
+                "file": "/data/node_modules/node-red-contrib-xstate-machine/dist/smxstate-node.js"
+            }
+        }
     }
 }
