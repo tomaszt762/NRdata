@@ -1,15 +1,22 @@
 [
     {
-        "id": "ac7ad237.345298",
+        "id": "aad5f601.aa59a",
         "type": "tab",
-        "label": "process-summary",
+        "label": "_Flow Origin",
         "disabled": false,
         "info": ""
     },
     {
-        "id": "aad5f601.aa59a",
+        "id": "68bf0c84ba2199fe",
         "type": "tab",
-        "label": "_Flow 5",
+        "label": "Flow Current",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "ac7ad237.345298",
+        "type": "tab",
+        "label": "process-summary",
         "disabled": false,
         "info": ""
     },
@@ -24,6 +31,20 @@
         "id": "2cd5237f.2d6494",
         "type": "tab",
         "label": "Load EK with process data",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "9f82815d.3d662",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "bf2ed32e8683912b",
+        "type": "tab",
+        "label": "Flow 2",
         "disabled": false,
         "info": ""
     },
@@ -276,6 +297,56 @@
         "hidden": false
     },
     {
+        "id": "cb11524377dc4b34",
+        "type": "Device Schema",
+        "deviceType": "yyy",
+        "props": [
+            {
+                "guid": "0d433cdd7f55",
+                "name": "name",
+                "random": {
+                    "func": "string",
+                    "args": {
+                        "length": 5
+                    }
+                }
+            },
+            {
+                "guid": "189cd65b0747",
+                "name": "number",
+                "random": {
+                    "func": "integer",
+                    "args": {
+                        "min": 0,
+                        "max": 100
+                    }
+                }
+            }
+        ],
+        "evts": [
+            {
+                "guid": "8b33f6d312df",
+                "name": ""
+            }
+        ]
+    },
+    {
+        "id": "5caf76d76a437fe4",
+        "type": "shared-state",
+        "name": "tasksCompleted",
+        "lbl": "",
+        "tags": "",
+        "historyCount": "0",
+        "dataType": "str",
+        "boolType": "str",
+        "boolStrTrue": "",
+        "boolStrFalse": "",
+        "precision": "",
+        "numMin": "",
+        "numMax": "",
+        "unit": ""
+    },
+    {
         "id": "a697a348.73a588",
         "type": "function",
         "z": "ac7ad237.345298",
@@ -509,7 +580,7 @@
         "property": "payload",
         "action": "str",
         "pretty": false,
-        "x": 330,
+        "x": 350,
         "y": 100,
         "wires": [
             [
@@ -613,7 +684,7 @@
         "property": "payload",
         "action": "str",
         "pretty": false,
-        "x": 310,
+        "x": 330,
         "y": 240,
         "wires": [
             [
@@ -847,7 +918,7 @@
         "type": "function",
         "z": "aad5f601.aa59a",
         "name": "Process-Report-Full",
-        "func": "msg.payload ={\n \"version\": msg.payload.processApp.process.version,\n \"type\": msg.payload.processApp.instance.type,\n \"timestamp\": msg.payload.processApp.instance.timestamp,\n \"bpmCellName\": msg.payload.processApp.system.bpmCellName,\n \"bpmSystemId\": msg.payload.processApp.system.bpmSystemId,\n \"processApplicationSnapshotName\": msg.payload.processApp.application.snapshotName,\n \"processApplicationVersionId\": msg.payload.processApp.application.versionId,\n \"processApplicationName\": msg.payload.processApp.application.name,\n \"processApplicationId\": msg.payload.processApp.application.id,\n \"id\": msg.payload.processApp.instance.id,\n \"trace-id\": msg.payload.processApp.process.traceId,\n \"span-id\": msg.payload.processApp.process.spanId,\n \"processInstanceId\": msg.payload.processApp.instance.instanceId,\n \"shortProcessInstanceId\": msg.payload.processApp.instance.shortId,\n \"processId\": msg.payload.processApp.process.processId,\n \"processVersionId\": msg.payload.processApp.process.versionId,\n \"processSnapshotName\": msg.payload.processApp.process.snapshotName,\n \"name\": msg.payload.processApp.process.name,\n \"state\": msg.payload.processApp.instance.state,\n \"startTime\": msg.payload.processApp.instance.startTime,\n \"completedTime\": msg.payload.processApp.instance.completedTime,\n \"terminatedTime\": msg.payload.processApp.instance.terminatedTime,\n \"failedTime\": msg.payload.processApp.instance.failedTime,\n \"deletedTime\": msg.payload.processApp.instance.deletedTime,\n \"duration\": msg.payload.processApp.instance.duration,\n \"data\": msg.payload.processApp.instance.data,\n \"lastBusinessDataUpdateTime\": msg.payload.processApp.instance.lastBusinessDataUpdateTime,\n \"lastBusinessDataUpdateActivity\": msg.payload.processApp.instance.lastBusinessDataUpdateActivity,\n \"lastBusinessDataUpdateEvent\": msg.payload.processApp.instance.lastBusinessDataUpdateEvent,\n \"lastBusinessDataUpdatePerformer\": msg.payload.processApp.instance.lastBusinessDataUpdatePerformer \n}\nreturn msg;",
+        "func": "msg.payload ={\n \"_id\": msg.payload.processApp.instance.id,\n \"version\": msg.payload.processApp.process.version,\n \"type\": msg.payload.processApp.instance.type,\n \"timestamp\": msg.payload.processApp.instance.timestamp,\n \"bpmCellName\": msg.payload.processApp.system.bpmCellName,\n \"bpmSystemId\": msg.payload.processApp.system.bpmSystemId,\n \"processApplicationSnapshotName\": msg.payload.processApp.application.snapshotName,\n \"processApplicationVersionId\": msg.payload.processApp.application.versionId,\n \"processApplicationName\": msg.payload.processApp.application.name,\n \"processApplicationId\": msg.payload.processApp.application.id,\n \"id\": msg.payload.processApp.instance.id,\n \"trace-id\": msg.payload.processApp.process.traceId,\n \"span-id\": msg.payload.processApp.process.spanId,\n \"processInstanceId\": msg.payload.processApp.instance.instanceId,\n \"shortProcessInstanceId\": msg.payload.processApp.instance.shortId,\n \"processId\": msg.payload.processApp.process.processId,\n \"processVersionId\": msg.payload.processApp.process.versionId,\n \"processSnapshotName\": msg.payload.processApp.process.snapshotName,\n \"name\": msg.payload.processApp.process.name,\n \"state\": msg.payload.processApp.instance.state,\n \"startTime\": msg.payload.processApp.instance.startTime,\n \"completedTime\": msg.payload.processApp.instance.completedTime,\n \"terminatedTime\": msg.payload.processApp.instance.terminatedTime,\n \"failedTime\": msg.payload.processApp.instance.failedTime,\n \"deletedTime\": msg.payload.processApp.instance.deletedTime,\n \"duration\": msg.payload.processApp.instance.duration,\n \"data\": msg.payload.processApp.instance.data,\n \"lastBusinessDataUpdateTime\": msg.payload.processApp.instance.lastBusinessDataUpdateTime,\n \"lastBusinessDataUpdateActivity\": msg.payload.processApp.instance.lastBusinessDataUpdateActivity,\n \"lastBusinessDataUpdateEvent\": msg.payload.processApp.instance.lastBusinessDataUpdateEvent,\n \"lastBusinessDataUpdatePerformer\": msg.payload.processApp.instance.lastBusinessDataUpdatePerformer \n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -866,7 +937,7 @@
         "type": "debug",
         "z": "aad5f601.aa59a",
         "name": "Process-Full",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1170,8 +1241,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 5,
-        "x": 110,
-        "y": 960,
+        "x": 150,
+        "y": 940,
         "wires": [
             [
                 "493141ce.1c1488"
@@ -1195,14 +1266,14 @@
         "type": "function",
         "z": "aad5f601.aa59a",
         "name": "Task Unclaimed",
-        "func": "var date = new Date()\n\n\nmsg.payload.task.state = \"Unclaimed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nmsg.payload.task.timestamp = date.toISOString()\nmsg.payload.task.performerId = null\nmsg.payload.task.performerName = null\nmsg.payload.task.taskRecord = {\n    \"displayName\": msg.payload.task.name,\n    \"status\": msg.payload.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": date.setHours( date.getHours() + parseInt(24)), //?\n    \"atRiskTime\": date.setHours( date.getHours() + parseInt(23)), //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\n\nmsg.payload.task.startTime = date.toISOString() //The time at which the activity started\nmsg.payload.task.claimedTime = null \nmsg.payload.task.completedTime = null \nmsg.payload.task.terminatedTime = null \nmsg.payload.task.failedTime = null \nmsg.payload.task.waitDuration = null \nmsg.payload.task.executionDuration = null \nmsg.payload.task.duration = null \n\nreturn msg;",
+        "func": "var date = new Date()\n\n\nmsg.payload.task.state = \"Unclaimed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nmsg.payload.task.timestamp = date.toISOString()\nmsg.payload.task.performerId = null\nmsg.payload.task.performerName = null\nmsg.payload.task.id =  msg.payload.task.state === \"Completed\" ? msg.payloadLog.processApp.instance.id+\".5\" : msg.payloadLog.processApp.instance.id+\".6\";\nmsg.payload.task.taskRecord = {\n    \"displayName\": msg.payload.task.name,\n    \"status\": msg.payload.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": date.setHours( date.getHours() + parseInt(24)), //?\n    \"atRiskTime\": date.setHours( date.getHours() + parseInt(23)), //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\n\nmsg.payload.task.startTime = date.toISOString() //The time at which the activity started\nmsg.payload.task.claimedTime = null \nmsg.payload.task.completedTime = null \nmsg.payload.task.terminatedTime = null \nmsg.payload.task.failedTime = null \nmsg.payload.task.waitDuration = null \nmsg.payload.task.executionDuration = null \nmsg.payload.task.duration = null \n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 580,
-        "y": 780,
+        "x": 680,
+        "y": 720,
         "wires": [
             [
                 "dbb974cc.1885b8",
@@ -1215,14 +1286,14 @@
         "type": "function",
         "z": "aad5f601.aa59a",
         "name": "Task Claimed",
-        "func": "var date = new Date()\n\nmsg.payload.task.state = \"Claimed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nmsg.payload.task.timestamp = date.toISOString()\nmsg.payload.task.performerId = msg.performer.user\nmsg.payload.task.performerName = msg.performer.user\nmsg.payload.task.taskRecord = {\n    \"displayName\": msg.payload.task.taskRecord.displayName,\n    \"status\": msg.payload.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": msg.payload.task.taskRecord.dueDate, //?\n    \"atRiskTime\": msg.payload.task.taskRecord.atRiskTime, //?\n    \"completionTime\": msg.payload.task.taskRecord.completionTime, //?\n    \"priority\": \"Normal\"\n  }\n\nmsg.payload.task.claimedTime = date.toISOString() \nmsg.payload.task.completedTime = null \nmsg.payload.task.terminatedTime = null \nmsg.payload.task.failedTime = null \nmsg.payload.task.waitDuration = date.getTime() - new Date(msg.payload.task.startTime).getTime()  \nmsg.payload.task.executionDuration = null \nmsg.payload.task.duration = null \n\nreturn msg;",
+        "func": "var date = new Date()\n\nmsg.payload.task.state = \"Claimed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nmsg.payload.task.timestamp = date.toISOString()\nmsg.payload.task.performerId = msg.performer.user\nmsg.payload.task.performerName = msg.performer.user\nmsg.payload.task.id =  msg.payload.task.state === \"Completed\" ? msg.payloadLog.processApp.instance.id+\".5\" : msg.payloadLog.processApp.instance.id+\".6\";\nmsg.payload.task.taskRecord = {\n    \"displayName\": msg.payload.task.taskRecord.displayName,\n    \"status\": msg.payload.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": msg.payload.task.taskRecord.dueDate, //?\n    \"atRiskTime\": msg.payload.task.taskRecord.atRiskTime, //?\n    \"completionTime\": msg.payload.task.taskRecord.completionTime, //?\n    \"priority\": \"Normal\"\n  }\n\nmsg.payload.task.claimedTime = date.toISOString() \nmsg.payload.task.completedTime = null \nmsg.payload.task.terminatedTime = null \nmsg.payload.task.failedTime = null \nmsg.payload.task.waitDuration = date.getTime() - new Date(msg.payload.task.startTime).getTime()  \nmsg.payload.task.executionDuration = null \nmsg.payload.task.duration = null \n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 780,
-        "y": 900,
+        "x": 760,
+        "y": 880,
         "wires": [
             [
                 "dbb974cc.1885b8",
@@ -1235,7 +1306,7 @@
         "type": "function",
         "z": "aad5f601.aa59a",
         "name": "Task Active",
-        "func": "var date = new Date()\n\nmsg.payload.task.state = \"Active\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nmsg.payload.task.timestamp = date.toISOString()\nmsg.payload.task.performerId = msg.performer.user\nmsg.payload.task.performerName = msg.performer.user\nmsg.payload.task.taskRecord = {\n    \"displayName\": msg.payload.task.taskRecord.displayName,\n    \"status\": msg.payload.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": msg.payload.task.taskRecord.dueDate, //?\n    \"atRiskTime\": msg.payload.task.taskRecord.atRiskTime, //?\n    \"completionTime\": msg.payload.task.taskRecord.completionTime, //?\n    \"priority\": \"Normal\"\n  }\n\nmsg.payload.task.completedTime = null \nmsg.payload.task.terminatedTime = null \nmsg.payload.task.failedTime = null \nmsg.payload.task.executionDuration = null \nmsg.payload.task.duration = null \n\nreturn msg;",
+        "func": "var date = new Date()\n\nmsg.payload.task.state = \"Active\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nmsg.payload.task.timestamp = date.toISOString()\nmsg.payload.task.performerId = msg.performer.user\nmsg.payload.task.performerName = msg.performer.user\nmsg.payload.task.id =  msg.payload.task.state === \"Completed\" ? msg.payloadLog.processApp.instance.id+\".5\" : msg.payloadLog.processApp.instance.id+\".6\";\nmsg.payload.task.taskRecord = {\n    \"displayName\": msg.payload.task.taskRecord.displayName,\n    \"status\": msg.payload.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": msg.payload.task.taskRecord.dueDate, //?\n    \"atRiskTime\": msg.payload.task.taskRecord.atRiskTime, //?\n    \"completionTime\": msg.payload.task.taskRecord.completionTime, //?\n    \"priority\": \"Normal\"\n  }\n\nmsg.payload.task.completedTime = null \nmsg.payload.task.terminatedTime = null \nmsg.payload.task.failedTime = null \nmsg.payload.task.executionDuration = null \nmsg.payload.task.duration = null \n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1255,7 +1326,7 @@
         "type": "function",
         "z": "aad5f601.aa59a",
         "name": "Task Completed",
-        "func": "var date = new Date()\n\nmsg.payload.task.state = \"Completed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nmsg.payload.task.timestamp = date.toISOString()\nmsg.payload.task.performerId = msg.performer.user\nmsg.payload.task.performerName = msg.performer.user\nmsg.payload.task.taskRecord = {\n    \"displayName\": msg.payload.task.taskRecord.displayName,\n    \"status\": msg.payload.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": msg.payload.task.taskRecord.dueDate, //?\n    \"atRiskTime\": msg.payload.task.taskRecord.atRiskTime, //?\n    \"completionTime\": date.toISOString(), //?\n    \"priority\": \"Normal\"\n  }\n\nmsg.payload.task.completedTime = date.toISOString() \nmsg.payload.task.terminatedTime = null \nmsg.payload.task.failedTime = null \nmsg.payload.task.executionDuration = date.getTime() - new Date(msg.payload.task.claimedTime).getTime()  \nmsg.payload.task.duration = date.getTime() - new Date(msg.payload.task.startTime).getTime()  \n\n\nreturn msg;",
+        "func": "var date = new Date()\n\nmsg.payload.task.state = \"Completed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nmsg.payload.task.timestamp = date.toISOString()\nmsg.payload.task.performerId = msg.performer.user\nmsg.payload.task.performerName = msg.performer.user\nmsg.payload.task.id =  msg.payload.task.state === \"Completed\" ? msg.payloadLog.processApp.instance.id+\".5\" : msg.payloadLog.processApp.instance.id+\".6\";\nmsg.payload.task.taskRecord = {\n    \"displayName\": msg.payload.task.taskRecord.displayName,\n    \"status\": msg.payload.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": msg.payload.task.taskRecord.dueDate, //?\n    \"atRiskTime\": msg.payload.task.taskRecord.atRiskTime, //?\n    \"completionTime\": date.toISOString(), //?\n    \"priority\": \"Normal\"\n  }\n\nmsg.payload.task.completedTime = date.toISOString() \nmsg.payload.task.terminatedTime = null \nmsg.payload.task.failedTime = null \nmsg.payload.task.executionDuration = date.getTime() - new Date(msg.payload.task.claimedTime).getTime()  \nmsg.payload.task.duration = date.getTime() - new Date(msg.payload.task.startTime).getTime()  \n\nmsg.id_to_remove =  msg.payloadLog.processApp.instance.id+\".6\";\n\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1295,7 +1366,7 @@
         "type": "function",
         "z": "aad5f601.aa59a",
         "name": "Task-Report-Full",
-        "func": "msg.payload ={\n \"version\": msg.payloadLog.processApp.process.version,\n \"type\": msg.payload.task.type,\n \"timestamp\": msg.payload.task.timestamp,\n \"bpmCellName\": msg.payloadLog.processApp.system.bpmCellName,\n \"bpmSystemId\": msg.payloadLog.processApp.system.bpmSystemId,\n \"potentialPerformerId\": msg.payload.task.potentialPerformerId,\n \"potentialPerformerName\": msg.payload.task.potentialPerformerName,\n \"performerId\": msg.payload.task.performerId,\n \"performerName\": msg.payload.task.performerName,\n \"name\": msg.payload.task.name,\n \"activityId\": msg.payload.task.activityId,\n \"activityVersionId\": msg.payload.task.activityVersionId,\n \"id\": msg.payload.task.id,\n \"trace-id\": msg.payloadLog.processApp.process.traceId,\n \"span-id\": msg.payloadLog.processApp.process.spanId,\n \"taskInstanceId\": msg.payload.task.taskInstanceId,\n \"processApplicationId\": msg.payloadLog.processApp.application.id,\n \"processApplicationVersionId\": msg.payloadLog.processApp.application.versionId,\n \"processApplicationName\": msg.payloadLog.processApp.application.name,\n \"processApplicationSnapshotName\": msg.payloadLog.processApp.application.snapshotName,\n \"processId\": msg.payloadLog.processApp.process.processId,\n \"processVersionId\": msg.payloadLog.processApp.process.versionId,\n \"processInstanceId\": msg.payloadLog.processApp.instance.instanceId,\n \"shortProcessInstanceId\": msg.payloadLog.processApp.instance.shortId,\n \"processSnapshotName\": msg.payloadLog.processApp.process.snapshotName,\n \"processName\": msg.payloadLog.processApp.process.name,\n \"state\": msg.payload.task.state,\n \"taskRecord\": {\n     \"displayName\": msg.payload.task.taskRecord.displayName,\n     \"status\": msg.payload.task.taskRecord.status,\n     \"dueDate\": msg.payload.task.taskRecord.dueDate,\n     \"atRiskTime\": msg.payload.task.taskRecord.atRiskTime,\n     \"completionTime\": msg.payload.task.taskRecord.completionTime,\n     \"priority\": msg.payload.task.taskRecord.priority\n },\n \"startTime\": msg.payload.task.startTime,\n \"claimedTime\": msg.payload.task.claimedTime,\n \"completedTime\": msg.payload.task.completedTime,\n \"terminatedTime\": msg.payload.task.terminatedTime,\n \"failedTime\": msg.payload.task.failedTime,\n \"waitDuration\": msg.payload.task.waitDuration,\n \"executionDuration\": msg.payload.task.executionDuration,\n \"duration\": msg.payload.task.duration,\n \"data\": msg.payloadLog.processApp.instance.data\n}\n\nreturn msg;\n",
+        "func": "msg.payload ={\n \"_id\": msg.payload.task.id,\n \"version\": msg.payloadLog.processApp.process.version,\n \"type\": msg.payload.task.type,\n \"timestamp\": msg.payload.task.timestamp,\n \"bpmCellName\": msg.payloadLog.processApp.system.bpmCellName,\n \"bpmSystemId\": msg.payloadLog.processApp.system.bpmSystemId,\n \"potentialPerformerId\": msg.payload.task.potentialPerformerId,\n \"potentialPerformerName\": msg.payload.task.potentialPerformerName,\n \"performerId\": msg.payload.task.performerId,\n \"performerName\": msg.payload.task.performerName,\n \"name\": msg.payload.task.name,\n \"activityId\": msg.payload.task.activityId,\n \"activityVersionId\": msg.payload.task.activityVersionId,\n \"id\": msg.payload.task.id,\n \"trace-id\": msg.payloadLog.processApp.process.traceId,\n \"span-id\": msg.payloadLog.processApp.process.spanId,\n \"taskInstanceId\": msg.payload.task.taskInstanceId,\n \"processApplicationId\": msg.payloadLog.processApp.application.id,\n \"processApplicationVersionId\": msg.payloadLog.processApp.application.versionId,\n \"processApplicationName\": msg.payloadLog.processApp.application.name,\n \"processApplicationSnapshotName\": msg.payloadLog.processApp.application.snapshotName,\n \"processId\": msg.payloadLog.processApp.process.processId,\n \"processVersionId\": msg.payloadLog.processApp.process.versionId,\n \"processInstanceId\": msg.payloadLog.processApp.instance.instanceId,\n \"shortProcessInstanceId\": msg.payloadLog.processApp.instance.shortId,\n \"processSnapshotName\": msg.payloadLog.processApp.process.snapshotName,\n \"processName\": msg.payloadLog.processApp.process.name,\n \"state\": msg.payload.task.state,\n \"taskRecord\": {\n     \"displayName\": msg.payload.task.taskRecord.displayName,\n     \"status\": msg.payload.task.taskRecord.status,\n     \"dueDate\": msg.payload.task.taskRecord.dueDate,\n     \"atRiskTime\": msg.payload.task.taskRecord.atRiskTime,\n     \"completionTime\": msg.payload.task.taskRecord.completionTime,\n     \"priority\": msg.payload.task.taskRecord.priority\n },\n \"startTime\": msg.payload.task.startTime,\n \"claimedTime\": msg.payload.task.claimedTime,\n \"completedTime\": msg.payload.task.completedTime,\n \"terminatedTime\": msg.payload.task.terminatedTime,\n \"failedTime\": msg.payload.task.failedTime,\n \"waitDuration\": msg.payload.task.waitDuration,\n \"executionDuration\": msg.payload.task.executionDuration,\n \"duration\": msg.payload.task.duration,\n \"data\": msg.payloadLog.processApp.instance.data\n}\n\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1314,7 +1385,7 @@
         "type": "debug",
         "z": "aad5f601.aa59a",
         "name": "Task-Full",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1429,7 +1500,7 @@
         "type": "function",
         "z": "aad5f601.aa59a",
         "name": "Process-Report-Short",
-        "func": "msg.payload ={\n \"type\": msg.payload.processApp.instance.type,\n \"processApplicationName\": msg.payload.processApp.application.name,\n \"name\": msg.payload.processApp.process.name,\n \"state\": msg.payload.processApp.instance.state,\n \"startTime\": msg.payload.processApp.instance.startTime,\n \"completedTime\": msg.payload.processApp.instance.completedTime,\n \"duration\": msg.payload.processApp.instance.duration\n}\nreturn msg;",
+        "func": "msg.payload ={\n \"_id\": msg.payload.processApp.instance.id,\n \"id\": msg.payload.processApp.instance.id,\n \"timestamp\": msg.payload.processApp.instance.timestamp,\n \"type\": msg.payload.processApp.instance.type,\n \"processApplicationName\": msg.payload.processApp.application.name,\n \"name\": msg.payload.processApp.process.name,\n \"state\": msg.payload.processApp.instance.state,\n \"startTime\": msg.payload.processApp.instance.startTime,\n \"completedTime\": msg.payload.processApp.instance.completedTime,\n \"duration\": msg.payload.processApp.instance.duration\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1439,7 +1510,8 @@
         "y": 440,
         "wires": [
             [
-                "1b540671.fe3012"
+                "1b540671.fe3012",
+                "b089d2d1.483bf8"
             ]
         ]
     },
@@ -1468,7 +1540,7 @@
         "type": "function",
         "z": "aad5f601.aa59a",
         "name": "Task-Report-Short",
-        "func": "msg.payload ={\n \"delay\": msg.delay,\n \"type\": msg.payload.task.type,\n \"name\": msg.payload.task.name,\n \"performerName\": msg.payload.task.performerName,\n \"processApplicationName\": msg.payloadLog.processApp.application.name,\n \"processName\": msg.payloadLog.processApp.process.name,\n \"state\": msg.payload.task.state,\n \"startTime\": msg.payload.task.startTime,\n \"claimedTime\": msg.payload.task.claimedTime,\n \"completedTime\": msg.payload.task.completedTime,\n \"waitDuration\": msg.payload.task.waitDuration,\n \"executionDuration\": msg.payload.task.executionDuration,\n \"duration\": msg.payload.task.duration\n}\n\nreturn msg;",
+        "func": "msg.payload ={\n \"_id\": msg.payload.task.id,\n \"id\": msg.payload.task.id,\n \"timestamp\": msg.payload.task.timestamp,\n \"type\": msg.payload.task.type,\n \"name\": msg.payload.task.name,\n \"performerName\": msg.payload.task.performerName,\n \"processApplicationName\": msg.payloadLog.processApp.application.name,\n \"processName\": msg.payloadLog.processApp.process.name,\n \"state\": msg.payload.task.state,\n \"startTime\": msg.payload.task.startTime,\n \"claimedTime\": msg.payload.task.claimedTime,\n \"completedTime\": msg.payload.task.completedTime,\n \"waitDuration\": msg.payload.task.waitDuration,\n \"executionDuration\": msg.payload.task.executionDuration,\n \"duration\": msg.payload.task.duration\n}\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1478,7 +1550,8 @@
         "y": 1040,
         "wires": [
             [
-                "9278507c.ed0a6"
+                "9278507c.ed0a6",
+                "ec2fc5fd.afde58"
             ]
         ]
     },
@@ -1487,7 +1560,7 @@
         "type": "debug",
         "z": "aad5f601.aa59a",
         "name": "Process-Short",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1504,7 +1577,7 @@
         "type": "debug",
         "z": "aad5f601.aa59a",
         "name": "Task-Short",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1524,6 +1597,11 @@
         "props": [
             {
                 "p": "payload"
+            },
+            {
+                "p": "lag",
+                "v": "70",
+                "vt": "num"
             }
         ],
         "repeat": "",
@@ -1533,165 +1611,14 @@
         "topic": "",
         "payload": "[{\"bpmCellName\":\"PCCell1\",\"appName\":\"HR Vacation App\",\"procName\":\"HR Vacation Process\",\"tasks\":[{\"name\":\"HR Send Form\",\"type\":\"userTask\",\"weight\":1.2,\"startAfter\":null},{\"name\":\"Approve request\",\"type\":\"userTask\",\"weight\":1.6,\"startAfter\":\"HR Send Form\"},{\"name\":\"Send Contract\",\"type\":\"userTask\",\"weight\":1.9,\"startAfter\":null},{\"name\":\"Manage Contract\",\"type\":\"userTask\",\"weight\":1.9,\"startAfter\":\"Send Contract\"},{\"name\":\"Send spending request\",\"type\":\"userTask\",\"weight\":1.1,\"startAfter\":null},{\"name\":\"Approve spending request\",\"type\":\"userTask\",\"weight\":1.5,\"startAfter\":\"Send spending request\"}]}]",
         "payloadType": "json",
-        "x": 320,
+        "x": 300,
         "y": 60,
         "wires": [
             [
-                "a562f631.b7ae4"
+                "a562f631.b7ae4",
+                "14246cfe.b5ef63"
             ]
         ]
-    },
-    {
-        "id": "1b033360.18b7e5",
-        "type": "elasticsearch-index",
-        "z": "aad5f601.aa59a",
-        "name": "process-summaries-completed",
-        "server": "f4be98fb.fb1858",
-        "index": "process-summaries-completed-idx-ibm-bai-2020.03.30-000001",
-        "esType": "_doc",
-        "esId": "",
-        "routing": "",
-        "x": 1610,
-        "y": 880,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "9e4dea9a.4daa78",
-        "type": "debug",
-        "z": "aad5f601.aa59a",
-        "name": "Insert -> process-summaries-active",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1500,
-        "y": 500,
-        "wires": []
-    },
-    {
-        "id": "11d6fee9.97af59",
-        "type": "debug",
-        "z": "aad5f601.aa59a",
-        "name": "Insert -> process-summaries-completed",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1540,
-        "y": 540,
-        "wires": []
-    },
-    {
-        "id": "c1ddad6b.7ac7f8",
-        "type": "debug",
-        "z": "aad5f601.aa59a",
-        "name": "Delete -> process-summaries-active",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1550,
-        "y": 580,
-        "wires": []
-    },
-    {
-        "id": "c197c96e.2b9818",
-        "type": "debug",
-        "z": "aad5f601.aa59a",
-        "name": "Insert -> process-summaries-completed",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1580,
-        "y": 740,
-        "wires": []
-    },
-    {
-        "id": "54575989.e126a",
-        "type": "debug",
-        "z": "aad5f601.aa59a",
-        "name": "Delete -> process-summaries-active",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1290,
-        "y": 1100,
-        "wires": []
-    },
-    {
-        "id": "d755ed57.5dcf08",
-        "type": "debug",
-        "z": "aad5f601.aa59a",
-        "name": "Insert -> process-summaries-active",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1540,
-        "y": 720,
-        "wires": []
-    },
-    {
-        "id": "4fe4c814.1acae",
-        "type": "debug",
-        "z": "aad5f601.aa59a",
-        "name": "Insert -> process-summaries-active",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1560,
-        "y": 680,
-        "wires": []
-    },
-    {
-        "id": "b15ea928.eae44",
-        "type": "debug",
-        "z": "aad5f601.aa59a",
-        "name": "Insert -> process-summaries-active",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1540,
-        "y": 620,
-        "wires": []
     },
     {
         "id": "a61c0d27.b8c8a",
@@ -1786,7 +1713,7 @@
         "type": "function",
         "z": "aad5f601.aa59a",
         "name": "_setUser & Weight",
-        "func": "var userArray = [{\"user\":\"admin\",\"skills\":10},{\"user\":\"adam\",\"skills\":9},{\"user\":\"tomas\",\"skills\":8},{\"user\":\"ola\",\"skills\":7},{\"user\":\"ela\",\"skills\":6},{\"user\":\"mark\",\"skills\":5},{\"user\":\"jan\",\"skills\":4},{\"user\":\"eva\",\"skills\":3},{\"user\":\"tom\",\"skills\":2},{\"user\":\"bob\",\"skills\":1}]\n; \nmsg.performer = userArray[Math.floor(Math.random()*userArray.length)]; //getting random category from array\n\nmsg.delay=Math.floor(msg.performer.skills*Math.random()*5000*msg.payload.task.weight)\n\n\nreturn msg;",
+        "func": "var userArray = [{\"user\":\"admin\",\"skills\":10},{\"user\":\"adam\",\"skills\":9},{\"user\":\"tomas\",\"skills\":8},{\"user\":\"ola\",\"skills\":7},{\"user\":\"ela\",\"skills\":6},{\"user\":\"mark\",\"skills\":5},{\"user\":\"jan\",\"skills\":4},{\"user\":\"eva\",\"skills\":3},{\"user\":\"tom\",\"skills\":2},{\"user\":\"bob\",\"skills\":1}]\n; \nmsg.performer = userArray[Math.floor(Math.random()*userArray.length)]; //getting random category from array\n\nmsg.delay=Math.floor(msg.performer.skills*Math.random()*global.get('lag')*5*msg.payload.task.weight)\n\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1828,7 +1755,7 @@
         "type": "function",
         "z": "aad5f601.aa59a",
         "name": "_setWeight",
-        "func": "msg.delay=Math.floor(msg.performer.skills*Math.random()*7000*msg.payload.task.weight)\n\n\nreturn msg;",
+        "func": "msg.delay=Math.floor(msg.performer.skills*Math.random()*global.get('lag')*7*msg.payload.task.weight)\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1847,7 +1774,7 @@
         "type": "function",
         "z": "aad5f601.aa59a",
         "name": "_setWeight",
-        "func": "msg.delay=Math.floor(msg.performer.skills*Math.random()*10000*msg.payload.task.weight)\n\nreturn msg;",
+        "func": "\nmsg.delay=Math.floor(msg.performer.skills*Math.random()*global.get('lag')*10*msg.payload.task.weight)\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1913,7 +1840,7 @@
         "z": "aad5f601.aa59a",
         "name": "Pytania",
         "info": "put / delete - Elastic - kiedy i jak - po jakim id\nTasks\ntypy tasks/ state- jaki payload\nczasy - time w taskRecord\nobiekt data - co dalej\nzaadresować failedTime deletedTime\nProcesses\nsprawdzić * Time \nzaadresować lastBusinessDataUpdate*\nzaadresować failedTime deletedTime\n\n\n",
-        "x": 580,
+        "x": 650,
         "y": 60,
         "wires": []
     },
@@ -2101,25 +2028,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 930,
+        "x": 1950,
         "y": 1140,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "d1ca773e.474b18",
-        "type": "function",
-        "z": "aad5f601.aa59a",
-        "name": "delete processes from active",
-        "func": "/*task.id \ndelete from process-summaries-active-idx-ibm-bai-2021.02.23-000001\n\"id\" = msg.payloadLog.processApp.instance.id;\nreturn msg;\n*/",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 860,
-        "y": 560,
         "wires": [
             []
         ]
@@ -2130,8 +2040,2716 @@
         "z": "aad5f601.aa59a",
         "name": "toDo",
         "info": "wstawianiedo elastic i gdy completes kasowanie active",
-        "x": 750,
+        "x": 790,
         "y": 60,
+        "wires": []
+    },
+    {
+        "id": "222e00b6.c41c3",
+        "type": "elasticsearch-index",
+        "z": "aad5f601.aa59a",
+        "name": "test-process-active",
+        "server": "f4be98fb.fb1858",
+        "index": "test-process-active",
+        "esType": "_doc",
+        "esId": "",
+        "routing": "",
+        "x": 1650,
+        "y": 440,
+        "wires": [
+            [
+                "8d8e2dce.97e458"
+            ]
+        ]
+    },
+    {
+        "id": "6301e73.be1a618",
+        "type": "elasticsearch-index",
+        "z": "aad5f601.aa59a",
+        "name": "test-process-completed",
+        "server": "f4be98fb.fb1858",
+        "index": "test-process-completed",
+        "esType": "_doc",
+        "esId": "",
+        "routing": "",
+        "x": 1670,
+        "y": 520,
+        "wires": [
+            [
+                "8d8e2dce.97e458"
+            ]
+        ]
+    },
+    {
+        "id": "b089d2d1.483bf8",
+        "type": "switch",
+        "z": "aad5f601.aa59a",
+        "name": "",
+        "property": "payload.state",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Active",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Completed",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1430,
+        "y": 500,
+        "wires": [
+            [
+                "222e00b6.c41c3"
+            ],
+            [
+                "6301e73.be1a618",
+                "b78f62c5.9806c"
+            ]
+        ]
+    },
+    {
+        "id": "8d8e2dce.97e458",
+        "type": "debug",
+        "z": "aad5f601.aa59a",
+        "name": "Process-insert",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2020,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "ec2fc5fd.afde58",
+        "type": "switch",
+        "z": "aad5f601.aa59a",
+        "name": "",
+        "property": "payload.state",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Completed",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1670,
+        "y": 1120,
+        "wires": [
+            [
+                "62686d4.f36fa14",
+                "95af1ee4.a54748"
+            ],
+            [
+                "f5c3f0a1.975d08"
+            ]
+        ]
+    },
+    {
+        "id": "f5c3f0a1.975d08",
+        "type": "elasticsearch-index",
+        "z": "aad5f601.aa59a",
+        "name": "test-process-active",
+        "server": "f4be98fb.fb1858",
+        "index": "test-process-active",
+        "esType": "_doc",
+        "esId": "",
+        "routing": "",
+        "x": 1930,
+        "y": 1180,
+        "wires": [
+            [
+                "c24f3daa.d0143"
+            ]
+        ]
+    },
+    {
+        "id": "62686d4.f36fa14",
+        "type": "elasticsearch-index",
+        "z": "aad5f601.aa59a",
+        "name": "test-process-completed",
+        "server": "f4be98fb.fb1858",
+        "index": "test-process-completed",
+        "esType": "_doc",
+        "esId": "",
+        "routing": "",
+        "x": 1930,
+        "y": 1100,
+        "wires": [
+            [
+                "c24f3daa.d0143"
+            ]
+        ]
+    },
+    {
+        "id": "c24f3daa.d0143",
+        "type": "debug",
+        "z": "aad5f601.aa59a",
+        "name": "Process-insert",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2230,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "b78f62c5.9806c",
+        "type": "function",
+        "z": "aad5f601.aa59a",
+        "name": "delete by _id",
+        "func": "msg.payload = {\n    \"query\": {\n        \"term\": {\n            \"_id\": {\n                \"value\": msg.payload._id,\n                \"boost\": 1.2\n            }\n        }\n    }\n}\n\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1590,
+        "y": 580,
+        "wires": [
+            [
+                "f5e1c0d2.6a25d"
+            ]
+        ]
+    },
+    {
+        "id": "2e418919.2429ae",
+        "type": "inject",
+        "z": "9f82815d.3d662",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"_id\":\"0f7111bf-459b-45b6-af13-25a095c4a210.6b8bc05e-da0f-422b-962c-adfa61a6c48e.5864.5\",\"id\":\"0f7111bf-459b-45b6-af13-25a095c4a210.6b8bc05e-da0f-422b-962c-adfa61a6c48e.5864.6\",\"timestamp\":\"2021-07-16T15:47:35.835Z\",\"type\":\"userTask\",\"name\":\"HR Send Form\",\"performerName\":null,\"processApplicationName\":\"HR Vacation App\",\"processName\":\"HR Vacation Process\",\"state\":\"Unclaimed\",\"startTime\":\"2021-07-18T14:47:35.835Z\",\"claimedTime\":null,\"completedTime\":null,\"waitDuration\":null,\"executionDuration\":null,\"duration\":null}",
+        "payloadType": "json",
+        "x": 110,
+        "y": 100,
+        "wires": [
+            [
+                "e6ed1646.4d51e8"
+            ]
+        ]
+    },
+    {
+        "id": "14246cfe.b5ef63",
+        "type": "change",
+        "z": "aad5f601.aa59a",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "lag",
+                "pt": "global",
+                "to": "lag",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 490,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e6ed1646.4d51e8",
+        "type": "elasticsearch-index",
+        "z": "9f82815d.3d662",
+        "name": "test-process-active",
+        "server": "f4be98fb.fb1858",
+        "index": "test-process-active",
+        "esType": "_doc",
+        "esId": "",
+        "routing": "",
+        "x": 490,
+        "y": 140,
+        "wires": [
+            [
+                "8d1a2f8d.093ff8"
+            ]
+        ]
+    },
+    {
+        "id": "c4574e41.878658",
+        "type": "function",
+        "z": "9f82815d.3d662",
+        "name": "",
+        "func": "msg.payload = {\"_id\": msg.payload._id }\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 320,
+        "wires": [
+            [
+                "2f43e71d.b5828"
+            ]
+        ]
+    },
+    {
+        "id": "2f43e71d.b5828",
+        "type": "elasticsearch-delete",
+        "z": "9f82815d.3d662",
+        "name": "test-process-active",
+        "server": "f4be98fb.fb1858",
+        "index": "test-process-active",
+        "esType": "_doc",
+        "esId": "_id",
+        "x": 610,
+        "y": 280,
+        "wires": [
+            [
+                "8d1a2f8d.093ff8"
+            ]
+        ]
+    },
+    {
+        "id": "8d1a2f8d.093ff8",
+        "type": "debug",
+        "z": "9f82815d.3d662",
+        "name": "Process-insert",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "da77a3ad.e5b65",
+        "type": "inject",
+        "z": "9f82815d.3d662",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"query\":{\"term\":{\"_id\":{\"value\":\"0f7111bf-459b-45b6-af13-25a095c4a210.6b8bc05e-da0f-422b-962c-adfa61a6c48e.5864.6\",\"boost\":1.2}}}}",
+        "payloadType": "json",
+        "x": 130,
+        "y": 220,
+        "wires": [
+            [
+                "f84b921f.477a28"
+            ]
+        ]
+    },
+    {
+        "id": "f84b921f.477a28",
+        "type": "elasticsearch-deleteByQuery",
+        "z": "9f82815d.3d662",
+        "name": "",
+        "server": "f4be98fb.fb1858",
+        "index": "test-process-active",
+        "esType": "_doc",
+        "x": 600,
+        "y": 220,
+        "wires": [
+            [
+                "8d1a2f8d.093ff8"
+            ]
+        ]
+    },
+    {
+        "id": "fdb7f2d7.db1a58",
+        "type": "inject",
+        "z": "9f82815d.3d662",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"_id\":\"0f7111bf-459b-45b6-af13-25a095c4a210.6b8bc05e-da0f-422b-962c-adfa61a6c48e.5864.6\",\"id\":\"0f7111bf-459b-45b6-af13-25a095c4a210.6b8bc05e-da0f-422b-962c-adfa61a6c48e.5864.6\",\"timestamp\":\"2021-07-16T15:47:35.835Z\",\"type\":\"userTask\",\"name\":\"HR Send Form\",\"performerName\":null,\"processApplicationName\":\"HR Vacation App\",\"processName\":\"HR Vacation Process\",\"state\":\"Unclaimed\",\"startTime\":\"2021-07-18T14:47:35.835Z\",\"claimedTime\":null,\"completedTime\":null,\"waitDuration\":null,\"executionDuration\":null,\"duration\":null}",
+        "payloadType": "json",
+        "x": 122.22222900390625,
+        "y": 163.88890075683594,
+        "wires": [
+            [
+                "e6ed1646.4d51e8"
+            ]
+        ]
+    },
+    {
+        "id": "669e927.b3d84ec",
+        "type": "inject",
+        "z": "9f82815d.3d662",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"_id\":\"0f7111bf-459b-45b6-af13-25a095c4a210.6b8bc05e-da0f-422b-962c-adfa61a6c48e.5864\",\"id\":\"0f7111bf-459b-45b6-af13-25a095c4a210.6b8bc05e-da0f-422b-962c-adfa61a6c48e.5864.6\",\"timestamp\":\"2021-07-16T15:47:35.835Z\",\"type\":\"userTask\",\"name\":\"HR Send Form\",\"performerName\":null,\"processApplicationName\":\"HR Vacation App\",\"processName\":\"HR Vacation Process\",\"state\":\"Unclaimed\",\"startTime\":\"2021-07-18T14:47:35.835Z\",\"claimedTime\":null,\"completedTime\":null,\"waitDuration\":null,\"executionDuration\":null,\"duration\":null}",
+        "payloadType": "json",
+        "x": 110,
+        "y": 40,
+        "wires": [
+            [
+                "e6ed1646.4d51e8"
+            ]
+        ]
+    },
+    {
+        "id": "a34c1119.0a77d8",
+        "type": "elasticsearch-search",
+        "z": "9f82815d.3d662",
+        "name": "",
+        "server": "f4be98fb.fb1858",
+        "index": "test-process-active",
+        "esType": "_doc",
+        "query": "",
+        "size": "",
+        "scroll": false,
+        "bulkSize": "",
+        "fullResponse": false,
+        "x": 620,
+        "y": 360,
+        "wires": [
+            [
+                "8d1a2f8d.093ff8"
+            ]
+        ]
+    },
+    {
+        "id": "4964a8cb.2132f8",
+        "type": "inject",
+        "z": "9f82815d.3d662",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"query\":{\"match_all\":{}}}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 420,
+        "wires": [
+            [
+                "a34c1119.0a77d8"
+            ]
+        ]
+    },
+    {
+        "id": "f5e1c0d2.6a25d",
+        "type": "elasticsearch-deleteByQuery",
+        "z": "aad5f601.aa59a",
+        "name": "",
+        "server": "f4be98fb.fb1858",
+        "index": "test-process-active",
+        "esType": "_doc",
+        "x": 1800,
+        "y": 580,
+        "wires": [
+            [
+                "8d8e2dce.97e458"
+            ]
+        ]
+    },
+    {
+        "id": "3f04fecd.00e8c2",
+        "type": "elasticsearch-deleteByQuery",
+        "z": "aad5f601.aa59a",
+        "name": "",
+        "server": "f4be98fb.fb1858",
+        "index": "test-process-active",
+        "esType": "_doc",
+        "x": 2080,
+        "y": 1020,
+        "wires": [
+            [
+                "c24f3daa.d0143"
+            ]
+        ]
+    },
+    {
+        "id": "95af1ee4.a54748",
+        "type": "function",
+        "z": "aad5f601.aa59a",
+        "name": "delete by _id",
+        "func": "msg.payload = {\n    \"query\": {\n        \"term\": {\n            \"_id\": {\n                \"value\": msg.id_to_remove,\n                \"boost\": 1.2\n            }\n        }\n    }\n}\n\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1850,
+        "y": 1040,
+        "wires": [
+            [
+                "3f04fecd.00e8c2"
+            ]
+        ]
+    },
+    {
+        "id": "957b541f2b91598d",
+        "type": "function",
+        "z": "68bf0c84ba2199fe",
+        "name": "Process-Report-Full",
+        "func": "msg.payload ={\n \"_id\": msg.payload.processApp.instance.id,\n \"version\": msg.payload.processApp.process.version,\n \"type\": msg.payload.processApp.instance.type,\n \"timestamp\": msg.payload.processApp.instance.timestamp,\n \"bpmCellName\": msg.payload.processApp.system.bpmCellName,\n \"bpmSystemId\": msg.payload.processApp.system.bpmSystemId,\n \"processApplicationSnapshotName\": msg.payload.processApp.application.snapshotName,\n \"processApplicationVersionId\": msg.payload.processApp.application.versionId,\n \"processApplicationName\": msg.payload.processApp.application.name,\n \"processApplicationId\": msg.payload.processApp.application.id,\n \"id\": msg.payload.processApp.instance.id,\n \"trace-id\": msg.payload.processApp.process.traceId,\n \"span-id\": msg.payload.processApp.process.spanId,\n \"processInstanceId\": msg.payload.processApp.instance.instanceId,\n \"shortProcessInstanceId\": msg.payload.processApp.instance.shortId,\n \"processId\": msg.payload.processApp.process.processId,\n \"processVersionId\": msg.payload.processApp.process.versionId,\n \"processSnapshotName\": msg.payload.processApp.process.snapshotName,\n \"name\": msg.payload.processApp.process.name,\n \"state\": msg.payload.processApp.instance.state,\n \"startTime\": msg.payload.processApp.instance.startTime,\n \"completedTime\": msg.payload.processApp.instance.completedTime,\n \"terminatedTime\": msg.payload.processApp.instance.terminatedTime,\n \"failedTime\": msg.payload.processApp.instance.failedTime,\n \"deletedTime\": msg.payload.processApp.instance.deletedTime,\n \"duration\": msg.payload.processApp.instance.duration,\n \"data\": msg.payload.processApp.instance.data,\n \"lastBusinessDataUpdateTime\": msg.payload.processApp.instance.lastBusinessDataUpdateTime,\n \"lastBusinessDataUpdateActivity\": msg.payload.processApp.instance.lastBusinessDataUpdateActivity,\n \"lastBusinessDataUpdateEvent\": msg.payload.processApp.instance.lastBusinessDataUpdateEvent,\n \"lastBusinessDataUpdatePerformer\": msg.payload.processApp.instance.lastBusinessDataUpdatePerformer \n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1520,
+        "y": 520,
+        "wires": [
+            [
+                "e77e47e78e701284"
+            ]
+        ]
+    },
+    {
+        "id": "e77e47e78e701284",
+        "type": "debug",
+        "z": "68bf0c84ba2199fe",
+        "name": "Process-Full",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1750,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "a53b0d3244c9e6f9",
+        "type": "function",
+        "z": "68bf0c84ba2199fe",
+        "name": "Change process to Active and store",
+        "func": "var date = new Date()\nvar processes = flow.get(\"processes\") || [];\n\nvar process = processes.find(e => e.processApp.instance.state == \"Ready\" );\n\nwhile (typeof process !== 'undefined') {\n    process.processApp.instance.timestamp = date.toISOString()\n    process.processApp.instance.state = \"Active\"\n    process.processApp.instance.startTime = date.toISOString()\n    flow.set(\"processes\", processes);\n\tmsg.payload = process\nreturn msg;\n}\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 460,
+        "wires": [
+            [
+                "e858390d52071308",
+                "7705f741d55592dc",
+                "c7539f558adf5174"
+            ]
+        ]
+    },
+    {
+        "id": "3ac9f3360aba8507",
+        "type": "function",
+        "z": "68bf0c84ba2199fe",
+        "name": "Change process to Completed and store",
+        "func": "var date = new Date()\nvar tasks = flow.get(\"tasks\") || [];\nvar task = tasks.find(e => e.task.state == \"Completed\");\n \nwhile (typeof task !== 'undefined') {\nvar processes = flow.get(\"processes\") || [];\nvar process = processes.find(e => (e.processApp.instance.shortId == task.task.id.substring(74, 78)) & (e.processApp.instance.state == \"Processing\"));\nif(typeof process !== 'undefined') {\n    process.processApp.instance.timestamp = date.toISOString()\n    process.processApp.instance.state = \"Completed\"\n    process.processApp.instance.completedTime = date.toISOString()\n    process.processApp.instance.duration= date.getTime() - new Date(process.processApp.instance.startTime).getTime()  \n    flow.set(\"processes\", processes);\n    msg.payload = process\n} else\n{\n    msg.payload = null\n}\ntask.task.state = \"Finished\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\nflow.set(\"tasks\", tasks);\nreturn msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 620,
+        "wires": [
+            [
+                "e858390d52071308",
+                "7f803828c132c198",
+                "cbd45c311c481eeb"
+            ]
+        ]
+    },
+    {
+        "id": "7705f741d55592dc",
+        "type": "delay",
+        "z": "68bf0c84ba2199fe",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "x": 540,
+        "y": 540,
+        "wires": [
+            [
+                "a53b0d3244c9e6f9",
+                "33d0b36a1bc9aba2"
+            ]
+        ]
+    },
+    {
+        "id": "492827bc0394f82e",
+        "type": "inject",
+        "z": "68bf0c84ba2199fe",
+        "name": "3:2 payloads",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "lag",
+                "v": "70",
+                "vt": "num"
+            },
+            {
+                "p": "userArray",
+                "v": "[{\"user\":\"admin\",\"skills\":1},{\"user\":\"adam\",\"skills\":9},{\"user\":\"tomas\",\"skills\":8},{\"user\":\"ola\",\"skills\":7},{\"user\":\"ela\",\"skills\":6},{\"user\":\"mark\",\"skills\":5},{\"user\":\"jan\",\"skills\":4},{\"user\":\"eva\",\"skills\":3},{\"user\":\"tom\",\"skills\":2},{\"user\":\"bob\",\"skills\":10}]",
+                "vt": "json"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[{\"bpmCellName\":\"PCCell1\",\"appName\":\"HR Vacation App\",\"procName\":\"HR Vacation Process\",\"tasks\":[{\"name\":\"HR Send Form\",\"type\":\"userTask\",\"weight\":1.2,\"startAfter\":null},{\"name\":\"Approve request\",\"type\":\"userTask\",\"weight\":1.6,\"startAfter\":\"HR Send Form\"}]},{\"bpmCellName\":\"PCCell2\",\"appName\":\"Contract Management App\",\"procName\":\"Contract Management Process\",\"tasks\":[{\"name\":\"Send Contract\",\"type\":\"userTask\",\"weight\":1.7,\"startAfter\":null},{\"name\":\"Manage Contract\",\"type\":\"userTask\",\"weight\":1.9,\"startAfter\":\"Send Contract\"}]},{\"bpmCellName\":\"PCCell3\",\"appName\":\"Purchase Request App\",\"procName\":\"Purchase Request Process\",\"tasks\":[{\"name\":\"Send spending request\",\"type\":\"userTask\",\"weight\":1.1,\"startAfter\":null},{\"name\":\"Approve spending request\",\"type\":\"userTask\",\"weight\":1.5,\"startAfter\":\"Send spending request\"}]}]",
+        "payloadType": "json",
+        "x": 110,
+        "y": 260,
+        "wires": [
+            [
+                "23bb45ce4a7a0a08",
+                "44b0484613393c50"
+            ]
+        ]
+    },
+    {
+        "id": "de8d949a67025de0",
+        "type": "function",
+        "z": "68bf0c84ba2199fe",
+        "name": "Process Payload Ready",
+        "func": "var processApp = { system: {}, application: {}, process: {}, instance: {}, tasks: []};\nvar date = new Date()\n//system: {}\nprocessApp.system.bpmCellName = msg.payload.bpmCellName //fixed for system, when created\nprocessApp.system.bpmSystemId = uuidv4()  // fixed for system, when created\n\n//application: {}\nprocessApp.application.snapshotName = (Math.floor(1+ Math.random() * 10)).toString() // fixed for process application, when created, only for Active Processes\nprocessApp.application.versionId = \"2064.\" + uuidv4()   // fixed for process application, when created\nprocessApp.application.name = msg.payload.appName // fixed for process application, when created\nprocessApp.application.id = uuidv4()  // fixed for process application, when created\n\n//process: {}\nprocessApp.process.version = (Math.floor(1+ Math.random() * 10)).toString()+\".\"+(Math.floor(1+ Math.random() * 10)).toString()+\".\"+(Math.floor(1+ Math.random() * 10)).toString()\nprocessApp.process.processId = uuidv4() //fixed for process, when created\nprocessApp.process.versionId = processApp.application.versionId //fixed for process, when created\nprocessApp.process.snapshotName = processApp.application.snapshotName // fixed for process application, when created, only for Active Processes\nprocessApp.process.name = msg.payload.procName //fixed for process, when created\nprocessApp.process.traceId = uuidv4() //fixed for process, when created\nprocessApp.process.spanId = characters16() //fixed for process, when created\n\n\n\n//instance: {}\nprocessApp.instance.type = \"process\" // process/userTask/…\nprocessApp.instance.timestamp = null // for each new event\nprocessApp.instance.shortId = (Math.floor(1000 + Math.random() * 9000)).toString() // fixed for process instance, when created\n\nprocessApp.instance.id = processApp.process.processId + \".\" + processApp.system.bpmSystemId+ \".\" + processApp.instance.shortId // fixed for process instance, when created\nprocessApp.instance.instanceId = processApp.instance.id //fixed for process instance, when created\nprocessApp.instance.state = \"Ready\" //Ready, Active, Completed, Terminated, Failed, Deleted\nprocessApp.instance.startTime  = null // for Ready / Active / Completed / Terminated\nprocessApp.instance.completedTime = null // date.toISOString() // for Completed – null for others processApp.instance.terminatedTime = null // date.toISOString() // for Terminated– null for others\nprocessApp.instance.failedTime = null // date.toISOString() // for Failed – null for others\nprocessApp.instance.deletedTime = null // date.toISOString() // for Deleted – null for others\nprocessApp.instance.duration= null   // new Date(processApp.instance.completedTime).getTime()- new Date(processApp.instance.startTime).getTime()  // for Completed, for others Terminated, Failed, Deleted times accordingly \n//processApp.instance.data = {},\nprocessApp.instance.data = {\n    \"trackingGroupName\": {\n      \"@ids\": {\n        \"trackingGroupId\": \"guid:006677479b8357ba:42c2f804:17a438721fc:-7fb8\",\n        \"trackingGroupVersionId\": processApp.application.versionId\n      },\n      \"businessNumber.integer\": Math.floor(1+ Math.random() * 100),\n      \"businessName.string\": \"true\"\n    }\n  }\n\nprocessApp.instance.lastBusinessDataUpdateTime =  null,\nprocessApp.instance.lastBusinessDataUpdateActivity = null,\nprocessApp.instance.lastBusinessDataUpdateEvent = null,\nprocessApp.instance.lastBusinessDataUpdatePerformer = null\n\n\n//tasks: []\nprocessApp.tasks = msg.payload.tasks\n\n\n\n\nmsg.payload = {processApp}\nreturn msg;\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n\nfunction characters16() {\n  return 'xxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 260,
+        "wires": [
+            [
+                "b456a89899d19d03"
+            ]
+        ]
+    },
+    {
+        "id": "23bb45ce4a7a0a08",
+        "type": "Parallel Iterator",
+        "z": "68bf0c84ba2199fe",
+        "name": "Process Ready",
+        "property": "payload",
+        "saveOutput": 1,
+        "recursive": 0,
+        "storeId": 0,
+        "x": 320,
+        "y": 260,
+        "wires": [
+            [
+                "de8d949a67025de0"
+            ],
+            [
+                "9d9069ef86b64ccd"
+            ]
+        ]
+    },
+    {
+        "id": "e0e93ddf397b8d78",
+        "type": "Parallel Iterator",
+        "z": "68bf0c84ba2199fe",
+        "name": "Task Created",
+        "property": "payload",
+        "saveOutput": 1,
+        "recursive": 0,
+        "storeId": 1,
+        "x": 1050,
+        "y": 260,
+        "wires": [
+            [
+                "4bcffb395496fd84"
+            ],
+            [
+                "dd7069823f0d959e"
+            ]
+        ]
+    },
+    {
+        "id": "4bcffb395496fd84",
+        "type": "function",
+        "z": "68bf0c84ba2199fe",
+        "name": "Task Payload Created",
+        "func": "var task = {}\n\ntask.name = msg.payload.name\ntask.type = msg.payload.type\ntask.state = \"Created\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\ntask.timestamp = null // -> \"timestamp\" - for each event\ntask.potentialPerformerId = \"All Users_T_da7e4d23-78cb-4483-98ed-b9c238308a03.9a624e3d-96a8-423f-976f-121aa51af98c\"\ntask.potentialPerformerName = \"All Users\"\ntask.performerId = null\ntask.performerName = null\ntask.activityId = uuidv4()\ntask.activityVersionId = msg.payloadLog.processApp.application.versionId\ntask.id =  task.state === \"Completed\" ? msg.payloadLog.processApp.instance.id+\".5\" : msg.payloadLog.processApp.instance.id+\".6\";\ntask.taskInstanceId = (Math.floor(999 + Math.random() * 9000)).toString()\ntask.taskRecord = {\n    \"displayName\": task.name,\n    \"status\": null,\n    \"dueDate\": null, //?\n    \"atRiskTime\": null, //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\n\ntask.startTime = null  //The time at which the activity started\ntask.claimedTime = null \ntask.completedTime = null \ntask.terminatedTime = null \ntask.failedTime = null \ntask.waitDuration = null \ntask.executionDuration = null \ntask.duration = null \ntask.weight = msg.payload.weight\ntask.startAfter = msg.payload.startAfter\nmsg.payload = {task}\n\nreturn msg;\n\n\n// UDDI generator function\nfunction uuidv4() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}\n//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1060,
+        "y": 180,
+        "wires": [
+            [
+                "1617a37900297aec"
+            ]
+        ]
+    },
+    {
+        "id": "a29162b2697711db",
+        "type": "Parallel Iterator",
+        "z": "68bf0c84ba2199fe",
+        "name": "Task Iterate",
+        "property": "payload",
+        "saveOutput": 1,
+        "recursive": 1,
+        "storeId": 1,
+        "x": 870,
+        "y": 800,
+        "wires": [
+            [
+                "49e1080e612819f0"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "2d4754e5c64c5549",
+        "type": "function",
+        "z": "68bf0c84ba2199fe",
+        "name": "Task-Report-Full",
+        "func": "msg.payload ={\n \"_id\": msg.payload.task.id,\n \"version\": msg.payload.process.processApp.process.version,\n \"type\": msg.payload.task.type,\n \"timestamp\": msg.payload.task.timestamp,\n \"bpmCellName\": msg.payload.process.processApp.system.bpmCellName,\n \"bpmSystemId\": msg.payload.process.processApp.system.bpmSystemId,\n \"potentialPerformerId\": msg.payload.task.potentialPerformerId,\n \"potentialPerformerName\": msg.payload.task.potentialPerformerName,\n \"performerId\": msg.payload.task.performerId,\n \"performerName\": msg.payload.task.performerName,\n \"name\": msg.payload.task.name,\n \"activityId\": msg.payload.task.activityId,\n \"activityVersionId\": msg.payload.task.activityVersionId,\n \"id\": msg.payload.task.id,\n \"trace-id\": msg.payload.process.processApp.process.traceId,\n \"span-id\": msg.payload.process.processApp.process.spanId,\n \"taskInstanceId\": msg.payload.task.taskInstanceId,\n \"processApplicationId\": msg.payload.process.processApp.application.id,\n \"processApplicationVersionId\": msg.payload.process.processApp.application.versionId,\n \"processApplicationName\": msg.payload.process.processApp.application.name,\n \"processApplicationSnapshotName\": msg.payload.process.processApp.application.snapshotName,\n \"processId\": msg.payload.process.processApp.process.processId,\n \"processVersionId\": msg.payload.process.processApp.process.versionId,\n \"processInstanceId\": msg.payload.process.processApp.instance.instanceId,\n \"shortProcessInstanceId\": msg.payload.process.processApp.instance.shortId,\n \"processSnapshotName\": msg.payload.process.processApp.process.snapshotName,\n \"processName\": msg.payload.process.processApp.process.name,\n \"state\": msg.payload.task.state,\n \"taskRecord\": {\n     \"displayName\": msg.payload.task.taskRecord.displayName,\n     \"status\": msg.payload.task.taskRecord.status,\n     \"dueDate\": msg.payload.task.taskRecord.dueDate,\n     \"atRiskTime\": msg.payload.task.taskRecord.atRiskTime,\n     \"completionTime\": msg.payload.task.taskRecord.completionTime,\n     \"priority\": msg.payload.task.taskRecord.priority\n },\n \"startTime\": msg.payload.task.startTime,\n \"claimedTime\": msg.payload.task.claimedTime,\n \"completedTime\": msg.payload.task.completedTime,\n \"terminatedTime\": msg.payload.task.terminatedTime,\n \"failedTime\": msg.payload.task.failedTime,\n \"waitDuration\": msg.payload.task.waitDuration,\n \"executionDuration\": msg.payload.task.executionDuration,\n \"duration\": msg.payload.task.duration,\n \"data\": msg.payload.process.processApp.instance.data\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1500,
+        "y": 1040,
+        "wires": [
+            [
+                "0143c90a2141ca0e"
+            ]
+        ]
+    },
+    {
+        "id": "0143c90a2141ca0e",
+        "type": "debug",
+        "z": "68bf0c84ba2199fe",
+        "name": "Task-Full",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1700,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "e858390d52071308",
+        "type": "function",
+        "z": "68bf0c84ba2199fe",
+        "name": "",
+        "func": "if (msg.payload == null)  {return [null, msg];} else {return [msg, null];}\n\n",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1300,
+        "y": 520,
+        "wires": [
+            [
+                "957b541f2b91598d",
+                "a88898c9c3b4cc13"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "a88898c9c3b4cc13",
+        "type": "function",
+        "z": "68bf0c84ba2199fe",
+        "name": "Process-Report-Short",
+        "func": "msg.payload ={\n \"_id\": msg.payload.processApp.instance.id,\n \"id\": msg.payload.processApp.instance.id,\n \"timestamp\": msg.payload.processApp.instance.timestamp,\n \"type\": msg.payload.processApp.instance.type,\n \"processApplicationName\": msg.payload.processApp.application.name,\n \"name\": msg.payload.processApp.process.name,\n \"state\": msg.payload.processApp.instance.state,\n \"startTime\": msg.payload.processApp.instance.startTime,\n \"completedTime\": msg.payload.processApp.instance.completedTime,\n \"duration\": msg.payload.processApp.instance.duration\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1520,
+        "y": 560,
+        "wires": [
+            [
+                "cc51bed673b64352"
+            ]
+        ]
+    },
+    {
+        "id": "1036557f792d97ed",
+        "type": "function",
+        "z": "68bf0c84ba2199fe",
+        "name": "",
+        "func": "var processes = flow.get(\"processes\") || [];\nvar process = processes.find(e => e.processApp.instance.shortId == msg.payload.task.id.substring(74, 78));\n\nwhile (typeof process !== 'undefined') {\nmsg.payload.process = process\nreturn msg;\n}\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1280,
+        "y": 1040,
+        "wires": [
+            [
+                "2d4754e5c64c5549",
+                "52697911e42c211e"
+            ]
+        ]
+    },
+    {
+        "id": "52697911e42c211e",
+        "type": "function",
+        "z": "68bf0c84ba2199fe",
+        "name": "Task-Report-Short",
+        "func": "msg.payload ={\n \"_id\": msg.payload.task.id,\n \"id\": msg.payload.task.id,\n \"timestamp\": msg.payload.task.timestamp,\n \"type\": msg.payload.task.type,\n \"name\": msg.payload.task.name,\n \"performerName\": msg.payload.task.performerName,\n \"processApplicationName\": msg.payload.process.processApp.application.name,\n \"processName\": msg.payload.process.processApp.process.name,\n \"state\": msg.payload.task.state,\n \"startTime\": msg.payload.task.startTime,\n \"claimedTime\": msg.payload.task.claimedTime,\n \"completedTime\": msg.payload.task.completedTime,\n \"waitDuration\": msg.payload.task.waitDuration,\n \"executionDuration\": msg.payload.task.executionDuration,\n \"duration\": msg.payload.task.duration\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1510,
+        "y": 1080,
+        "wires": [
+            [
+                "06725813f9487482"
+            ]
+        ]
+    },
+    {
+        "id": "cc51bed673b64352",
+        "type": "debug",
+        "z": "68bf0c84ba2199fe",
+        "name": "Process-Short",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1760,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "06725813f9487482",
+        "type": "debug",
+        "z": "68bf0c84ba2199fe",
+        "name": "Task-Short",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1710,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "b0cc79862a79fa10",
+        "type": "inject",
+        "z": "68bf0c84ba2199fe",
+        "name": "1:6 payload",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "lag",
+                "v": "70",
+                "vt": "num"
+            },
+            {
+                "p": "userArray",
+                "v": "[{\"user\":\"admin\",\"skills\":1},{\"user\":\"adam\",\"skills\":9},{\"user\":\"tomas\",\"skills\":8},{\"user\":\"ola\",\"skills\":7},{\"user\":\"ela\",\"skills\":6},{\"user\":\"mark\",\"skills\":5},{\"user\":\"jan\",\"skills\":4},{\"user\":\"eva\",\"skills\":3},{\"user\":\"tom\",\"skills\":2},{\"user\":\"bob\",\"skills\":10}]",
+                "vt": "json"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[{\"bpmCellName\":\"PCCell1\",\"appName\":\"HR Vacation App\",\"procName\":\"HR Vacation Process\",\"tasks\":[{\"name\":\"HR Send Form\",\"type\":\"userTask\",\"weight\":1.2,\"startAfter\":null},{\"name\":\"Approve request\",\"type\":\"userTask\",\"weight\":1.6,\"startAfter\":\"HR Send Form\"},{\"name\":\"Send Contract\",\"type\":\"userTask\",\"weight\":1.9,\"startAfter\":null},{\"name\":\"Manage Contract\",\"type\":\"userTask\",\"weight\":1.9,\"startAfter\":\"Send Contract\"},{\"name\":\"Send spending request\",\"type\":\"userTask\",\"weight\":1.1,\"startAfter\":null},{\"name\":\"Approve spending request\",\"type\":\"userTask\",\"weight\":1.5,\"startAfter\":\"Send spending request\"}]}]",
+        "payloadType": "json",
+        "x": 110,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "476964b80a3a2c06",
+        "type": "comment",
+        "z": "68bf0c84ba2199fe",
+        "name": "Pytania",
+        "info": "put / delete - Elastic - kiedy i jak - po jakim id\nTasks\ntypy tasks/ state- jaki payload\nczasy - time w taskRecord\nobiekt data - co dalej\nzaadresować failedTime deletedTime\nProcesses\nsprawdzić * Time \nzaadresować lastBusinessDataUpdate*\nzaadresować failedTime deletedTime\n\n\n",
+        "x": 90,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "492d11bbcd37627e",
+        "type": "function",
+        "z": "68bf0c84ba2199fe",
+        "name": "delete tasks from active",
+        "func": "/*task.id \ndelete from process-summaries-active-idx-ibm-bai-2021.02.23-000001\n\"id\" = msg.payloadLog.processApp.instance.id+\".6\";\nreturn msg; */",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2168,
+        "y": 1100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e63556a3a2a7ac1d",
+        "type": "comment",
+        "z": "68bf0c84ba2199fe",
+        "name": "toDo",
+        "info": "wstawianiedo elastic i gdy completes kasowanie active",
+        "x": 230,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "e5b92c9ed6f2cdd6",
+        "type": "elasticsearch-index",
+        "z": "68bf0c84ba2199fe",
+        "name": "test-process-active",
+        "server": "f4be98fb.fb1858",
+        "index": "test-process-active",
+        "esType": "_doc",
+        "esId": "",
+        "routing": "",
+        "x": 2170,
+        "y": 460,
+        "wires": [
+            [
+                "0e1314bcbeca965e"
+            ]
+        ]
+    },
+    {
+        "id": "910caab2c5f0cda7",
+        "type": "elasticsearch-index",
+        "z": "68bf0c84ba2199fe",
+        "name": "test-process-completed",
+        "server": "f4be98fb.fb1858",
+        "index": "test-process-completed",
+        "esType": "_doc",
+        "esId": "",
+        "routing": "",
+        "x": 2190,
+        "y": 540,
+        "wires": [
+            [
+                "0e1314bcbeca965e"
+            ]
+        ]
+    },
+    {
+        "id": "eae521e3c70d1540",
+        "type": "switch",
+        "z": "68bf0c84ba2199fe",
+        "name": "",
+        "property": "payload.state",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Active",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Completed",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1950,
+        "y": 520,
+        "wires": [
+            [
+                "e5b92c9ed6f2cdd6"
+            ],
+            [
+                "910caab2c5f0cda7",
+                "7258140839cf4d9f"
+            ]
+        ]
+    },
+    {
+        "id": "0e1314bcbeca965e",
+        "type": "debug",
+        "z": "68bf0c84ba2199fe",
+        "name": "Process-insert",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2540,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "fdab845ffc6eec03",
+        "type": "switch",
+        "z": "68bf0c84ba2199fe",
+        "name": "",
+        "property": "payload.state",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Completed",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1888,
+        "y": 1080,
+        "wires": [
+            [
+                "ddaf0d62be1f1cb0",
+                "99789989e6341809"
+            ],
+            [
+                "19e7b30fbde5b737",
+                "492d11bbcd37627e"
+            ]
+        ]
+    },
+    {
+        "id": "19e7b30fbde5b737",
+        "type": "elasticsearch-index",
+        "z": "68bf0c84ba2199fe",
+        "name": "test-process-active",
+        "server": "f4be98fb.fb1858",
+        "index": "test-process-active",
+        "esType": "_doc",
+        "esId": "",
+        "routing": "",
+        "x": 2148,
+        "y": 1140,
+        "wires": [
+            [
+                "63576a971939df65"
+            ]
+        ]
+    },
+    {
+        "id": "ddaf0d62be1f1cb0",
+        "type": "elasticsearch-index",
+        "z": "68bf0c84ba2199fe",
+        "name": "test-process-completed",
+        "server": "f4be98fb.fb1858",
+        "index": "test-process-completed",
+        "esType": "_doc",
+        "esId": "",
+        "routing": "",
+        "x": 2148,
+        "y": 1060,
+        "wires": [
+            [
+                "63576a971939df65"
+            ]
+        ]
+    },
+    {
+        "id": "63576a971939df65",
+        "type": "debug",
+        "z": "68bf0c84ba2199fe",
+        "name": "Process-insert",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2448,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "7258140839cf4d9f",
+        "type": "function",
+        "z": "68bf0c84ba2199fe",
+        "name": "delete by _id",
+        "func": "msg.payload = {\n    \"query\": {\n        \"term\": {\n            \"_id\": {\n                \"value\": msg.payload._id,\n                \"boost\": 1.2\n            }\n        }\n    }\n}\n\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2110,
+        "y": 600,
+        "wires": [
+            [
+                "0bed2f2c7eb5127a"
+            ]
+        ]
+    },
+    {
+        "id": "44b0484613393c50",
+        "type": "change",
+        "z": "68bf0c84ba2199fe",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "lag",
+                "pt": "flow",
+                "to": "lag",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "userArray",
+                "pt": "flow",
+                "to": "userArray",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0bed2f2c7eb5127a",
+        "type": "elasticsearch-deleteByQuery",
+        "z": "68bf0c84ba2199fe",
+        "name": "",
+        "server": "f4be98fb.fb1858",
+        "index": "test-process-active",
+        "esType": "_doc",
+        "x": 2320,
+        "y": 600,
+        "wires": [
+            [
+                "0e1314bcbeca965e"
+            ]
+        ]
+    },
+    {
+        "id": "3f94c4ceb814b678",
+        "type": "elasticsearch-deleteByQuery",
+        "z": "68bf0c84ba2199fe",
+        "name": "",
+        "server": "f4be98fb.fb1858",
+        "index": "test-process-active",
+        "esType": "_doc",
+        "x": 2298,
+        "y": 980,
+        "wires": [
+            [
+                "63576a971939df65"
+            ]
+        ]
+    },
+    {
+        "id": "99789989e6341809",
+        "type": "function",
+        "z": "68bf0c84ba2199fe",
+        "name": "delete by _id",
+        "func": "msg.payload = {\n    \"query\": {\n        \"term\": {\n            \"_id\": {\n                \"value\": msg.id_to_remove,\n                \"boost\": 1.2\n            }\n        }\n    }\n}\n\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2068,
+        "y": 1000,
+        "wires": [
+            [
+                "3f94c4ceb814b678"
+            ]
+        ]
+    },
+    {
+        "id": "78bf0eb241f998af",
+        "type": "http in",
+        "z": "bf2ed32e8683912b",
+        "name": "",
+        "url": "/update",
+        "method": "put",
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 200,
+        "wires": [
+            [
+                "73f10b102690dc8c"
+            ]
+        ]
+    },
+    {
+        "id": "5c4f4ab6b8b09c3a",
+        "type": "http response",
+        "z": "bf2ed32e8683912b",
+        "name": "",
+        "x": 862,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "947fae9e8638e12e",
+        "type": "template",
+        "z": "bf2ed32e8683912b",
+        "name": "Web Template",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html lang=\"en-GB\">\n<head>\n    <title>Users</title>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">\n    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css\" />\n    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js\"></script>\n    <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>\n    <link type=\"text/css\" rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css\" />\n    <link type=\"text/css\" rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css\" />\n    <script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js\"></script>\n\n    <script type=\"text/javascript\">\n        $(function () {\n            console.log(\"crud demo\");\n\n            var db = {{#payload}}{{{.}}}{{/payload}};\n\n            $(\"#jsgrid\").jsGrid({\n                width: \"100%\",\n                inserting: true,\n                editing: true,\n                sorting: true,\n                paging: true,\n\n                data: db,\n\n                fields: [\n                    { title:\"ID\", name: \"id\", type: \"number\", width: 20, readOnly: true },\n                    { title:\"User ID\", name: \"userID\", type: \"text\", width: 50 },\n                    { title:\"First Name\", name: \"foreName\", type: \"text\", width: 50 },\n                    { title:\"Last Name\", name: \"sirName\", type: \"text\", width: 50 },\n                    { title:\"Age\", name: \"age\", type:\"number\", width: 25},\n                    { type: \"control\" }\n                ],\n           \n                controller: {\n                    insertItem: function(item) {\n                        return $.ajax({\n                            type: \"POST\",\n                            url: \"/insert\",\n                            data: item\n                        });\n                    },\n                    updateItem: function(item) {\n                       return $.ajax({\n                            type: \"PUT\",\n                            url: \"/update\",\n                            data: item\n                        });\n                    },\n                    deleteItem: function(item) {\n                        return $.ajax({\n                            type: \"DELETE\",\n                            url: \"/delete\",\n                            data: item\n                        });\n                    }\n                }   \n            });\n        });\n    \n  </script>\n</head>\n<body class=\"container\">\n    <section class=\"row\">\n        \n        <div class=\"col-md-6\"></div>\n        <div class=\"col-md-6\" id=\"jsgrid\">\n        </div>\n    </section>\n</body>\n</html>\n\n",
+        "x": 652,
+        "y": 136,
+        "wires": [
+            [
+                "1e7164fcabfb8fd3"
+            ]
+        ]
+    },
+    {
+        "id": "7d246c97a212ecde",
+        "type": "http in",
+        "z": "bf2ed32e8683912b",
+        "name": "",
+        "url": "/index",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 120,
+        "y": 136,
+        "wires": [
+            [
+                "4ac04aaa73b79d5e"
+            ]
+        ]
+    },
+    {
+        "id": "1e7164fcabfb8fd3",
+        "type": "http response",
+        "z": "bf2ed32e8683912b",
+        "name": "",
+        "x": 862,
+        "y": 136,
+        "wires": []
+    },
+    {
+        "id": "8d11463174435115",
+        "type": "http response",
+        "z": "bf2ed32e8683912b",
+        "name": "",
+        "x": 862,
+        "y": 264,
+        "wires": []
+    },
+    {
+        "id": "603372a36b02688d",
+        "type": "http in",
+        "z": "bf2ed32e8683912b",
+        "name": "",
+        "url": "/insert",
+        "method": "post",
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 264,
+        "wires": [
+            [
+                "fee2576b4b3cb206"
+            ]
+        ]
+    },
+    {
+        "id": "8ba903c4db48c92b",
+        "type": "http in",
+        "z": "bf2ed32e8683912b",
+        "name": "",
+        "url": "/delete",
+        "method": "delete",
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 328,
+        "wires": [
+            [
+                "652e0f26bb06bb13"
+            ]
+        ]
+    },
+    {
+        "id": "74b6a0fedf74f2f8",
+        "type": "http response",
+        "z": "bf2ed32e8683912b",
+        "name": "",
+        "x": 862,
+        "y": 328,
+        "wires": []
+    },
+    {
+        "id": "e66156791c6fd5ca",
+        "type": "function",
+        "z": "bf2ed32e8683912b",
+        "name": "Generate dummy data",
+        "func": "const firstNames =  [\"Liam\",\"Noah\",\"Oliver\",\"William\",\"Elijah\",\"James\",\"Benjamin\",\"Lucas\",\"Mason\",\"Ethan\",\"Alexander\",\"Henry\",\"Jacob\",\"Michael\",\"Daniel\",\"Logan\",\"Jackson\",\"Sebastian\",\"Jack\",\"Aiden\"];\nconst sirNames = [\"Jones\",\"Taylor\",\"Williams\",\"Brown\",\"White\",\"Harris\",\"Martin\",\"Davies\",\"Wilson\",\"Cooper\",\"Evans\",\"King\",\"Thomas\",\"Baker\",\"Green\",\"Wright\",\"Johnson\",\"Edwards\",\"Clark\",\"Roberts\",\"Robinson\",\"Hall\",\"Lewis\",\"Young\",\"Davis\",\"Turner\",\"Hill\",\"Phillips\",\"Collins\",\"Allen\",\"Moore\",\"Thompson\",\"Carter\",\"James\",\"Knight\",\"Walker\",\"Wood\",\"Hughes\",\"Parker\",\"Ward\",\"Bennett\",\"Cook\",\"Webb\",\"Bailey\",\"Scott\",\"Jackson\",\"Lee\",\"Cox\"];\n         \n         \n\nvar database = [];\n\nfor(let i = 1; i <= 30; i++) {\n    var item = {\"id\":i, \"timestamp\":Date.now()};\n    item.foreName = randomFirstname();\n    item.sirName = randomSirname();\n    item.userID = \"U\" + randomInt(1000, 2999);\n    item.age = randomInt(20, 65);\n    database.push(item);\n}\n\n\nfunction randomFirstname() {\n   return firstNames[randomInt(0, firstNames.length-1)];\n}\n\nfunction randomSirname() {\n    return sirNames[randomInt(0, sirNames.length-1)];\n}\n\nfunction randomInt(min, max) { \n  return Math.floor(Math.random() * (max - min + 1) + min);\n}\n\nflow.set(\"database\", database);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 368,
+        "y": 56,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8c4ac184397dc641",
+        "type": "inject",
+        "z": "bf2ed32e8683912b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 91,
+        "y": 56,
+        "wires": [
+            [
+                "e66156791c6fd5ca"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "73f10b102690dc8c",
+        "type": "function",
+        "z": "bf2ed32e8683912b",
+        "name": "update-query",
+        "func": "\nvar database = flow.get(\"database\") || [];\n\nvar item = database.find(e => e.id == msg.payload.id );\n\nif(msg.payload.foreName == \"\" || msg.payload.sirName == \"\" || msg.payload.userID == \"\") {\n    msg.statusCode = 400;\n    msg.payload = null;\n    return msg;\n}\n\nif(item) {\n    item.foreName = msg.payload.foreName;\n    item.sirName = msg.payload.sirName;\n    item.age = msg.payload.age;\n    item.userID = msg.payload.userID;\n    flow.set(\"database\", database);\n} else {\n    msg.statusCode = 404;//not found\n    msg.payload = null;\n    return msg;\n}\nmsg.payload = item;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 322,
+        "y": 200,
+        "wires": [
+            [
+                "5c4f4ab6b8b09c3a"
+            ]
+        ]
+    },
+    {
+        "id": "fee2576b4b3cb206",
+        "type": "function",
+        "z": "bf2ed32e8683912b",
+        "name": "insert-query",
+        "func": "var database = flow.get(\"database\") || [];\nvar nextID = Math.max.apply(Math, database.map(function(o) { return o.id; })) + 1;\nvar item = {\n    id: nextID,\n    timestamp: Date.now(),\n    foreName : msg.payload.foreName,\n    sirName : msg.payload.sirName,\n    age : msg.payload.age,\n    userID : msg.payload.userID,\n}\n\nif(item.foreName == \"\" || item.sirName == \"\" || item.userID == \"\") {\n    msg.statusCode = 400;\n    msg.payload = null;\n    return msg;\n}\n\ndatabase.push(item);\nflow.set(\"database\", database);\n\nmsg.payload = item;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 322,
+        "y": 264,
+        "wires": [
+            [
+                "8d11463174435115"
+            ]
+        ]
+    },
+    {
+        "id": "652e0f26bb06bb13",
+        "type": "function",
+        "z": "bf2ed32e8683912b",
+        "name": "delete-query",
+        "func": "\nvar database = flow.get(\"database\") || [];\n\ndatabase = database.filter(function( obj ) {\n    return obj.id != msg.payload.id;\n});\n\nflow.set(\"database\", database);\n\nmsg.payload = database;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 322,
+        "y": 328,
+        "wires": [
+            [
+                "74b6a0fedf74f2f8"
+            ]
+        ]
+    },
+    {
+        "id": "4ac04aaa73b79d5e",
+        "type": "function",
+        "z": "bf2ed32e8683912b",
+        "name": "get database",
+        "func": "\nvar database = flow.get(\"database\") || [];\nmsg.payload = database;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 322,
+        "y": 136,
+        "wires": [
+            [
+                "52566a0d90e64027"
+            ]
+        ]
+    },
+    {
+        "id": "52566a0d90e64027",
+        "type": "json",
+        "z": "bf2ed32e8683912b",
+        "name": "",
+        "x": 478,
+        "y": 136,
+        "wires": [
+            [
+                "947fae9e8638e12e"
+            ]
+        ]
+    },
+    {
+        "id": "56e203c6cbe28de7",
+        "type": "inject",
+        "z": "bf2ed32e8683912b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "1",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 580,
+        "wires": [
+            [
+                "c9402a856c0f1883",
+                "9ac9ad56cd2a8ec7"
+            ]
+        ]
+    },
+    {
+        "id": "c9402a856c0f1883",
+        "type": "change",
+        "z": "bf2ed32e8683912b",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "user1",
+                "pt": "global",
+                "to": "{\"name\":\"Ralph\",\"ID\":152}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 560,
+        "wires": [
+            [
+                "23614e527ae6654f"
+            ]
+        ]
+    },
+    {
+        "id": "9ac9ad56cd2a8ec7",
+        "type": "change",
+        "z": "bf2ed32e8683912b",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "user2",
+                "pt": "global",
+                "to": "{\"name\":\"Loren\",\"ID\":444}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 600,
+        "wires": [
+            [
+                "23614e527ae6654f"
+            ]
+        ]
+    },
+    {
+        "id": "9896e78bf3a58680",
+        "type": "inject",
+        "z": "bf2ed32e8683912b",
+        "name": "fetch id of user1",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "user1.ID",
+        "payloadType": "global",
+        "x": 140,
+        "y": 740,
+        "wires": [
+            [
+                "4d1df1aef16882ce"
+            ]
+        ]
+    },
+    {
+        "id": "0e72fda254026229",
+        "type": "inject",
+        "z": "bf2ed32e8683912b",
+        "name": "modify id of user2",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "900",
+        "payloadType": "num",
+        "x": 150,
+        "y": 840,
+        "wires": [
+            [
+                "259555c24d8e7c24"
+            ]
+        ]
+    },
+    {
+        "id": "4d1df1aef16882ce",
+        "type": "debug",
+        "z": "bf2ed32e8683912b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 340,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "23614e527ae6654f",
+        "type": "debug",
+        "z": "bf2ed32e8683912b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "259555c24d8e7c24",
+        "type": "change",
+        "z": "bf2ed32e8683912b",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "user2.ID",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 840,
+        "wires": [
+            [
+                "bef2c8167970b979"
+            ]
+        ]
+    },
+    {
+        "id": "bef2c8167970b979",
+        "type": "debug",
+        "z": "bf2ed32e8683912b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "a71bf6cc34084daf",
+        "type": "comment",
+        "z": "bf2ed32e8683912b",
+        "name": "Set global Variable",
+        "info": "![](https://i.imgur.com/28Dx6wl.png)",
+        "x": 130,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "a6f39c5656a93ad2",
+        "type": "comment",
+        "z": "bf2ed32e8683912b",
+        "name": "Get a Variable",
+        "info": "![](https://i.imgur.com/28Dx6wl.png)",
+        "x": 110,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "306495be0c3545e2",
+        "type": "comment",
+        "z": "bf2ed32e8683912b",
+        "name": "Modify a Variable",
+        "info": "![](https://i.imgur.com/28Dx6wl.png)",
+        "x": 120,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "dd267fc16e4f5959",
+        "type": "comment",
+        "z": "bf2ed32e8683912b",
+        "name": "Delete",
+        "info": "![](https://i.imgur.com/28Dx6wl.png)",
+        "x": 90,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "28a47652b4f38274",
+        "type": "inject",
+        "z": "bf2ed32e8683912b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "1",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 960,
+        "wires": [
+            [
+                "b12d5564f0c3925a"
+            ]
+        ]
+    },
+    {
+        "id": "b12d5564f0c3925a",
+        "type": "change",
+        "z": "bf2ed32e8683912b",
+        "name": "",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "user1",
+                "pt": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 350,
+        "y": 960,
+        "wires": [
+            [
+                "0f7b9b309fbfdfdb"
+            ]
+        ]
+    },
+    {
+        "id": "0f7b9b309fbfdfdb",
+        "type": "debug",
+        "z": "bf2ed32e8683912b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "614144a1713a0ee6",
+        "type": "comment",
+        "z": "bf2ed32e8683912b",
+        "name": "",
+        "info": "",
+        "x": 380,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "9d9069ef86b64ccd",
+        "type": "function",
+        "z": "68bf0c84ba2199fe",
+        "name": "Store Ready processes to context",
+        "func": "var processes = flow.get(\"processes\") || [];\n//flow.set(\"database\", [...database, ...msg.payload]);\nprocesses.push(...msg.payload);\nflow.set(\"processes\", processes)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 340,
+        "wires": [
+            [
+                "8af83553f1242c64"
+            ]
+        ]
+    },
+    {
+        "id": "d753d1c33954d5d3",
+        "type": "comment",
+        "z": "68bf0c84ba2199fe",
+        "name": "Processes Active and Completed - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "info": "",
+        "x": 1090,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "14631df2c8a825cd",
+        "type": "comment",
+        "z": "68bf0c84ba2199fe",
+        "name": "Create and Store to Context Ready Processes & Tasks - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "info": "",
+        "x": 1090,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "7e19f5b0fadad9fe",
+        "type": "inject",
+        "z": "68bf0c84ba2199fe",
+        "name": "Delete database",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "1",
+        "payloadType": "date",
+        "x": 120,
+        "y": 100,
+        "wires": [
+            [
+                "4ef9a62d59582e37"
+            ]
+        ]
+    },
+    {
+        "id": "4ef9a62d59582e37",
+        "type": "change",
+        "z": "68bf0c84ba2199fe",
+        "name": "",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "processes",
+                "pt": "flow"
+            },
+            {
+                "t": "delete",
+                "p": "tasks",
+                "pt": "flow"
+            },
+            {
+                "t": "delete",
+                "p": "userArray",
+                "pt": "flow"
+            },
+            {
+                "t": "delete",
+                "p": "lag",
+                "pt": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340.0000305175781,
+        "y": 100,
+        "wires": [
+            [
+                "235a8ddf028af48f"
+            ]
+        ]
+    },
+    {
+        "id": "235a8ddf028af48f",
+        "type": "debug",
+        "z": "68bf0c84ba2199fe",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570.0000305175781,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "3399fba5bd2d43d4",
+        "type": "get-shared-state",
+        "z": "68bf0c84ba2199fe",
+        "state": "5caf76d76a437fe4",
+        "name": "processesReady",
+        "triggerOnInit": true,
+        "x": 100,
+        "y": 540,
+        "wires": [
+            [
+                "7705f741d55592dc"
+            ]
+        ]
+    },
+    {
+        "id": "8af83553f1242c64",
+        "type": "set-shared-state",
+        "z": "68bf0c84ba2199fe",
+        "state": "5caf76d76a437fe4",
+        "name": "processesReady",
+        "triggerOnInit": true,
+        "provideOutput": false,
+        "outputs": 0,
+        "x": 970,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "1617a37900297aec",
+        "type": "function",
+        "z": "68bf0c84ba2199fe",
+        "name": "Store Created tasks to context",
+        "func": "var tasks = flow.get(\"tasks\") || [];\n//flow.set(\"database\", [...database, ...msg.payload]);\ntasks.push(msg.payload);\nflow.set(\"tasks\", tasks)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1330,
+        "y": 180,
+        "wires": [
+            [
+                "e0e93ddf397b8d78"
+            ]
+        ]
+    },
+    {
+        "id": "dd7069823f0d959e",
+        "type": "change",
+        "z": "68bf0c84ba2199fe",
+        "name": "",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "payloadLog.processApp.tasks",
+                "pt": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payloadLog",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1400,
+        "y": 260,
+        "wires": [
+            [
+                "23bb45ce4a7a0a08"
+            ]
+        ]
+    },
+    {
+        "id": "b456a89899d19d03",
+        "type": "change",
+        "z": "68bf0c84ba2199fe",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payloadLog",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payloadLog.processApp.tasks",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 820,
+        "y": 260,
+        "wires": [
+            [
+                "e0e93ddf397b8d78"
+            ]
+        ]
+    },
+    {
+        "id": "33d0b36a1bc9aba2",
+        "type": "set-shared-state",
+        "z": "68bf0c84ba2199fe",
+        "state": "5caf76d76a437fe4",
+        "name": "processesActive",
+        "triggerOnInit": true,
+        "provideOutput": false,
+        "outputs": 0,
+        "x": 820,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "5a9464761099acfd",
+        "type": "get-shared-state",
+        "z": "68bf0c84ba2199fe",
+        "state": "5caf76d76a437fe4",
+        "name": "processesActive",
+        "triggerOnInit": true,
+        "x": 100,
+        "y": 860,
+        "wires": [
+            [
+                "3d788ef70581ca37"
+            ]
+        ]
+    },
+    {
+        "id": "0141ed2f9ab51bc0",
+        "type": "function",
+        "z": "68bf0c84ba2199fe",
+        "name": "Get Active process and start Tasks",
+        "func": "var date = new Date()\nvar processes = flow.get(\"processes\") || [];\n\nvar process = processes.find(e => e.processApp.instance.state == \"Active\" );\n\nwhile (typeof process !== 'undefined') {\n    process.processApp.instance.state = \"Processing\"\n    flow.set(\"processes\", processes);\n    var tasks = flow.get(\"tasks\") || [];\n    var task = tasks.filter(e => e.task.id == process.processApp.instance.id +\".6\");\n\tmsg.payload = task\nreturn msg;\n}\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 800,
+        "wires": [
+            [
+                "a29162b2697711db",
+                "3d788ef70581ca37"
+            ]
+        ]
+    },
+    {
+        "id": "bc823fd653409fd3",
+        "type": "comment",
+        "z": "68bf0c84ba2199fe",
+        "name": "Tasks Unclaimed - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "info": "",
+        "x": 1090,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "4759168a06a76014",
+        "type": "inject",
+        "z": "68bf0c84ba2199fe",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 800,
+        "wires": [
+            [
+                "3d788ef70581ca37"
+            ]
+        ]
+    },
+    {
+        "id": "c7539f558adf5174",
+        "type": "debug",
+        "z": "68bf0c84ba2199fe",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 910,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "eb21a0ece1614290",
+        "type": "inject",
+        "z": "68bf0c84ba2199fe",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 480,
+        "wires": [
+            [
+                "7705f741d55592dc"
+            ]
+        ]
+    },
+    {
+        "id": "3d788ef70581ca37",
+        "type": "delay",
+        "z": "68bf0c84ba2199fe",
+        "name": "",
+        "pauseType": "random",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 540,
+        "y": 900,
+        "wires": [
+            [
+                "0141ed2f9ab51bc0"
+            ]
+        ]
+    },
+    {
+        "id": "4084c5f1e9394788",
+        "type": "function",
+        "z": "68bf0c84ba2199fe",
+        "name": "Get Created Task and set Task Unclaimed",
+        "func": "var date = new Date()\nvar tasks = flow.get(\"tasks\") || [];\nvar task = tasks.find(e => (e.task.taskInstanceId == msg.payload.task.taskInstanceId) & (e.task.state == \"Created\"));\n \nwhile (typeof task !== 'undefined') {\ntask.task.state = \"Unclaimed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\ntask.task.timestamp = date.toISOString()\ntask.task.startTime = date.toISOString()\ntask.task.taskRecord = {\n    \"displayName\": msg.payload.task.name,\n    \"status\": msg.payload.task.state === \"Completed\" ? \"Closed\" : \"Received\",\n    \"dueDate\": date.setHours( date.getHours() + parseInt(24)), //?\n    \"atRiskTime\": date.setHours( date.getHours() + parseInt(23)), //?\n    \"completionTime\": null, //?\n    \"priority\": \"Normal\"\n  }\n //The time at which the activity started\n    flow.set(\"tasks\", tasks);\n\tmsg.payload = task\nreturn msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1040,
+        "y": 900,
+        "wires": [
+            [
+                "a29162b2697711db",
+                "56f850eceb1dfcb4",
+                "1036557f792d97ed"
+            ]
+        ]
+    },
+    {
+        "id": "49e1080e612819f0",
+        "type": "delay",
+        "z": "68bf0c84ba2199fe",
+        "name": "",
+        "pauseType": "random",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 780,
+        "y": 900,
+        "wires": [
+            [
+                "4084c5f1e9394788"
+            ]
+        ]
+    },
+    {
+        "id": "56f850eceb1dfcb4",
+        "type": "set-shared-state",
+        "z": "68bf0c84ba2199fe",
+        "state": "5caf76d76a437fe4",
+        "name": "tasksUnclaimed",
+        "triggerOnInit": true,
+        "provideOutput": false,
+        "outputs": 0,
+        "x": 1400,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "df10ed5d33c70683",
+        "type": "get-shared-state",
+        "z": "68bf0c84ba2199fe",
+        "state": "5caf76d76a437fe4",
+        "name": "tasksUnclaimed",
+        "triggerOnInit": true,
+        "x": 100,
+        "y": 1060,
+        "wires": [
+            [
+                "8d99d357389db6ec"
+            ]
+        ]
+    },
+    {
+        "id": "ab23bec8a3fe347f",
+        "type": "comment",
+        "z": "68bf0c84ba2199fe",
+        "name": "Tasks Claimed - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "info": "",
+        "x": 1090,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "6fc8f84f77ba43f6",
+        "type": "inject",
+        "z": "68bf0c84ba2199fe",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 1000,
+        "wires": [
+            [
+                "8d99d357389db6ec"
+            ]
+        ]
+    },
+    {
+        "id": "527e6bd3d1a0fdf1",
+        "type": "set-shared-state",
+        "z": "68bf0c84ba2199fe",
+        "state": "5caf76d76a437fe4",
+        "name": "tasksClaimed",
+        "triggerOnInit": true,
+        "provideOutput": false,
+        "outputs": 0,
+        "x": 960,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "d05aace0ee4160be",
+        "type": "get-shared-state",
+        "z": "68bf0c84ba2199fe",
+        "state": "5caf76d76a437fe4",
+        "name": "tasksClaimed",
+        "triggerOnInit": true,
+        "x": 110,
+        "y": 1240,
+        "wires": [
+            [
+                "410d070baeee962d"
+            ]
+        ]
+    },
+    {
+        "id": "8d99d357389db6ec",
+        "type": "delay",
+        "z": "68bf0c84ba2199fe",
+        "name": "",
+        "pauseType": "random",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 540,
+        "y": 1080,
+        "wires": [
+            [
+                "198e90c9e0f4a72a"
+            ]
+        ]
+    },
+    {
+        "id": "198e90c9e0f4a72a",
+        "type": "function",
+        "z": "68bf0c84ba2199fe",
+        "name": "Get Unclaimed Task and set Claimed",
+        "func": "var date = new Date()\nvar userArray = flow.get(\"userArray\") || [];\nvar performer = userArray[Math.floor(Math.random()*userArray.length)]; //getting random category from array\nvar tasks = flow.get(\"tasks\") || [];\nvar task = tasks.find(e => e.task.state == \"Unclaimed\");\n \nwhile (typeof task !== 'undefined') {\nsleep(Math.floor(performer.skills*Math.random()*flow.get('lag')*task.task.weight));\ntask.task.state = \"Claimed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\ntask.task.timestamp = date.toISOString()\ntask.task.performerId = performer.user\ntask.task.performerName = performer.user\ntask.task.performer = performer\ntask.task.claimedTime = date.toISOString() \ntask.task.waitDuration = date.getTime() - new Date(task.task.startTime).getTime()  \n\nflow.set(\"tasks\", tasks);\nmsg.payload = task\nreturn msg;\n}\n\nfunction sleep(delay) {\n    var start = new Date().getTime();\n    while (new Date().getTime() < start + delay);\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 1000,
+        "wires": [
+            [
+                "8d99d357389db6ec",
+                "527e6bd3d1a0fdf1",
+                "1036557f792d97ed"
+            ]
+        ]
+    },
+    {
+        "id": "5a09296133070406",
+        "type": "inject",
+        "z": "68bf0c84ba2199fe",
+        "name": "1:1 payload",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "lag",
+                "v": "70",
+                "vt": "num"
+            },
+            {
+                "p": "userArray",
+                "v": "[{\"user\":\"admin\",\"skills\":1},{\"user\":\"adam\",\"skills\":9},{\"user\":\"tomas\",\"skills\":8},{\"user\":\"ola\",\"skills\":7},{\"user\":\"ela\",\"skills\":6},{\"user\":\"mark\",\"skills\":5},{\"user\":\"jan\",\"skills\":4},{\"user\":\"eva\",\"skills\":3},{\"user\":\"tom\",\"skills\":2},{\"user\":\"bob\",\"skills\":10}]",
+                "vt": "json"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[{\"bpmCellName\":\"PCCell1\",\"appName\":\"HR Vacation App\",\"procName\":\"HR Vacation Process\",\"tasks\":[{\"name\":\"Approve spending request\",\"type\":\"userTask\",\"weight\":1.5,\"startAfter\":\"Send spending request\"}]}]",
+        "payloadType": "json",
+        "x": 110,
+        "y": 180,
+        "wires": [
+            [
+                "44b0484613393c50",
+                "23bb45ce4a7a0a08"
+            ]
+        ]
+    },
+    {
+        "id": "0b47e98e57a3fd3d",
+        "type": "comment",
+        "z": "68bf0c84ba2199fe",
+        "name": "Tasks Active - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "info": "",
+        "x": 1090,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "d5a325a47b528229",
+        "type": "set-shared-state",
+        "z": "68bf0c84ba2199fe",
+        "state": "5caf76d76a437fe4",
+        "name": "tasksActive",
+        "triggerOnInit": true,
+        "provideOutput": false,
+        "outputs": 0,
+        "x": 950,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "1df07a9b934c38d6",
+        "type": "function",
+        "z": "68bf0c84ba2199fe",
+        "name": "Get Claimed Task and set Active",
+        "func": "var date = new Date()\nvar tasks = flow.get(\"tasks\") || [];\nvar task = tasks.find(e => e.task.state == \"Claimed\");\n \nwhile (typeof task !== 'undefined') {\nsleep(Math.floor(task.task.performer.skills*Math.random()*flow.get('lag')*task.task.weight));\n\ntask.task.state = \"Active\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\ntask.task.timestamp = date.toISOString()\nflow.set(\"tasks\", tasks);\nmsg.payload = task\nreturn msg;\n}\n\nfunction sleep(delay) {\n    var start = new Date().getTime();\n    while (new Date().getTime() < start + delay);\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 1180,
+        "wires": [
+            [
+                "410d070baeee962d",
+                "d5a325a47b528229",
+                "1036557f792d97ed"
+            ]
+        ]
+    },
+    {
+        "id": "410d070baeee962d",
+        "type": "delay",
+        "z": "68bf0c84ba2199fe",
+        "name": "",
+        "pauseType": "random",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 540,
+        "y": 1260,
+        "wires": [
+            [
+                "1df07a9b934c38d6"
+            ]
+        ]
+    },
+    {
+        "id": "5d4b7d08727e72a5",
+        "type": "inject",
+        "z": "68bf0c84ba2199fe",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 1180,
+        "wires": [
+            [
+                "410d070baeee962d"
+            ]
+        ]
+    },
+    {
+        "id": "bf4bc297407893a3",
+        "type": "get-shared-state",
+        "z": "68bf0c84ba2199fe",
+        "state": "5caf76d76a437fe4",
+        "name": "tasksActive",
+        "triggerOnInit": true,
+        "x": 110,
+        "y": 1420,
+        "wires": [
+            [
+                "2833eca6b49ddb67"
+            ]
+        ]
+    },
+    {
+        "id": "6576f3678fe4dd79",
+        "type": "comment",
+        "z": "68bf0c84ba2199fe",
+        "name": "Tasks Completed - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "info": "",
+        "x": 1090,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "1ffcacb3875137a3",
+        "type": "inject",
+        "z": "68bf0c84ba2199fe",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 1360,
+        "wires": [
+            [
+                "2833eca6b49ddb67"
+            ]
+        ]
+    },
+    {
+        "id": "5d5dbccb3a70c3d9",
+        "type": "function",
+        "z": "68bf0c84ba2199fe",
+        "name": "Get Active Task and set Completed",
+        "func": "\nvar date = new Date()\nvar tasks = flow.get(\"tasks\") || [];\nvar task = tasks.find(e => e.task.state == \"Active\");\n \nwhile (typeof task !== 'undefined') {\nsleep(Math.floor(task.task.performer.skills*Math.random()*flow.get('lag')*task.task.weight));\n\ntask.task.state = \"Completed\" // Unclaimed, Claimed, Active, Completed, Terminated, Failed\ntask.task.timestamp = date.toISOString()\ntask.task.oldId = task.task.id\ntask.task.id = task.task.id.substring(0, 79) +\"5\"\ntask.task.taskRecord.status = \"Closed\"\ntask.task.taskRecord.completionTime = date.toISOString(),\ntask.task.completedTime = date.toISOString() \ntask.task.executionDuration = date.getTime() - new Date(task.task.claimedTime).getTime()  \ntask.task.duration = date.getTime() - new Date(task.task.startTime).getTime()  \nflow.set(\"tasks\", tasks);\nmsg.payload = task\nreturn msg;\n}\n\nfunction sleep(delay) {\n    var start = new Date().getTime();\n    while (new Date().getTime() < start + delay);\n}\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 1360,
+        "wires": [
+            [
+                "2833eca6b49ddb67",
+                "f6b6d2655cfd9315",
+                "1036557f792d97ed"
+            ]
+        ]
+    },
+    {
+        "id": "2833eca6b49ddb67",
+        "type": "delay",
+        "z": "68bf0c84ba2199fe",
+        "name": "",
+        "pauseType": "random",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 540,
+        "y": 1440,
+        "wires": [
+            [
+                "5d5dbccb3a70c3d9"
+            ]
+        ]
+    },
+    {
+        "id": "f6b6d2655cfd9315",
+        "type": "set-shared-state",
+        "z": "68bf0c84ba2199fe",
+        "state": "5caf76d76a437fe4",
+        "name": "tasksCompleted",
+        "triggerOnInit": true,
+        "provideOutput": false,
+        "outputs": 0,
+        "x": 960,
+        "y": 1360,
+        "wires": []
+    },
+    {
+        "id": "c64bd7e442bd5462",
+        "type": "get-shared-state",
+        "z": "68bf0c84ba2199fe",
+        "state": "5caf76d76a437fe4",
+        "name": "tasksCompleted",
+        "triggerOnInit": true,
+        "x": 100,
+        "y": 620,
+        "wires": [
+            [
+                "7f803828c132c198"
+            ]
+        ]
+    },
+    {
+        "id": "7f803828c132c198",
+        "type": "delay",
+        "z": "68bf0c84ba2199fe",
+        "name": "",
+        "pauseType": "random",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "4",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "x": 620,
+        "y": 680,
+        "wires": [
+            [
+                "3ac9f3360aba8507"
+            ]
+        ]
+    },
+    {
+        "id": "cbd45c311c481eeb",
+        "type": "debug",
+        "z": "68bf0c84ba2199fe",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 680,
         "wires": []
     }
 ]
